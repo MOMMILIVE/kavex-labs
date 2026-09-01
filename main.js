@@ -540,26 +540,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (heroSlider) {
         const heroSlides = [
             {
-                title: "Precision Forging",
-                body: "Solid 18K gold and platinum casting held to tolerances no mass-market jeweler can match — poured, forged, and finished in-house.",
+                title: "Solid Gold Forging",
+                body: "Heavy 18K gold and platinum. We pour and finish every piece in our own workshop so it feels expensive and lasts a lifetime.",
                 image: "https://framerusercontent.com/images/c62B6NlRrLeLeFpjsfnYjXPk4.webp?width=2400&height=1339",
                 link: "./capabilities/precision-machining"
             },
             {
-                title: "Flawless Calibration",
-                body: "Microscopic light-return analysis on every single diamond. If a stone doesn't hit perfect optical symmetry, we reject it.",
+                title: "Flawless Diamonds",
+                body: "We inspect every single diamond under a microscope. If it doesn't sparkle perfectly, we reject it.",
                 image: "https://framerusercontent.com/images/beXLw5CGj0UxKgQCcW95nzeGwqo.webp?width=2400&height=1339",
                 link: "./capabilities/automated-inspection"
             },
             {
-                title: "Bespoke Architecture",
-                body: "Jewelry engineered around your vision, not a catalog. We build hyper-custom 3D CAD renders for your approval before casting.",
+                title: "Custom 3D Design",
+                body: "Jewelry built around your vision, not a catalog. We create a perfect 3D design for you to approve before we make it.",
                 image: "https://framerusercontent.com/images/qaKiCmraJXnTn4PGr4xp32TdrY.webp?width=2400&height=1339",
                 link: "./capabilities/system-integration"
             },
             {
-                title: "Master Micro-Pavé",
-                body: "Accent stones set under extreme magnification — no misalignments, no drift. Absolute millimeter-perfect symmetry across every setting.",
+                title: "Perfect Details",
+                body: "Every tiny accent diamond is set by hand under a microscope to guarantee a perfectly straight, flawless finish.",
                 image: "https://framerusercontent.com/images/hT8qiWjBrT7LmsteVhBKP6P9YoY.webp?width=2400&height=1339",
                 link: "./capabilities/robotic-assembly"
             }
@@ -648,26 +648,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const indSlides = [
             {
                 badge: "1 / 5",
-                headline: "CAD Architecture",
-                body: "Where a fraction of a millimeter decides everything. We architect your reference designs into perfect 3D CAD renders, ensuring flawless structural integrity.",
+                headline: "Custom 3D Design",
+                body: "We turn your reference photos into perfect 3D models. You get to see exactly what the ring looks like before we build it.",
                 image: "https://framerusercontent.com/images/D5nt2AkR9QQoaZ3c0olkELQ34Vo.jpg?width=2324&height=3486"
             },
             {
                 badge: "2 / 5",
-                headline: "Massive Fancy Diamonds",
-                body: "Access the unattainable. We source flawlessly calibrated 3 to 10 carat lab-grown diamonds, meticulously cut for maximum light return and fire.",
+                headline: "Massive Diamonds",
+                body: "Get the ring she actually wants. We source flawless 3 to 10 carat lab-grown diamonds that shine brighter than anything at the mall.",
                 image: "https://framerusercontent.com/images/NMwoGvpQ5oTbi6XtKG4qmTVBraw.webp?width=1920&height=2400"
             },
             {
                 badge: "3 / 5",
-                headline: "18K Precision Casting",
-                body: "Solid 18K gold and platinum, forged in-house. Our metallurgical engineering ensures heavy, durable mountings that never warp or bend.",
+                headline: "Heavy Solid Gold",
+                body: "Real 18K gold and platinum. We build heavy, high-quality rings that feel expensive and never bend or break.",
                 image: "https://framerusercontent.com/images/5DAvvfKDQbiPsAFdw2C8qXqZMSw.jpg?width=3349&height=4186"
             },
             {
                 badge: "4 / 5",
-                headline: "Micro-Pavé Setting",
-                body: "Set by master jewelers under microscopy. Every accent stone is mathematically aligned to guarantee absolute symmetry and a flawless finish.",
+                headline: "Flawless Setting",
+                body: "Set by hand under a microscope. Every tiny diamond is perfectly straight to give the ring a flawless, high-quality finish.",
                 image: "https://framerusercontent.com/images/Kx5AS2wSUxoT9wwcU80d1hXi8.webp?width=2400&height=1600"
             },
             {
