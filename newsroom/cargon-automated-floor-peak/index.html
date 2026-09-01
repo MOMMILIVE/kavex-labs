@@ -822,6 +822,9 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 
 
 
+
+
+
 <!-- KAVEX Floating WhatsApp Concierge -->
 <style>
 @property --gradient-angle {
@@ -850,10 +853,10 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 
 .kavex-floating-concierge {
   --shiny-cta-bg: #000000;
-  --shiny-cta-bg-subtle: #141414;
+  --shiny-cta-bg-subtle: #111111;
   --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: #16a34a;
-  --shiny-cta-highlight-subtle: #4ade80;
+  --shiny-cta-highlight: #15803d;
+  --shiny-cta-highlight-subtle: #22c55e;
   --animation: gradient-angle linear infinite;
   --duration: 3s;
   --shadow-size: 2px;
@@ -868,18 +871,17 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   cursor: pointer;
   outline-offset: 4px;
   padding: 0.85rem 1.45rem;
-  font-family: "Geist", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Geist", "Inter", sans-serif;
   font-size: 0.875rem;
   line-height: 1.2;
   font-weight: 500;
-  letter-spacing: 0.02em;
   border: 1px solid transparent;
   border-radius: 360px;
   color: var(--shiny-cta-fg);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
     conic-gradient(
       from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
@@ -889,16 +891,14 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
       var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
       transparent calc(var(--gradient-percent) * 4)
     ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 8px 32px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
   transition: var(--transition);
-  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine, transform, box-shadow;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
 }
 
 .kavex-floating-concierge::before,
 .kavex-floating-concierge::after,
-.kavex-floating-concierge .kavex-inner-glow::before {
+.kavex-floating-concierge span::before {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -909,7 +909,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 }
 
 .kavex-floating-concierge:active {
-  transform: translateY(2px) scale(0.98);
+  translate: 0 1px;
 }
 
 /* Dots pattern */
@@ -939,7 +939,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
     black
   );
   border-radius: inherit;
-  opacity: 0.35;
+  opacity: 0.4;
   z-index: -1;
 }
 
@@ -959,28 +959,21 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   opacity: 0.6;
 }
 
-.kavex-floating-concierge .kavex-inner-glow {
+.kavex-floating-concierge span {
   display: flex;
   align-items: center;
   gap: 8px;
   z-index: 1;
-  position: relative;
 }
 
-/* Top crescent green glow */
-.kavex-floating-concierge .kavex-inner-glow::before {
-  --size: calc(100% + 1.5rem);
+.kavex-floating-concierge span::before {
+  --size: calc(100% + 1rem);
   width: var(--size);
   height: var(--size);
-  box-shadow: inset 0 -1ex 1.8rem 2px var(--shiny-cta-highlight);
-  opacity: 0.75;
+  box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+  opacity: 0;
   transition: opacity var(--transition);
   animation: calc(var(--duration) * 1.5) breathe linear infinite;
-}
-
-.kavex-floating-concierge svg {
-  color: #ffffff;
-  transition: color 0.3s ease;
 }
 
 /* Animate */
@@ -996,8 +989,6 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   --gradient-percent: 20%;
   --gradient-angle-offset: 95deg;
   --gradient-shine: var(--shiny-cta-highlight-subtle);
-  transform: translateY(-2px);
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 12px 40px rgba(0, 0, 0, 0.95), 0 0 20px rgba(22, 163, 74, 0.3);
 }
 
 .kavex-floating-concierge:is(:hover, :focus-visible),
@@ -1006,12 +997,8 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   animation-play-state: running;
 }
 
-.kavex-floating-concierge:is(:hover, :focus-visible) .kavex-inner-glow::before {
+.kavex-floating-concierge:is(:hover, :focus-visible) span::before {
   opacity: 1;
-}
-
-.kavex-floating-concierge:is(:hover, :focus-visible) svg {
-  color: #4ade80;
 }
 
 @keyframes gradient-angle {
@@ -1031,7 +1018,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
     scale: 1;
   }
   50% {
-    scale: 1.25;
+    scale: 1.2;
   }
 }
 
@@ -1046,11 +1033,11 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 </style>
 
 <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="kavex-floating-concierge" aria-label="Open Private Concierge">
-  <span class="kavex-inner-glow">
-    <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; display:block;">
+  <span>
+    <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
       <path fill="currentColor" d="m7.254 18.494l.724.423A7.95 7.95 0 0 0 12.001 20a8 8 0 1 0-8-8a7.95 7.95 0 0 0 1.084 4.024l.422.724l-.653 2.401zM2.005 22l1.352-4.968A9.95 9.95 0 0 1 2.001 12c0-5.523 4.477-10 10-10s10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.03-1.355zM8.392 7.308q.202-.014.403-.004q.081.006.162.016c.159.018.334.115.393.249q.447 1.015.868 2.04c.062.152.025.347-.093.537c-.06.097-.154.233-.263.372c-.113.145-.356.411-.356.411s-.099.118-.061.265c.014.056.06.137.102.205l.059.095c.256.427.6.86 1.02 1.268c.12.116.237.235.363.346c.468.413.998.75 1.57 1l.005.002c.085.037.128.057.252.11q.093.039.191.066q.036.01.073.011a.35.35 0 0 0 .295-.142c.723-.876.79-.933.795-.933v.002a.48.48 0 0 1 .378-.127q.092.004.177.04c.531.243 1.4.622 1.4.622l.582.261c.098.047.187.158.19.265c.004.067.01.175-.013.373c-.032.259-.11.57-.188.733a1.2 1.2 0 0 1-.21.302a2.4 2.4 0 0 1-.33.288q-.124.092-.125.09a5 5 0 0 1-.383.22a2 2 0 0 1-.833.23c-.185.01-.37.024-.556.014c-.008 0-.568-.087-.568-.087a9.45 9.45 0 0 1-3.84-2.046c-.226-.199-.436-.413-.65-.626c-.888-.885-1.561-1.84-1.97-2.742a3.5 3.5 0 0 1-.33-1.413a2.73 2.73 0 0 1 .565-1.68c.073-.094.142-.192.261-.305c.126-.12.207-.184.294-.228a1 1 0 0 1 .371-.1"/>
     </svg>
-    <span>Private Concierge</span>
+    Private Concierge
   </span>
 </a>
 
