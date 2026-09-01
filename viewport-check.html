@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Viewport Check</title></head>
+<body style="font-family: monospace; font-size: 24px; padding: 40px; background: #111; color: #0f0;">
+<h1>Viewport Debug Info</h1>
+<p>Open this page on BOTH sites and compare the values.</p>
+<pre id="info" style="font-size: 20px; line-height: 1.8;"></pre>
+<script>
+document.getElementById("info").textContent = JSON.stringify({
+  "window.innerWidth": window.innerWidth,
+  "window.innerHeight": window.innerHeight,
+  "devicePixelRatio": window.devicePixelRatio,
+  "screen.width": screen.width,
+  "screen.height": screen.height,
+  "clientWidth": document.documentElement.clientWidth,
+  "zoom_level": Math.round(window.devicePixelRatio / (window.screen.width > 2000 ? 2 : 1) * 100) + "%",
+  "raw_dpr": window.devicePixelRatio
+}, null, 2);
+</script>
+</body>
+</html>
