@@ -9,6 +9,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'URL is required' });
   }
 
+  if (!process.env.EXA_API_KEY || process.env.EXA_API_KEY === 'undefined') {
+    return res.status(500).json({ error: 'EXA_API_KEY environment variable is not set in Vercel.' });
+  }
+
   try {
     const exaResponse = await fetch('https://api.exa.ai/agent/runs', {
       method: 'POST',
@@ -35,6 +39,10 @@ export default async function handler(req, res) {
 
     const run = await exaResponse.json();
 
+    if (run.error) {
+       return res.status(500).json({ error: `Exa API Error: ${run.error}` });
+    }
+
     let status = run.status;
     let finalRun = run;
     let attempts = 0;
@@ -52,9 +60,13 @@ export default async function handler(req, res) {
     }
 
     if (status === 'completed') {
-       return res.status(200).json(finalRun.output.structured);
+       if (finalRun.output && finalRun.output.structured) {
+           return res.status(200).json(finalRun.output.structured);
+       } else {
+           return res.status(500).json({ error: 'Exa completed but returned no structured data.', details: finalRun });
+       }
     } else {
-       return res.status(500).json({ error: 'Agent timeout or failed', details: finalRun });
+       return res.status(500).json({ error: `Agent failed or timed out. Final status: ${status}`, details: finalRun });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
