@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (heroCanvas) {
             const ctx = heroCanvas.getContext('2d');
             if (ctx) {
-                let width = 0, height = 0;
                 const spacing = 16;
                 const dotSize = 1.8;
                 const baseOpacity = 0.22;
@@ -89,14 +88,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 let intensity = 0;
 
                 function resizeHeroCanvas() {
-                    width = heroCanvas.width = heroSection.offsetWidth || window.innerWidth;
-                    height = heroCanvas.height = heroSection.offsetHeight || window.innerHeight;
-                    heroCanvas.style.width = '100%';
+                    const w = window.innerWidth;
+                    const h = heroSection.offsetHeight || window.innerHeight;
+                    if (heroCanvas.width !== w || heroCanvas.height !== h) {
+                        heroCanvas.width = w;
+                        heroCanvas.height = h;
+                    }
+                    heroCanvas.style.width = '100vw';
                     heroCanvas.style.height = '100%';
+                    heroCanvas.style.position = 'absolute';
+                    heroCanvas.style.top = '0';
+                    heroCanvas.style.left = '0';
                 }
 
                 window.addEventListener('resize', resizeHeroCanvas, { passive: true });
                 window.addEventListener('orientationchange', resizeHeroCanvas, { passive: true });
+                window.addEventListener('load', resizeHeroCanvas, { passive: true });
                 resizeHeroCanvas();
 
                 heroSection.addEventListener('mousemove', (e) => {
@@ -110,13 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     isMouseInside = true;
                 }, { passive: true });
 
-                heroSection.addEventListener('mouseenter', () => {
-                    isMouseInside = true;
-                });
-
-                heroSection.addEventListener('mouseleave', () => {
-                    isMouseInside = false;
-                });
+                heroSection.addEventListener('mouseenter', () => { isMouseInside = true; });
+                heroSection.addEventListener('mouseleave', () => { isMouseInside = false; });
 
                 window.addEventListener('mousemove', (e) => {
                     const rect = heroSection.getBoundingClientRect();
@@ -134,6 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, { passive: true });
 
                 function renderHeroGlow() {
+                    // Always read dynamic dimensions
+                    const w = heroCanvas.width || window.innerWidth;
+                    const h = heroCanvas.height || heroSection.offsetHeight || window.innerHeight;
+
                     const targetIntensity = isMouseInside ? 1 : 0;
                     intensity += (targetIntensity - intensity) * 0.15;
 
@@ -142,20 +148,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     ox += (kx - ox) * springC;
                     oy += (ky - oy) * springC;
 
-                    ctx.clearRect(0, 0, width, height);
+                    ctx.clearRect(0, 0, w, h);
 
-                    const cols = Math.ceil(width / spacing);
-                    const rows = Math.ceil(height / spacing);
-                    const offsetX = (width - cols * spacing) / 2 + spacing / 2;
-                    const offsetY = (height - rows * spacing) / 2 + spacing / 2;
+                    const cols = Math.ceil(w / spacing);
+                    const rows = Math.ceil(h / spacing);
+                    const offsetX = (w - cols * spacing) / 2 + spacing / 2;
+                    const offsetY = (h - rows * spacing) / 2 + spacing / 2;
                     const halfDot = dotSize / 2;
 
-                    // Draw full-bleed base dots and cursor-illuminated dots
-                    for (let r = -1; r <= rows + 1; r++) {
+                    // Draw full-bleed base dots and cursor-illuminated dots across the ENTIRE viewport width and height
+                    for (let r = -2; r <= rows + 2; r++) {
                         const y = offsetY + r * spacing;
                         const dy = y - oy;
 
-                        for (let c = -1; c <= cols + 1; c++) {
+                        for (let c = -2; c <= cols + 2; c++) {
                             const x = offsetX + c * spacing;
                             const dx = x - ox;
                             const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1273,14 +1279,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (footerCanvas) {
             const ctx = footerCanvas.getContext('2d');
             if (ctx) {
-                let width = 0, height = 0;
                 const spacing = 16;
-                const dotSize = 1.5;
-                const baseOpacity = 0.13;
-                const radius = 130;
-                const maxRevealOpacity = 0.9;
+                const dotSize = 1.8;
+                const baseOpacity = 0.22;
+                const radius = 180;
+                const maxRevealOpacity = 0.95;
                 const smoothing = 0.4;
-                const springC = 0.06 + (1 - Math.min(Math.max(smoothing, 0), 1)) * 0.34; // 0.264
+                const springC = 0.06 + (1 - Math.min(Math.max(smoothing, 0), 1)) * 0.34;
 
                 let targetX = -9999, targetY = -9999;
                 let kx = -9999, ky = -9999;
@@ -1289,14 +1294,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 let intensity = 0;
 
                 function resizeFooterCanvas() {
-                    const rect = footerSection.getBoundingClientRect();
-                    width = footerCanvas.width = rect.width;
-                    height = footerCanvas.height = rect.height;
-                    footerCanvas.style.width = `${width}px`;
-                    footerCanvas.style.height = `${height}px`;
+                    const w = footerSection.offsetWidth || window.innerWidth;
+                    const h = footerSection.offsetHeight || 600;
+                    if (footerCanvas.width !== w || footerCanvas.height !== h) {
+                        footerCanvas.width = w;
+                        footerCanvas.height = h;
+                    }
+                    footerCanvas.style.width = '100%';
+                    footerCanvas.style.height = '100%';
                 }
 
                 window.addEventListener('resize', resizeFooterCanvas, { passive: true });
+                window.addEventListener('load', resizeFooterCanvas, { passive: true });
                 resizeFooterCanvas();
 
                 footerSection.addEventListener('mousemove', (e) => {
@@ -1310,11 +1319,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     isMouseInside = true;
                 }, { passive: true });
 
-                footerSection.addEventListener('mouseleave', () => {
-                    isMouseInside = false;
-                }, { passive: true });
+                footerSection.addEventListener('mouseleave', () => { isMouseInside = false; });
 
                 function renderFooterGlow() {
+                    const w = footerCanvas.width || footerSection.offsetWidth || window.innerWidth;
+                    const h = footerCanvas.height || footerSection.offsetHeight || 600;
+
                     const targetIntensity = isMouseInside ? 1 : 0;
                     intensity += (targetIntensity - intensity) * 0.15;
 
@@ -1323,38 +1333,39 @@ document.addEventListener("DOMContentLoaded", () => {
                     ox += (kx - ox) * springC;
                     oy += (ky - oy) * springC;
 
-                    ctx.clearRect(0, 0, width, height);
+                    ctx.clearRect(0, 0, w, h);
 
-                    const cols = Math.floor(width / spacing);
-                    const rows = Math.floor(height / spacing);
-                    const offsetX = (width - cols * spacing) / 2;
-                    const offsetY = (height - rows * spacing) / 2;
+                    const cols = Math.ceil(w / spacing);
+                    const rows = Math.ceil(h / spacing);
+                    const offsetX = (w - cols * spacing) / 2 + spacing / 2;
+                    const offsetY = (h - rows * spacing) / 2 + spacing / 2;
+                    const halfDot = dotSize / 2;
 
-                    for (let c = 0; c <= cols; c++) {
-                        for (let r = 0; r <= rows; r++) {
-                            const px = offsetX + c * spacing;
-                            const py = offsetY + r * spacing;
+                    for (let r = -2; r <= rows + 2; r++) {
+                        const y = offsetY + r * spacing;
+                        const dy = y - oy;
 
-                            const dist = Math.hypot(px - ox, py - oy);
+                        for (let c = -2; c <= cols + 2; c++) {
+                            const x = offsetX + c * spacing;
+                            const dx = x - ox;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+
                             let alpha = baseOpacity;
-
-                            if (dist < radius && intensity > 0.01) {
-                                const falloff = 1 - (dist / radius);
-                                const boost = Math.pow(falloff, 1.8) * (maxRevealOpacity - baseOpacity) * intensity;
-                                alpha += boost;
+                            if (intensity > 0.005 && dist < radius) {
+                                const factor = 1 - (dist / radius);
+                                const glow = factor * factor * (3 - 2 * factor) * maxRevealOpacity * intensity;
+                                alpha = Math.min(1, baseOpacity + glow);
                             }
 
-                            ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
-                            ctx.beginPath();
-                            ctx.arc(px, py, dotSize / 2, 0, Math.PI * 2);
-                            ctx.fill();
+                            ctx.fillStyle = `rgba(237, 237, 237, ${alpha.toFixed(3)})`;
+                            ctx.fillRect(x - halfDot, y - halfDot, dotSize, dotSize);
                         }
                     }
 
                     requestAnimationFrame(renderFooterGlow);
                 }
 
-                requestAnimationFrame(renderFooterGlow);
+                renderFooterGlow();
             }
         }
     }
