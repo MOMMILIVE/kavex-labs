@@ -650,31 +650,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "1 / 5",
                 headline: "CAD Architecture",
                 body: "Where a fraction of a millimeter decides everything. We architect your reference designs into perfect 3D CAD renders, ensuring flawless structural integrity.",
-                image: "https://framerusercontent.com/images/D5nt2AkR9QQoaZ3c0olkELQ34Vo.jpg?width=2324&height=3486"
+                image: "https://images.unsplash.com/photo-1617325243176-787201bd9bda?width=2324&height=3486"
             },
             {
                 badge: "2 / 5",
                 headline: "Massive Fancy Diamonds",
                 body: "Access the unattainable. We source flawlessly calibrated 3 to 10 carat lab-grown diamonds, meticulously cut for maximum light return and fire.",
-                image: "https://framerusercontent.com/images/NMwoGvpQ5oTbi6XtKG4qmTVBraw.webp?width=1920&height=2400"
+                image: "https://images.unsplash.com/photo-1599643478524-fb524b07137b?width=1920&height=2400"
             },
             {
                 badge: "3 / 5",
                 headline: "18K Precision Casting",
                 body: "Solid 18K gold and platinum, forged in-house. Our metallurgical engineering ensures heavy, durable mountings that never warp or bend.",
-                image: "https://framerusercontent.com/images/5DAvvfKDQbiPsAFdw2C8qXqZMSw.jpg?width=3349&height=4186"
+                image: "https://images.unsplash.com/photo-1622396349940-1e5b22bcf4ba?width=3349&height=4186"
             },
             {
                 badge: "4 / 5",
                 headline: "Micro-Pavé Setting",
                 body: "Set by master jewelers under microscopy. Every accent stone is mathematically aligned to guarantee absolute symmetry and a flawless finish.",
-                image: "https://framerusercontent.com/images/Kx5AS2wSUxoT9wwcU80d1hXi8.webp?width=2400&height=1600"
+                image: "https://images.unsplash.com/photo-1589140924976-133da33455b8?width=2400&height=1600"
             },
             {
                 badge: "5 / 5",
                 headline: "Fully Insured Delivery",
                 body: "Zero stress, absolute transparency. From the initial WhatsApp sketch to fully insured global delivery, we manage the entire commission privately.",
-                image: "https://framerusercontent.com/images/zfeAVhfVFNDmGdSqrjd1uIZNMF8.webp?width=2400&height=1600"
+                image: "https://images.unsplash.com/photo-1512446733611-9099a758e236?width=2400&height=1600"
             }
         ];
 
