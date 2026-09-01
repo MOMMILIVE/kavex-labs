@@ -1,3 +1,20 @@
+
+/* Seamless Footer & Body Base Dark Theme */
+html {
+  background-color: #121212 !important;
+}
+body {
+  background-color: #121212 !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+footer, .framer-ZEYvg, .framer-1m3vhtb {
+  background-color: #121212 !important;
+  padding-bottom: max(48px, calc(32px + env(safe-area-inset-bottom, 20px))) !important;
+  margin-bottom: 0 !important;
+}
+
 #curtain-boot { position: fixed; inset: 0px; background: rgb(0, 0, 0); z-index: 2147483600; }
 
 @font-face { font-family: Geist; font-style: italic; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/geist/v5/gyBjhwUxId8gMEwZAluvzlxA9ojEVKDQ3qnV41AttA.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
