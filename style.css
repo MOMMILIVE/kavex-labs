@@ -1846,3 +1846,15 @@ html body { background: var(--token-c3d568f8-bd76-4ec5-8863-f9636a4abf70, rgb(25
     }
   }
 
+
+
+/* Full-Bleed DotReveal Canvases */
+.framer-rjmmn8-container canvas,
+.framer-1hlpczo-container canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+}
