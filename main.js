@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const ctx = heroCanvas.getContext('2d');
             if (ctx) {
                 const spacing = 16;
-                const dotSize = 1.8;
-                const baseOpacity = 0.22;
-                const radius = 220;
-                const maxRevealOpacity = 0.95;
+                const dotSize = 1.4;
+                const baseOpacity = 0.05;
+                const radius = 140;
+                const maxRevealOpacity = 0.85;
                 const smoothing = 0.4;
                 const springC = 0.06 + (1 - Math.min(Math.max(smoothing, 0), 1)) * 0.34; // 0.264
 
@@ -1280,10 +1280,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const ctx = footerCanvas.getContext('2d');
             if (ctx) {
                 const spacing = 16;
-                const dotSize = 1.8;
-                const baseOpacity = 0.22;
-                const radius = 180;
-                const maxRevealOpacity = 0.95;
+                const dotSize = 1.4;
+                const baseOpacity = 0.05;
+                const radius = 140;
+                const maxRevealOpacity = 0.85;
                 const smoothing = 0.4;
                 const springC = 0.06 + (1 - Math.min(Math.max(smoothing, 0), 1)) * 0.34;
 
