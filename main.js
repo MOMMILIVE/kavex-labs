@@ -540,26 +540,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (heroSlider) {
         const heroSlides = [
             {
-                title: "Precision Machining",
-                body: "Robotic machining and fabrication held to tolerances no manual process can match — cut, formed, and finished in-house.",
+                title: "Precision Forging",
+                body: "Solid 18K gold and platinum casting held to tolerances no mass-market jeweler can match — poured, forged, and finished in-house.",
                 image: "https://framerusercontent.com/images/c62B6NlRrLeLeFpjsfnYjXPk4.webp?width=2400&height=1339",
                 link: "./capabilities/precision-machining"
             },
             {
-                title: "Automated Inspection",
-                body: "Machine-vision checks every part, not a sample. Defects get caught at the line, before they ever ship.",
+                title: "Flawless Calibration",
+                body: "Microscopic light-return analysis on every single diamond. If a stone doesn't hit perfect optical symmetry, we reject it.",
                 image: "https://framerusercontent.com/images/beXLw5CGj0UxKgQCcW95nzeGwqo.webp?width=2400&height=1339",
                 link: "./capabilities/automated-inspection"
             },
             {
-                title: "System Integration",
-                body: "Robotic systems engineered around your existing line, not the other way around. Built for your floor, your throughput, your parts.",
+                title: "Bespoke Architecture",
+                body: "Jewelry engineered around your vision, not a catalog. We build hyper-custom 3D CAD renders for your approval before casting.",
                 image: "https://framerusercontent.com/images/qaKiCmraJXnTn4PGr4xp32TdrY.webp?width=2400&height=1339",
                 link: "./capabilities/system-integration"
             },
             {
-                title: "Robotic Assembly",
-                body: "Assembly lines that repeat to the millimeter, shift after shift — no fatigue, no drift, the ten-thousandth unit built exactly like the first.",
+                title: "Master Micro-Pavé",
+                body: "Accent stones set under extreme magnification — no misalignments, no drift. Absolute millimeter-perfect symmetry across every setting.",
                 image: "https://framerusercontent.com/images/hT8qiWjBrT7LmsteVhBKP6P9YoY.webp?width=2400&height=1339",
                 link: "./capabilities/robotic-assembly"
             }
