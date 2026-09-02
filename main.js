@@ -534,48 +534,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
-    // 5. HERO SLIDER / PRODUCT SLIDER (Auto-advancing with Progress Bars)
+    // =========================================================================
+    // 5. GEMSTONE SHOWCASE SLIDER (Auto-advancing with Labeled Tabs)
     // =========================================================================
     const heroSlider = document.getElementById('hero-slider');
     if (heroSlider) {
         const heroSlides = [
             {
-                title: "Solid Gold Forging",
-                body: "Heavy 18K gold and platinum. We pour and finish every piece in our own workshop so it feels expensive and lasts a lifetime.",
-                image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=2400&q=80",
-                link: "./capabilities/precision-machining"
-            },
-            {
                 title: "Flawless Diamonds",
-                body: "We inspect every single diamond under a microscope. If it doesn't sparkle perfectly, we reject it.",
-                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=2400&q=80",
-                link: "./capabilities/automated-inspection"
+                body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
+                image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=2400&q=80"
             },
             {
-                title: "Custom 3D Design",
-                body: "Jewelry built around your vision, not a catalog. We create a perfect 3D design for you to approve before we make it.",
-                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=2400&q=80",
-                link: "./capabilities/system-integration"
+                title: "Exotic Colombian Emeralds & Sapphires",
+                body: "Deep green Colombian emeralds, unheated royal blue Ceylon sapphires, and vivid pigeon-blood rubies. Sourced privately for custom one-of-one heirloom pieces.",
+                image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=2400&q=80"
             },
             {
-                title: "Perfect Details",
-                body: "Every tiny accent diamond is set by hand under a microscope to guarantee a perfectly straight, flawless finish.",
-                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=2400&q=80",
-                link: "./capabilities/robotic-assembly"
+                title: "Fancy Colored Diamonds",
+                body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=2400&q=80"
+            },
+            {
+                title: "Direct Loose Stone Parcels",
+                body: "We source loose stone parcels directly from cutters before they ever touch gold. Inspect the raw cut, light return, and certification before we cast.",
+                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=2400&q=80"
             }
         ];
 
-        let currentHeroIdx = 1;
+        let currentHeroIdx = 0;
         const titleEl = heroSlider.querySelector('h2');
         const bodyEl = heroSlider.querySelector('p');
         const imgEl = heroSlider.querySelector('img');
-        const ctaEl = heroSlider.querySelector('a[aria-label="Learn More"]');
+        const ctaEl = heroSlider.querySelector('a[aria-label="View Specifications"], a[aria-label="Learn More"]');
         
-        const barContainers = heroSlider.querySelectorAll('div[style*="position:absolute;left:32px;right:32px;bottom:32px"] > div');
-        const fillBars = [];
+        const barContainers = heroSlider.querySelectorAll('.gem-tab, div[style*="position:absolute;left:32px;right:32px;bottom:32px"] > div');
+        const fillBars = heroSlider.querySelectorAll('.gem-tab-fill, div[style*="background: rgba(255, 255, 255, 0.7)"]');
+        const tabLabels = heroSlider.querySelectorAll('.gem-tab-label');
+
+        if (ctaEl) {
+            ctaEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (typeof openConcierge === 'function') {
+                    openConcierge();
+                }
+            });
+        }
+
         barContainers.forEach((bc, idx) => {
-            const fill = bc.querySelector('div > div');
-            if (fill) fillBars.push(fill);
             bc.style.cursor = 'pointer';
             bc.addEventListener('click', () => {
                 goToHeroSlide(idx);
@@ -596,13 +602,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgEl.style.opacity = '0';
                 setTimeout(() => {
                     imgEl.src = data.image;
-                    imgEl.removeAttribute('srcset'); imgEl.removeAttribute('srcset'); imgEl.srcset = '';
+                    imgEl.removeAttribute('srcset');
+                    imgEl.srcset = '';
                     imgEl.alt = data.title;
                     imgEl.style.opacity = '1';
                 }, 200);
             }
-            if (ctaEl) {
-                ctaEl.setAttribute('href', data.link);
+
+            if (tabLabels && tabLabels.length) {
+                tabLabels.forEach((label, i) => {
+                    if (i === idx) {
+                        label.style.color = '#fff';
+                        label.style.opacity = '1';
+                    } else {
+                        label.style.color = 'rgba(255, 255, 255, 0.4)';
+                        label.style.opacity = '0.7';
+                    }
+                });
             }
         }
 
@@ -648,32 +664,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const indSlides = [
             {
                 badge: "1 / 5",
-                headline: "Custom 3D Design",
-                body: "We turn your reference photos into perfect 3D models. You get to see exactly what the ring looks like before we build it.",
+                headline: "Custom 3D CAD Design",
+                body: "We turn your reference photos into millimeter-accurate 3D models. You inspect every facet and approve the render before casting begins.",
                 image: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "2 / 5",
-                headline: "Massive Diamonds",
-                body: "Get the ring she actually wants. We source flawless 3 to 10 carat lab-grown diamonds that shine brighter than anything at the mall.",
-                image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=2400&q=80"
+                headline: "18K Solid Gold & Platinum",
+                body: "Heavy solid 18K gold and 950 platinum. Vacuum-cast with zero porosity so the piece feels substantial, luxurious, and indestructible.",
+                image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "3 / 5",
-                headline: "Heavy Solid Gold",
-                body: "Real 18K gold and platinum. We build heavy, high-quality rings that feel expensive and never bend or break.",
-                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=2400&q=80"
-            },
-            {
-                badge: "4 / 5",
-                headline: "Flawless Setting",
-                body: "Set by hand under a microscope. Every tiny diamond is perfectly straight to give the ring a flawless, high-quality finish.",
+                headline: "Microscopic Hand Setting",
+                body: "Every accent stone is hand-set under 40x magnification. Perfectly aligned, ultra-secure pavé prongs that never catch on fabric or loosen.",
                 image: "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?auto=format&fit=crop&w=2400&q=80"
             },
             {
+                badge: "4 / 5",
+                headline: "Certified Quality Control",
+                body: "Multi-stage inspection before any piece leaves our hands. Every primary stone is verified, weighed, and laser-inscribed with its certification.",
+                image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=2400&q=80"
+            },
+            {
                 badge: "5 / 5",
-                headline: "Fully Insured Delivery",
-                body: "Zero stress, absolute transparency. From the initial WhatsApp sketch to fully insured global delivery, we manage the entire commission privately.",
+                headline: "White-Glove Insured Delivery",
+                body: "Armored, fully insured courier direct to your door. Complete with discreet luxury unboxing packaging and certified appraisal dossiers.",
                 image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=2400&q=80"
             }
         ];
