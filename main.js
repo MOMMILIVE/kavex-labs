@@ -1411,3 +1411,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 }); // End DOMContentLoaded
+
+
+// Global hook to bind all 'Speak to Concierge' or '#concierge' buttons to the intake modal
+function initConciergeTriggers() {
+  document.querySelectorAll('a[href="#concierge"], a[aria-label="Speak to Concierge"], a[aria-label="View Specifications"], a[aria-label="View All"]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (typeof openConcierge === 'function') {
+        openConcierge();
+      }
+    });
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initConciergeTriggers);
+} else {
+  initConciergeTriggers();
+}
