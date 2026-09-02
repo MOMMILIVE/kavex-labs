@@ -1369,4 +1369,29 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-});
+
+    // =========================================================================
+    // 8. PRIVATE LOOKBOOK ACCESS
+    // =========================================================================
+    const lookbookForm = document.getElementById('lookbook-form');
+    if (lookbookForm) {
+        lookbookForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = lookbookForm.querySelector('button');
+            const btnText = btn.querySelector('p');
+            const input = lookbookForm.querySelector('input[type="email"]');
+            
+            // Visual feedback
+            btn.style.transition = 'all 0.3s ease';
+            btn.style.backgroundColor = '#16a34a'; // Kavex Green
+            if (btnText) {
+                btnText.textContent = 'Access Granted';
+                btnText.style.color = '#000';
+            }
+            
+            setTimeout(() => {
+                alert("Welcome to the Vault. (In production, this triggers the PDF download)");
+            }, 500);
+        });
+    }
+}); // End DOMContentLoaded
