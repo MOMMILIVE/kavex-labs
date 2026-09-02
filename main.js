@@ -542,25 +542,25 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Solid Gold Forging",
                 body: "Heavy 18K gold and platinum. We pour and finish every piece in our own workshop so it feels expensive and lasts a lifetime.",
-                image: "https://framerusercontent.com/images/c62B6NlRrLeLeFpjsfnYjXPk4.webp?width=2400&height=1339",
+                image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=2400&q=80",
                 link: "./capabilities/precision-machining"
             },
             {
                 title: "Flawless Diamonds",
                 body: "We inspect every single diamond under a microscope. If it doesn't sparkle perfectly, we reject it.",
-                image: "https://framerusercontent.com/images/beXLw5CGj0UxKgQCcW95nzeGwqo.webp?width=2400&height=1339",
+                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=2400&q=80",
                 link: "./capabilities/automated-inspection"
             },
             {
                 title: "Custom 3D Design",
                 body: "Jewelry built around your vision, not a catalog. We create a perfect 3D design for you to approve before we make it.",
-                image: "https://framerusercontent.com/images/qaKiCmraJXnTn4PGr4xp32TdrY.webp?width=2400&height=1339",
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=2400&q=80",
                 link: "./capabilities/system-integration"
             },
             {
                 title: "Perfect Details",
                 body: "Every tiny accent diamond is set by hand under a microscope to guarantee a perfectly straight, flawless finish.",
-                image: "https://framerusercontent.com/images/hT8qiWjBrT7LmsteVhBKP6P9YoY.webp?width=2400&height=1339",
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=2400&q=80",
                 link: "./capabilities/robotic-assembly"
             }
         ];
@@ -596,7 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgEl.style.opacity = '0';
                 setTimeout(() => {
                     imgEl.src = data.image;
-                    imgEl.srcset = `${data.image} 2400w`;
+                    imgEl.removeAttribute('srcset'); imgEl.removeAttribute('srcset'); imgEl.srcset = '';
                     imgEl.alt = data.title;
                     imgEl.style.opacity = '1';
                 }, 200);
@@ -650,31 +650,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "1 / 5",
                 headline: "Custom 3D Design",
                 body: "We turn your reference photos into perfect 3D models. You get to see exactly what the ring looks like before we build it.",
-                image: "https://framerusercontent.com/images/D5nt2AkR9QQoaZ3c0olkELQ34Vo.jpg?width=2324&height=3486"
+                image: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "2 / 5",
                 headline: "Massive Diamonds",
                 body: "Get the ring she actually wants. We source flawless 3 to 10 carat lab-grown diamonds that shine brighter than anything at the mall.",
-                image: "https://framerusercontent.com/images/NMwoGvpQ5oTbi6XtKG4qmTVBraw.webp?width=1920&height=2400"
+                image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "3 / 5",
                 headline: "Heavy Solid Gold",
                 body: "Real 18K gold and platinum. We build heavy, high-quality rings that feel expensive and never bend or break.",
-                image: "https://framerusercontent.com/images/5DAvvfKDQbiPsAFdw2C8qXqZMSw.jpg?width=3349&height=4186"
+                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "4 / 5",
                 headline: "Flawless Setting",
                 body: "Set by hand under a microscope. Every tiny diamond is perfectly straight to give the ring a flawless, high-quality finish.",
-                image: "https://framerusercontent.com/images/Kx5AS2wSUxoT9wwcU80d1hXi8.webp?width=2400&height=1600"
+                image: "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?auto=format&fit=crop&w=2400&q=80"
             },
             {
                 badge: "5 / 5",
                 headline: "Fully Insured Delivery",
                 body: "Zero stress, absolute transparency. From the initial WhatsApp sketch to fully insured global delivery, we manage the entire commission privately.",
-                image: "https://framerusercontent.com/images/zfeAVhfVFNDmGdSqrjd1uIZNMF8.webp?width=2400&height=1600"
+                image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=2400&q=80"
             }
         ];
 
