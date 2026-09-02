@@ -2138,6 +2138,23 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   }
 </style>
 
+
+<style>
+  /* Cinematic Engineering - Global Image Grading */
+  img, video {
+    filter: grayscale(15%) contrast(115%) brightness(85%);
+    transition: filter 0.4s ease;
+  }
+  img:hover, video:hover {
+    filter: grayscale(0%) contrast(125%) brightness(95%);
+  }
+  
+  /* Hero Video specific overlay for darker vibe */
+  section[data-framer-name="Hero"] video {
+    filter: grayscale(40%) contrast(130%) brightness(60%);
+  }
+</style>
+
 </head>
 <body data-new-gr-c-s-check-loaded="14.1324.0" data-gr-ext-installed="" style="" cz-shortcut-listen="true">
 	
@@ -2459,7 +2476,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="main.js?v=1788322185026"></script>
+  <script src="main.js?v=1788322362888"></script>
 
 
 
