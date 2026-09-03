@@ -2447,6 +2447,158 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
     }
   });
 </script>
+
+<!-- DIAMOND SHAPES COMPONENT -->
+<style>
+.kavex-shapes-section {
+    padding: 80px 20px 40px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+.kavex-shapes-title {
+    font-family: 'Geist', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 48px;
+}
+.kavex-shapes-track {
+    display: flex;
+    gap: 40px;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 0 40px 40px;
+    scrollbar-width: none; /* Firefox */
+}
+.kavex-shapes-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+.kavex-shape-card {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    group;
+}
+.kavex-shape-img {
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/diamond_shapes.jpg');
+    background-size: 400% 300%;
+    filter: invert(1) grayscale(1) brightness(2) contrast(2);
+    mix-blend-mode: screen;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    transform: scale(1.35) translateY(-8%);
+}
+.kavex-shape-card:hover .kavex-shape-img {
+    transform: scale(1.5) translateY(-12%);
+    filter: invert(1) grayscale(0) brightness(2.5) contrast(1.5);
+}
+.kavex-shape-img-wrapper {
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    position: relative;
+}
+.kavex-shape-card:hover .kavex-shape-img {
+    transform: scale(1.15) translateY(-4px);
+    filter: invert(1) grayscale(0) brightness(2) contrast(1.5);
+}
+.kavex-shape-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s ease;
+}
+.kavex-shape-card:hover .kavex-shape-label {
+    color: rgba(255,255,255,0.9);
+}
+@media (min-width: 1024px) {
+    .kavex-shapes-track {
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 900px;
+        gap: 48px 64px;
+    }
+}
+</style>
+<div class="kavex-shapes-section gn-reveal">
+    <div class="kavex-shapes-title">Available Cuts</div>
+    <div class="kavex-shapes-track">
+
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 0% 0%;"></div></div>
+            <div class="kavex-shape-label">ROUND</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 33.333% 0%;"></div></div>
+            <div class="kavex-shape-label">OVAL</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 66.666% 0%;"></div></div>
+            <div class="kavex-shape-label">CUSHION</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 100% 0%;"></div></div>
+            <div class="kavex-shape-label">BAGUETTE</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 0% 50%;"></div></div>
+            <div class="kavex-shape-label">HEART</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 33.333% 50%;"></div></div>
+            <div class="kavex-shape-label">PRINCESS</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 66.666% 50%;"></div></div>
+            <div class="kavex-shape-label">PEAR</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 100% 50%;"></div></div>
+            <div class="kavex-shape-label">TRILLION</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 0% 100%;"></div></div>
+            <div class="kavex-shape-label">MARQUISE</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 33.333% 100%;"></div></div>
+            <div class="kavex-shape-label">EMERALD</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 66.666% 100%;"></div></div>
+            <div class="kavex-shape-label">ASSCHER</div>
+        </div>
+    
+        <div class="kavex-shape-card" onclick="if(typeof openConcierge === 'function') openConcierge()">
+            <div class="kavex-shape-img-wrapper"><div class="kavex-shape-img" style="background-position: 100% 100%;"></div></div>
+            <div class="kavex-shape-label">RADIANT</div>
+        </div>
+    
+    </div>
+</div>
+<!-- /DIAMOND SHAPES COMPONENT -->
+
 <section class="framer-1b6yf8" data-framer-name="Product Slider" id="hero-slider"><div class="framer-15z9lzg" data-framer-name="Container"><div class="framer-fmr9z9" data-framer-name="Content Wrap"><!--$--><div class="framer-1u79utj-container"><!--$--><div style="width:100%;height:100%;position:relative;overflow:hidden"><div draggable="false" style="position: absolute; inset: 0px; overflow: hidden; transform: none; user-select: none; touch-action: pan-y; will-change: transform;"><div style="position: absolute; inset: 0px; transform: none; will-change: transform;"><img src="assets/flawless_diamonds.png" alt="Flawless Diamonds" draggable="false" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center center;"></div><div style="position: absolute; inset: 0px; background: rgb(0, 0, 0); opacity: 0.4; pointer-events: none; z-index: 1;"></div><div style="position: absolute; inset: 0px; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 32px; pointer-events: none;"><div style="display: flex; flex-direction: column; gap: 24px; max-width: 560px; pointer-events: auto;"><h2 style="margin: 0px; font-family: Geist, &quot;Geist Placeholder&quot;, sans-serif; font-size: 48px; font-style: normal; font-weight: 500; letter-spacing: -0.04em; line-height: 1.2em; color: var(--token-c3d568f8-bd76-4ec5-8863-f9636a4abf70, rgb(255, 255, 255));">Flawless Diamonds</h2><p style="margin: 0px; max-width: 480px; font-family: Geist, &quot;Geist Placeholder&quot;, sans-serif; font-size: 16px; font-style: normal; font-weight: 500; letter-spacing: -0.04em; line-height: 1.35em; color: var(--token-037a5ece-72b2-4e2c-8830-fba306e892de, rgb(228, 228, 228));">Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light performance. Direct from the cutting floors of Antwerp and Surat.</p><div style="position: relative; display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; padding: 18px 36px; margin-top: 16px; background-color: rgb(255, 255, 255); border-radius: 999px; overflow: hidden; pointer-events: auto; cursor: pointer;"><canvas aria-hidden="true" width="72" height="14" style="position: absolute; inset: 0px; width: 100%; height: 100%; pointer-events: none;"></canvas><span style="position: relative; z-index: 1; font-family: Geist, &quot;Geist Placeholder&quot;, sans-serif; font-size: 14px; font-style: normal; font-weight: 500; letter-spacing: -0.01em; line-height: 1em; white-space: nowrap; color: rgb(23, 23, 23);">Speak to Concierge</span><a aria-label="Speak to Concierge" href="#concierge" style="position: absolute; inset: 0px; z-index: 2; text-decoration: none;"></a></div></div></div></div>
       <div style="position:absolute;left:32px;right:32px;bottom:32px;z-index:3;display:flex;gap:16px" id="hero-slider-tabs">
         <div class="gem-tab" style="flex:1;padding:8px 0;cursor:pointer">
@@ -2518,7 +2670,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="main.js?v=1788418603014"></script>
+  <script src="main.js?v=1788418821457"></script>
 
 
 
