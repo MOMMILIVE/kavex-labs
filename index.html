@@ -2153,52 +2153,6 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 </style>
 
 
-<style id="kavex-preloader-css">
-#kavex-preloader {
-    position: fixed;
-    inset: 0;
-    z-index: 9999999;
-    background: #080808;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-    will-change: transform;
-}
-#kavex-preloader.loaded {
-    transform: translateY(-100%);
-}
-.kavex-loader-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-}
-.kavex-loader-content svg {
-    opacity: 0.2;
-    animation: pulse 1.5s ease-in-out infinite alternate;
-}
-.kavex-progress-container {
-    width: 200px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-.kavex-progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: #FFF;
-    width: 0%;
-    transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-@keyframes pulse {
-    0% { opacity: 0.2; transform: scale(0.98); }
-    100% { opacity: 1; transform: scale(1.02); }
-}
-</style>
 
 
 
@@ -2207,13 +2161,6 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 <body data-new-gr-c-s-check-loaded="14.1324.0" data-gr-ext-installed="" style="" cz-shortcut-listen="true">
 
 <!-- KAVEX NATIVE PRELOADER -->
-<div id="kavex-preloader">
-    <div class="kavex-loader-content">
-        <svg viewBox="0 0 138 112" width="60" fill="white">
-            <path d="M 137.755 65.973 C 103.885 57.288 97.878 62.3 106.273 110.793 C 106.551 112.403 104.331 112.409 103.881 110.777 C 89.88 60.137 79.041 49.637 2.317 22.618 C -0.772 21.531 -0.767 19.048 2.301 19.961 C 77.633 42.391 85.192 38.353 79.974 3.026 C 79.838 2.106 81.777 3.163 82.069 4.158 C 92.975 41.272 102.26 50.8 137.258 64.445 C 138.081 64.764 138.542 66.175 137.755 65.973 Z"></path>
-        </svg>
-        <div class="kavex-progress-container">
-            <div class="kavex-progress-bar"></div>
         </div>
     </div>
 </div>
@@ -2537,7 +2484,7 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="main.js?v=1788416990267"></script>
+  <script src="main.js?v=1788417029475"></script>
 
 
 
