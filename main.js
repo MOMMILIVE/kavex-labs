@@ -55,8 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     // 2. Build the dropdown menu
+    
     const menu = document.getElementById('k-global-menu');
     if (menu) {
+        menu.addEventListener('wheel', e => e.stopPropagation(), {passive: true});
+        menu.addEventListener('touchmove', e => e.stopPropagation(), {passive: true});
+
         kavexLocales.forEach(l => {
             const btn = document.createElement('button');
             btn.className = 'k-global-option';
