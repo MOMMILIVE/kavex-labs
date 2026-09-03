@@ -57,7 +57,7 @@ window.setKavexLocale = function(id, skipReload = false) {
     updatePricesInDOM(locale);
     
     // Trigger translation
-    const currentCookie = document.cookie.match(/googtrans=/en/([^;]+)/);
+    const currentCookie = document.cookie.match(/googtrans=\/en\/([^;]+)/);
     const currentLang = currentCookie ? currentCookie[1] : 'en';
     
     if (locale.lang !== currentLang && !skipReload) {
