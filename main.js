@@ -872,26 +872,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================================
     const testSection = document.querySelector('section[data-framer-name="Testimonials"]');
     if (testSection) {
-        const testimonials = [
+                const testimonials = [
             {
                 badge: "1 / 4",
-                source: "Axlon",
-                quote: "“Every unit comes off the line exactly like the last. We stopped firefighting and got back to building.”"
+                source: "James R. | London",
+                quote: "“I was quoted $45k by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
             },
             {
                 badge: "2 / 4",
-                source: "Aerix",
-                quote: "“In our work, close enough doesn't exist. I trust the line now more than the inspection that comes after it.”"
+                source: "Elena M. | Dubai",
+                quote: "“Designing a high-jewelry piece via WhatsApp felt like a leap of faith initially. But the CAD renders were millimeter-perfect, and the final 18K gold cast is flawless. They operate with a level of precision that makes you wonder why retail even exists.”"
             },
             {
                 badge: "3 / 4",
-                source: "Cargon",
-                quote: "“Peak season used to break us. Now the floor handles itself, and we get through it calm.”"
+                source: "Marcus T. | New York",
+                quote: "“From the first sketch to receiving the armored delivery took exactly 14 days. The micro-pavé setting under a loupe is absolute perfection. Direct access to the factory floor is a complete game-changer.”"
             },
             {
                 badge: "4 / 4",
-                source: "Voltan",
-                quote: "“The robots go where we'd rather not send people. We catch problems early, and everyone gets home.”"
+                source: "Sofia K. | Stockholm",
+                quote: "“We wanted a massive emerald-cut engagement ring but refused to compromise on ethics or pay the traditional markup. Kavex delivered a 5-carat lab-grown masterpiece that literally stops people in restaurants.”"
             }
         ];
 
