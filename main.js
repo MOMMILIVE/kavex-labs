@@ -594,22 +594,22 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Flawless Diamonds",
                 body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
-                image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/flawless_diamonds.png"
             },
             {
                 title: "Exotic Colombian Emeralds & Sapphires",
                 body: "Deep green Colombian emeralds, unheated royal blue Ceylon sapphires, and vivid pigeon-blood rubies. Sourced privately for custom one-of-one heirloom pieces.",
-                image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/emeralds.jpg"
             },
             {
                 title: "Fancy Colored Diamonds",
                 body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
-                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/fancy_yellow.png"
             },
             {
                 title: "Direct Loose Stone Parcels",
                 body: "We source loose stone parcels directly from cutters before they ever touch gold. Inspect the raw cut, light return, and certification before we cast.",
-                image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/loose_parcels.png"
             }
         ];
 
@@ -717,31 +717,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "1 / 5",
                 headline: "Custom 3D CAD Design",
                 body: "We turn your reference photos into millimeter-accurate 3D models. You inspect every facet and approve the render before casting begins.",
-                image: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/cad_design.jpg"
             },
             {
                 badge: "2 / 5",
                 headline: "18K Solid Gold & Platinum",
                 body: "Heavy solid 18K gold and 950 platinum. Vacuum-cast with zero porosity so the piece feels substantial, luxurious, and indestructible.",
-                image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/gold_pour.png"
             },
             {
                 badge: "3 / 5",
                 headline: "Microscopic Hand Setting",
                 body: "Every accent stone is hand-set under 40x magnification. Perfectly aligned, ultra-secure pavé prongs that never catch on fabric or loosen.",
-                image: "https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/hand_setting.png"
             },
             {
                 badge: "4 / 5",
                 headline: "Certified Quality Control",
                 body: "Multi-stage inspection before any piece leaves our hands. Every primary stone is verified, weighed, and laser-inscribed with its certification.",
-                image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/certified_qc.png"
             },
             {
                 badge: "5 / 5",
                 headline: "White-Glove Insured Delivery",
                 body: "Armored, fully insured courier direct to your door. Complete with discreet luxury unboxing packaging and certified appraisal dossiers.",
-                image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=2400&q=80"
+                image: "assets/white_glove.png"
             }
         ];
 
