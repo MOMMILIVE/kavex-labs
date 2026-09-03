@@ -51,6 +51,7 @@ window.setKavexLocale = function(id, skipReload = false) {
     document.getElementById('k-global-menu').style.display = 'none';
     
     localStorage.setItem('kavex_locale', id);
+    if (!skipReload) localStorage.setItem('kavex_user_override', 'true');
     
     // Convert Prices immediately
     updatePricesInDOM(locale);
@@ -123,30 +124,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Auto-Detect or Load Saved
     async function initGlobalState() {
         const saved = localStorage.getItem('kavex_locale');
-        if (saved) {
+        const userOverride = localStorage.getItem('kavex_user_override');
+        if (saved && userOverride) {
             window.setKavexLocale(saved, true);
             return;
         }
 
         try {
-            const res = await fetch('https://ipapi.co/json/');
-            const data = await res.json();
+            // Use Cloudflare Trace (unblockable, unlimited rate limit)
+            const res = await fetch('https://1.1.1.1/cdn-cgi/trace');
+            const text = await res.text();
+            const locMatch = text.match(/loc=([A-Z]{2})/);
+            const countryCode = locMatch ? locMatch[1] : 'US';
             
-            let detected = kavexLocales.find(l => l.id === data.country_code);
+            let detected = kavexLocales.find(l => l.id === countryCode);
             if (!detected) {
                 const eu = ['AT','BE','CY','EE','FI','GR','IE','LV','LT','LU','MT','PT','SK','SI'];
                 const ar = ['QA','BH','KW','OM','SA'];
-                if (eu.includes(data.country_code)) detected = kavexLocales.find(l => l.id === 'DE'); // Fallback EU
-                else if (ar.includes(data.country_code)) detected = kavexLocales.find(l => l.id === 'AE'); // Fallback AR
-                else detected = kavexLocales.find(l => l.id === 'US'); // Fallback Global
+                if (eu.includes(countryCode)) detected = kavexLocales.find(l => l.id === 'DE');
+                else if (ar.includes(countryCode)) detected = kavexLocales.find(l => l.id === 'AE');
+                else detected = kavexLocales.find(l => l.id === 'US');
             }
             window.setKavexLocale(detected.id, true);
-            // If they are not English native, trigger translate on first visit without loop
-            if (detected.lang !== 'en') {
+            
+            
+            const currentCookie = document.cookie.match(/googtrans=\/en\/([^;]+)/);
+            const currentLang = currentCookie ? currentCookie[1] : 'en';
+            
+            if (detected.lang !== 'en' && detected.lang !== currentLang) {
                 triggerGoogleTranslate(detected.lang);
-                // We do a delayed reload so it translates
                 setTimeout(() => window.location.reload(), 200);
             }
+
         } catch (err) {
             window.setKavexLocale('US', true);
         }
