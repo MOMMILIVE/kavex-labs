@@ -1,3 +1,43 @@
+
+// =========================================================================
+// 0. KAVEX NATIVE PRELOADER
+// =========================================================================
+function initPreloader() {
+    const preloader = document.getElementById('kavex-preloader');
+    const bar = document.querySelector('.kavex-progress-bar');
+    const svg = document.querySelector('.kavex-loader-content svg');
+    
+    if (preloader && bar) {
+        // Force the bar to jump to 60% immediately to feel fast
+        setTimeout(() => {
+            bar.style.width = '60%';
+        }, 100);
+
+        // When all heavy assets (like the video) have actually loaded, or after a strict 1.5s minimum
+        window.addEventListener('load', () => {
+            // Fill to 100%
+            bar.style.width = '100%';
+            if (svg) svg.style.animation = 'none';
+            if (svg) svg.style.opacity = '1';
+            
+            // Wait for the bar transition to finish, then slide up the door
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                
+                // Destroy the DOM node after the slide animation finishes so it doesn't block clicks
+                setTimeout(() => {
+                    if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                }, 1200);
+            }, 800);
+        });
+    }
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPreloader);
+} else {
+    initPreloader();
+}
+
 /**
  * Precept — Native Interactive Engine
  * 100% Standalone, Zero Framer Runtime Dependencies
