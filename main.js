@@ -1,13 +1,157 @@
 
 // =========================================================================
-// KAVEX PREFS (Language & Currency Auto-Detection & Dropdown Logic)
+// KAVEX GLOBALIZATION (Language & Currency Math)
 // =========================================================================
-window.setLang = function(code, flag, label) {
-    const btn = document.getElementById('k-lang-btn');
-    if (btn) btn.innerHTML = `<span>${flag}</span> ${label} <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-    document.getElementById('k-lang-menu')?.classList.remove('open');
-    localStorage.setItem('kavex_lang', code);
+const kavexLocales = [
+    { id: 'US', flag: '🇺🇸', curr: 'USD', sym: '$', lang: 'en', label: 'English', rate: 1 },
+    { id: 'GB', flag: '🇬🇧', curr: 'GBP', sym: '£', lang: 'en', label: 'English (UK)', rate: 0.79 },
+    { id: 'NO', flag: '🇳🇴', curr: 'NOK', sym: 'kr', lang: 'no', label: 'Norsk', rate: 10.5 },
+    { id: 'SE', flag: '🇸🇪', curr: 'SEK', sym: 'kr', lang: 'sv', label: 'Svenska', rate: 10.4 },
+    { id: 'DK', flag: '🇩🇰', curr: 'DKK', sym: 'kr', lang: 'da', label: 'Dansk', rate: 6.8 },
+    { id: 'DE', flag: '🇩🇪', curr: 'EUR', sym: '€', lang: 'de', label: 'Deutsch', rate: 0.92 },
+    { id: 'FR', flag: '🇫🇷', curr: 'EUR', sym: '€', lang: 'fr', label: 'Français', rate: 0.92 },
+    { id: 'IT', flag: '🇮🇹', curr: 'EUR', sym: '€', lang: 'it', label: 'Italiano', rate: 0.92 },
+    { id: 'ES', flag: '🇪🇸', curr: 'EUR', sym: '€', lang: 'es', label: 'Español', rate: 0.92 },
+    { id: 'NL', flag: '🇳🇱', curr: 'EUR', sym: '€', lang: 'nl', label: 'Nederlands', rate: 0.92 },
+    { id: 'AE', flag: '🇦🇪', curr: 'AED', sym: 'د.إ', lang: 'ar', label: 'العربية', rate: 3.67 }
+];
+
+function triggerGoogleTranslate(langCode) {
+    // Set google translate cookie and reload to instantly translate DOM
+    document.cookie = "googtrans=/en/" + langCode + "; path=/; domain=" + window.location.hostname;
+    document.cookie = "googtrans=/en/" + langCode + "; path=/";
+}
+
+function updatePricesInDOM(locale) {
+    const priceEls = document.querySelectorAll('.k-price');
+    priceEls.forEach(el => {
+        const usd = parseFloat(el.getAttribute('data-usd'));
+        if (isNaN(usd)) return;
+        
+        let converted = usd * locale.rate;
+        let formatted = '';
+        
+        if (locale.curr === 'AED') formatted = converted.toLocaleString('en-US', {maximumFractionDigits:0}) + ' ' + locale.sym;
+        else if (locale.curr === 'EUR' || locale.curr === 'SEK' || locale.curr === 'NOK' || locale.curr === 'DKK') formatted = converted.toLocaleString('de-DE', {maximumFractionDigits:0}) + ' ' + locale.sym;
+        else formatted = locale.sym + converted.toLocaleString('en-US', {maximumFractionDigits:0});
+        
+        el.textContent = formatted;
+    });
+}
+
+window.setKavexLocale = function(id, skipReload = false) {
+    const locale = kavexLocales.find(l => l.id === id);
+    if (!locale) return;
+    
+    // Update Button UI
+    document.getElementById('k-global-flag').textContent = locale.flag;
+    document.getElementById('k-global-lbl').textContent = locale.curr + ' - ' + locale.curr; // Keep it simple for now, wait let's use language code
+    document.getElementById('k-global-lbl').textContent = `${locale.curr} - ${locale.lang.toUpperCase()}`;
+    
+    document.getElementById('k-global-menu').style.display = 'none';
+    
+    localStorage.setItem('kavex_locale', id);
+    
+    // Convert Prices immediately
+    updatePricesInDOM(locale);
+    
+    // Trigger translation
+    const currentCookie = document.cookie.match(/googtrans=/en/([^;]+)/);
+    const currentLang = currentCookie ? currentCookie[1] : 'en';
+    
+    if (locale.lang !== currentLang && !skipReload) {
+        triggerGoogleTranslate(locale.lang);
+        window.location.reload();
+    }
 };
+
+function wrapPricesInDOM() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    const nodesToReplace = [];
+    let node;
+    while(node = walker.nextNode()) {
+        if(node.parentElement && (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE')) continue;
+        if(node.parentElement && node.parentElement.classList.contains('k-price')) continue;
+        
+        const text = node.nodeValue;
+        const priceRegex = /\$([0-9,]+)(k)?/g;
+        if(priceRegex.test(text)) {
+            nodesToReplace.push(node);
+        }
+    }
+    
+    nodesToReplace.forEach(node => {
+        const span = document.createElement('span');
+        span.innerHTML = node.nodeValue.replace(/\$([0-9,]+)(k)?/g, (match, numStr, isK) => {
+            let num = parseInt(numStr.replace(/,/g, ''));
+            if(isK) num *= 1000;
+            return `<span class="k-price notranslate" data-usd="${num}">${match}</span>`;
+        });
+        node.parentNode.replaceChild(span, node);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Wrap raw numbers in spans for currency math (do this before translation hits!)
+    wrapPricesInDOM();
+
+    // 2. Build the dropdown menu
+    const menu = document.getElementById('k-global-menu');
+    if (menu) {
+        kavexLocales.forEach(l => {
+            const btn = document.createElement('button');
+            btn.className = 'k-global-option';
+            btn.innerHTML = `<span>${l.flag}</span> <span>${l.curr} - ${l.label}</span>`;
+            btn.onclick = () => window.setKavexLocale(l.id);
+            menu.appendChild(btn);
+        });
+    }
+
+    const toggleBtn = document.getElementById('k-global-btn');
+    if (toggleBtn) {
+        toggleBtn.onclick = (e) => {
+            e.stopPropagation();
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        };
+    }
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#k-global-selector') && menu) menu.style.display = 'none';
+    });
+
+    // 3. Auto-Detect or Load Saved
+    async function initGlobalState() {
+        const saved = localStorage.getItem('kavex_locale');
+        if (saved) {
+            window.setKavexLocale(saved, true);
+            return;
+        }
+
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            
+            let detected = kavexLocales.find(l => l.id === data.country_code);
+            if (!detected) {
+                const eu = ['AT','BE','CY','EE','FI','GR','IE','LV','LT','LU','MT','PT','SK','SI'];
+                const ar = ['QA','BH','KW','OM','SA'];
+                if (eu.includes(data.country_code)) detected = kavexLocales.find(l => l.id === 'DE'); // Fallback EU
+                else if (ar.includes(data.country_code)) detected = kavexLocales.find(l => l.id === 'AE'); // Fallback AR
+                else detected = kavexLocales.find(l => l.id === 'US'); // Fallback Global
+            }
+            window.setKavexLocale(detected.id, true);
+            // If they are not English native, trigger translate on first visit without loop
+            if (detected.lang !== 'en') {
+                triggerGoogleTranslate(detected.lang);
+                // We do a delayed reload so it translates
+                setTimeout(() => window.location.reload(), 200);
+            }
+        } catch (err) {
+            window.setKavexLocale('US', true);
+        }
+    }
+    setTimeout(initGlobalState, 300);
+});
+
 
 window.setCurr = function(code, sym) {
     const btn = document.getElementById('k-curr-btn');
@@ -946,7 +1090,7 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 badge: "1 / 4",
                 source: "James R. | London",
-                quote: "“I was quoted $45k by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
+                quote: "“I was quoted <span class=\"k-price notranslate\" data-usd=\"45000\">$45,000</span> by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
             },
             {
                 badge: "2 / 4",
