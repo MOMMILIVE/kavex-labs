@@ -767,9 +767,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (heroSlider) {
         const heroSlides = [
             {
-                title: "Flawless Diamonds",
-                body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
-                image: "/assets/flawless_diamonds.png"
+                title: "Fancy Colored Diamonds",
+                body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
+                image: "/assets/light_table_gems.png"
             },
             {
                 title: "Exotic Colombian Emeralds & Sapphires",
@@ -777,9 +777,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: "/assets/emeralds.jpg"
             },
             {
-                title: "Fancy Colored Diamonds",
-                body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
-                image: "/assets/fancy_yellow.png"
+                title: "Flawless Diamonds",
+                body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
+                image: "/assets/flawless_diamonds.png"
             },
             {
                 title: "Direct Loose Stone Parcels",
