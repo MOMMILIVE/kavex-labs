@@ -109,10 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const toggleBtn = document.getElementById('k-global-btn');
     if (toggleBtn) {
-        toggleBtn.onclick = (e) => {
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        };
+            console.log("Selector clicked, menu display is now:", menu.style.display);
+        });
     }
     document.addEventListener('click', (e) => {
         if (!e.target.closest('#k-global-selector') && menu) menu.style.display = 'none';
