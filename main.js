@@ -96,12 +96,23 @@ document.addEventListener("DOMContentLoaded", () => {
             // Replicate exact Framer scroll mapping
             const progress = Math.max(0, window.scrollY / (window.innerHeight || 900));
             const shift = Math.min(200, progress * 200); 
-
-            if (buildWrap) {
-                buildWrap.style.transform = `translateX(${shift.toFixed(1)}px)`;
-            }
-            if (betterWrap) {
-                betterWrap.style.transform = `translateX(${-shift.toFixed(1)}px)`;
+            
+            // Disable horizontal glitching on mobile by checking window width
+            if (window.innerWidth > 768) {
+                if (buildWrap) {
+                    buildWrap.style.transform = `translateX(${shift.toFixed(1)}px)`;
+                }
+                if (betterWrap) {
+                    betterWrap.style.transform = `translateX(${-shift.toFixed(1)}px)`;
+                }
+            } else {
+                // On mobile, keep it static or use a subtle vertical shift to avoid horizontal layout breaking
+                if (buildWrap) {
+                    buildWrap.style.transform = `translateY(${(shift * 0.2).toFixed(1)}px)`;
+                }
+                if (betterWrap) {
+                    betterWrap.style.transform = `translateY(${(shift * 0.2).toFixed(1)}px)`;
+                }
             }
         }
 
