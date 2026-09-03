@@ -22,22 +22,7 @@ function triggerGoogleTranslate(langCode) {
     document.cookie = "googtrans=/en/" + langCode + "; path=/";
 }
 
-function updatePricesInDOM(locale) {
-    const priceEls = document.querySelectorAll('.k-price');
-    priceEls.forEach(el => {
-        const usd = parseFloat(el.getAttribute('data-usd'));
-        if (isNaN(usd)) return;
-        
-        let converted = usd * locale.rate;
-        let formatted = '';
-        
-        if (locale.curr === 'AED') formatted = converted.toLocaleString('en-US', {maximumFractionDigits:0}) + ' ' + locale.sym;
-        else if (locale.curr === 'EUR' || locale.curr === 'SEK' || locale.curr === 'NOK' || locale.curr === 'DKK') formatted = converted.toLocaleString('de-DE', {maximumFractionDigits:0}) + ' ' + locale.sym;
-        else formatted = locale.sym + converted.toLocaleString('en-US', {maximumFractionDigits:0});
-        
-        el.textContent = formatted;
-    });
-}
+
 
 window.setKavexLocale = function(id, skipReload = false) {
     const locale = kavexLocales.find(l => l.id === id);
@@ -46,15 +31,14 @@ window.setKavexLocale = function(id, skipReload = false) {
     // Update Button UI
     document.getElementById('k-global-flag').textContent = locale.flag;
     document.getElementById('k-global-lbl').textContent = locale.curr + ' - ' + locale.curr; // Keep it simple for now, wait let's use language code
-    document.getElementById('k-global-lbl').textContent = `${locale.curr} - ${locale.lang.toUpperCase()}`;
+    document.getElementById('k-global-lbl').textContent = locale.lang.toUpperCase();
     
     document.getElementById('k-global-menu').style.display = 'none';
     
     localStorage.setItem('kavex_locale', id);
     if (!skipReload) localStorage.setItem('kavex_user_override', 'true');
     
-    // Convert Prices immediately
-    updatePricesInDOM(locale);
+    
     
     // Trigger translation
     const currentCookie = document.cookie.match(/googtrans=\/en\/([^;]+)/);
@@ -66,35 +50,10 @@ window.setKavexLocale = function(id, skipReload = false) {
     }
 };
 
-function wrapPricesInDOM() {
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-    const nodesToReplace = [];
-    let node;
-    while(node = walker.nextNode()) {
-        if(node.parentElement && (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE')) continue;
-        if(node.parentElement && node.parentElement.classList.contains('k-price')) continue;
-        
-        const text = node.nodeValue;
-        const priceRegex = /\$([0-9,]+)(k)?/g;
-        if(priceRegex.test(text)) {
-            nodesToReplace.push(node);
-        }
-    }
-    
-    nodesToReplace.forEach(node => {
-        const span = document.createElement('span');
-        span.innerHTML = node.nodeValue.replace(/\$([0-9,]+)(k)?/g, (match, numStr, isK) => {
-            let num = parseInt(numStr.replace(/,/g, ''));
-            if(isK) num *= 1000;
-            return `<span class="k-price notranslate" data-usd="${num}">${match}</span>`;
-        });
-        node.parentNode.replaceChild(span, node);
-    });
-}
+
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Wrap raw numbers in spans for currency math (do this before translation hits!)
-    wrapPricesInDOM();
+    
 
     // 2. Build the dropdown menu
     const menu = document.getElementById('k-global-menu');
@@ -102,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         kavexLocales.forEach(l => {
             const btn = document.createElement('button');
             btn.className = 'k-global-option';
-            btn.innerHTML = `<span>${l.flag}</span> <span>${l.curr} - ${l.label}</span>`;
+            btn.innerHTML = `<span>${l.flag}</span> <span>${l.label}</span>`;
             btn.onclick = () => window.setKavexLocale(l.id);
             menu.appendChild(btn);
         });
@@ -1101,7 +1060,7 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 badge: "1 / 4",
                 source: "James R. | London",
-                quote: "“I was quoted <span class=\"k-price notranslate\" data-usd=\"45000\">$45,000</span> by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
+                quote: "“I was quoted $45k by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
             },
             {
                 badge: "2 / 4",
