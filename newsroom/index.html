@@ -599,11 +599,235 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
 
 
 </div></div></div></nav>
+<style>
+.gnR7dqop {
+    --ink: rgb(17, 19, 17);
+    border-radius: 2px;
+    overflow: hidden;
+    background: rgba(245, 245, 243, 0.6);
+    color: var(--ink);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    border: 1px solid rgba(255,255,255,0.55);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+    transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    /* the nav box itself never blocks clicks — only its visible content
+       (header + the expanded panel) re-enables pointer events, so the
+       collapsed-but-present panel area can't cover page content */
+    pointer-events: none;
+}
+.gnR7dqop .gn-head { pointer-events: auto; }
+.gnR7dqop.open { pointer-events: auto; }
+.gnR7dqop * { box-sizing: border-box; margin: 0; padding: 0; }
+.gnR7dqop .gn-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0 16px;
+    padding: 18px 18px 16px 18px;
+    align-items: start;
+}
+.gnR7dqop .gn-logo-link {
+    grid-row: 1 / 3; display: block; position: relative;
+    text-decoration: none; color: inherit; cursor: pointer;
+}
+.gnR7dqop .gn-logo { grid-row: 1 / 3; width: 72px; display: flex; position: relative; }
+.gnR7dqop .gn-logo-link .gn-logo { grid-row: auto; }
+.gnR7dqop .gn-logo img { width: 100%; height: auto; display: block; }
+.gnR7dqop .gn-logo-tint {
+    position: absolute; inset: 0;
+    background: var(--ink);
+    mask-size: contain; -webkit-mask-size: contain;
+    mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+    mask-position: left top; -webkit-mask-position: left top;
+    transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-crumb {
+    padding-top: 8px;
+    min-width: 0; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.gnR7dqop .gn-crumb span { opacity: 0.45; }
+.gnR7dqop .gn-btn {
+    display: flex; align-items: center; gap: 10px;
+    justify-self: end;
+    background: none; border: none; cursor: pointer;
+    color: var(--ink); padding: 0;
+}
+.gnR7dqop .gn-chev {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: color-mix(in srgb, var(--ink) 9%, transparent);
+    display: grid; place-items: center;
+    transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-chev svg {
+    width: 16px; height: 16px;
+    fill: currentColor; stroke: none;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-chev svg circle {
+    transform-box: fill-box; transform-origin: center;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* dotted square → dotted X: the 4 edge-midpoint dots collapse away,
+   leaving the 4 corners + center, which already sit on the diagonals */
+.gnR7dqop.open .gn-chev .gn-dot-edge { opacity: 0; transform: scale(0); }
+.gnR7dqop.open .gn-chev svg { transform: rotate(90deg); }
+.gnR7dqop .gn-brand {
+    grid-column: 2 / 4; align-self: end;
+    padding-top: 18px; white-space: pre-line;
+}
+.gnR7dqop .gn-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop.open .gn-panel { grid-template-rows: 1fr; }
+.gnR7dqop .gn-panel-inner { overflow: hidden; min-height: 0; }
+.gnR7dqop .gn-pad { padding: 8px 18px 20px 18px; }
+.gnR7dqop ul { list-style: none; }
+.gnR7dqop .gn-links li, .gnR7dqop .gn-subs li { position: relative; }
+.gnR7dqop .gn-links li { padding-bottom: 9px; }
+.gnR7dqop .gn-subs li { padding-bottom: 7px; }
+/* divider that draws in left→right with the row */
+.gnR7dqop .gn-links li::after, .gnR7dqop .gn-subs li::after {
+    content: "";
+    position: absolute; left: 4px; right: 4px; bottom: 0;
+    height: 1px;
+    background: color-mix(in srgb, var(--ink) 16%, transparent);
+    transform: scaleX(0); transform-origin: left center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0s);
+}
+.gnR7dqop.open .gn-links li::after, .gnR7dqop.open .gn-subs li::after {
+    transform: scaleX(1);
+}
+.gnR7dqop .gn-subs li:last-child::after { display: none; }
+/* link row: styled element + transparent click overlay on top */
+.gnR7dqop .gn-link-wrap { position: relative; display: block; }
+.gnR7dqop .gn-link-hit {
+    position: absolute; inset: 0; z-index: 2;
+    display: block; cursor: pointer; text-decoration: none;
+}
+.gnR7dqop .gn-link {
+    display: block; position: relative;
+    padding: 11px 4px 2px 28px; text-decoration: none; color: var(--ink);
+    cursor: pointer;
+}
+/* diamond marker — main links only, absolute in the left indent */
+.gnR7dqop .gn-links .gn-link::before {
+    content: "";
+    position: absolute; left: 4px; top: 50%;
+    width: 6px; height: 6px; margin-top: -3px;
+    background: currentColor;
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-links .gn-link-wrap:hover .gn-link::before,
+.gnR7dqop .gn-links .gn-link.current::before {
+    transform: rotate(45deg) scale(1); opacity: 1;
+}
+/* roll-up word: two stacked copies slide together on hover */
+.gnR7dqop .gn-roll {
+    position: relative; display: inline-block; overflow: hidden;
+    vertical-align: top; line-height: 1.08; padding-bottom: 0.14em;
+}
+.gnR7dqop .gn-roll span {
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-roll .gn-roll-in {
+    position: absolute; left: 0; top: 0;
+    transform: translateY(100%);
+}
+.gnR7dqop .gn-link-wrap:hover .gn-roll .gn-roll-out { transform: translateY(-100%); }
+.gnR7dqop .gn-link-wrap:hover .gn-roll .gn-roll-in { transform: translateY(0); }
+@media (hover: hover) {
+    .gnR7dqop .gn-link { transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+    .gnR7dqop .gn-links:hover .gn-link-wrap:not(:hover) .gn-link,
+    .gnR7dqop .gn-subs:hover .gn-link-wrap:not(:hover) .gn-link {
+        opacity: 0.32;
+    }
+}
+.gnR7dqop .gn-sub-head {
+    margin: 30px 4px 10px 28px;
+}
+.gnR7dqop .gn-sub-head-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+}
+.gnR7dqop .gn-eyebrow { opacity: 0.5; }
+.gnR7dqop .gn-subs .gn-link {
+    padding: 9px 4px 2px 28px;
+}
+.gnR7dqop .gn-foot {
+    margin-top: 32px; padding: 0 4px 0 28px;
+}
+.gnR7dqop .gn-foot-row {
+    display: flex; justify-content: space-between; align-items: center;
+}
+.gnR7dqop .gn-lang {
+    display: flex; align-items: center; gap: 10px;
+    background: color-mix(in srgb, var(--ink) 9%, transparent);
+    border-radius: 9px; padding: 7px 12px;
+    transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gnR7dqop .gn-lang button {
+    background: none; border: none; cursor: pointer; font: inherit;
+    color: var(--ink); opacity: 0.45; padding: 0;
+}
+.gnR7dqop .gn-lang button.on {
+    opacity: 1; text-decoration: underline; text-underline-offset: 3px;
+}
+.gnR7dqop .gn-lang .sep { opacity: 0.2; }
+.gnR7dqop .gn-reveal {
+    display: block; position: relative;
+}
+.gnR7dqop .gn-rise {
+    display: block;
+    overflow: hidden;
+}
+.gnR7dqop .gn-rise-i {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--d, 0s);
+}
+.gnR7dqop.open .gn-rise-i {
+    transform: translateY(0);
+}
+.gnR7dqop-backdrop {
+    position: fixed; inset: 0; z-index: 9998;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    pointer-events: auto;
+    animation: gnR7dqop-bdin 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes gnR7dqop-bdin {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .gnR7dqop .gn-panel, .gnR7dqop .gn-reveal, .gnR7dqop-backdrop,
+    .gnR7dqop .gn-chev svg, .gnR7dqop .gn-chev svg circle {
+        transition: none !important;
+    }
+}
+</style>
   <!-- Native Interactive Engine (No Framer dependencies) -->
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="/main.js?v=1788421378"></script>
+  <script src="/main.js?v=1788449998"></script>
                 
 
 
