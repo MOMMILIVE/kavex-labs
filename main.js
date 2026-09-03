@@ -36,7 +36,6 @@ window.setKavexLocale = function(id, skipReload = false) {
     document.getElementById('k-global-menu').style.display = 'none';
     
     localStorage.setItem('kavex_locale', id);
-    if (!skipReload) localStorage.setItem('kavex_user_override', 'true');
     
     
     
@@ -81,45 +80,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 3. Auto-Detect or Load Saved
-    async function initGlobalState() {
+    function initGlobalState() {
         const saved = localStorage.getItem('kavex_locale');
-        const userOverride = localStorage.getItem('kavex_user_override');
-        if (saved && userOverride) {
+        if (saved) {
             window.setKavexLocale(saved, true);
-            return;
-        }
-
-        try {
-            // Use Cloudflare Trace (unblockable, unlimited rate limit)
-            const res = await fetch('https://1.1.1.1/cdn-cgi/trace');
-            const text = await res.text();
-            const locMatch = text.match(/loc=([A-Z]{2})/);
-            const countryCode = locMatch ? locMatch[1] : 'US';
-            
-            let detected = kavexLocales.find(l => l.id === countryCode);
-            if (!detected) {
-                const eu = ['AT','BE','CY','EE','FI','GR','IE','LV','LT','LU','MT','PT','SK','SI'];
-                const ar = ['QA','BH','KW','OM','SA'];
-                if (eu.includes(countryCode)) detected = kavexLocales.find(l => l.id === 'DE');
-                else if (ar.includes(countryCode)) detected = kavexLocales.find(l => l.id === 'AE');
-                else detected = kavexLocales.find(l => l.id === 'US');
-            }
-            window.setKavexLocale(detected.id, true);
-            
-            
-            const currentCookie = document.cookie.match(/googtrans=\/en\/([^;]+)/);
-            const currentLang = currentCookie ? currentCookie[1] : 'en';
-            
-            if (detected.lang !== 'en' && detected.lang !== currentLang) {
-                triggerGoogleTranslate(detected.lang);
-                setTimeout(() => window.location.reload(), 200);
-            }
-
-        } catch (err) {
+        } else {
             window.setKavexLocale('US', true);
         }
     }
-    setTimeout(initGlobalState, 300);
+    initGlobalState();
 });
 
 
