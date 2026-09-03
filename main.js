@@ -766,30 +766,35 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Flawless Diamonds",
                 body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
-                image: "assets/flawless_diamonds.png"
+                image: "/assets/flawless_diamonds.png"
             },
             {
                 title: "Exotic Colombian Emeralds & Sapphires",
                 body: "Deep green Colombian emeralds, unheated royal blue Ceylon sapphires, and vivid pigeon-blood rubies. Sourced privately for custom one-of-one heirloom pieces.",
-                image: "assets/emeralds.jpg"
+                image: "/assets/emeralds.jpg"
             },
             {
                 title: "Fancy Colored Diamonds",
                 body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
-                image: "assets/fancy_yellow.png"
+                image: "/assets/fancy_yellow.png"
             },
             {
                 title: "Direct Loose Stone Parcels",
                 body: "We source loose stone parcels directly from cutters before they ever touch gold. Inspect the raw cut, light return, and certification before we cast.",
-                image: "assets/loose_parcels.png"
+                image: "/assets/loose_parcels.png"
             }
         ];
+
+        // Preload images to prevent black flashing
+        heroSlides.forEach(slide => {
+            const preload = new Image();
+            preload.src = slide.image;
+        });
 
         let currentHeroIdx = 0;
         const titleEl = heroSlider.querySelector('h2');
         const bodyEl = heroSlider.querySelector('p');
-        const imgEl = heroSlider.querySelector('img');
-        const ctaEl = heroSlider.querySelector('a[aria-label="View Specifications"], a[aria-label="Learn More"]');
+        const ctaEl = heroSlider.querySelector('a[aria-label="View Specifications"], a[aria-label="Learn More"], a[aria-label="Speak to Concierge"]');
         
         const barContainers = heroSlider.querySelectorAll('.gem-tab, div[style*="position:absolute;left:32px;right:32px;bottom:32px"] > div');
         const fillBars = heroSlider.querySelectorAll('.gem-tab-fill, div[style*="background: rgba(255, 255, 255, 0.7)"]');
@@ -820,16 +825,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (titleEl) titleEl.textContent = data.title;
             if (bodyEl) bodyEl.textContent = data.body;
-            if (imgEl) {
-                imgEl.style.transition = 'opacity 0.4s ease';
-                imgEl.style.opacity = '0';
-                setTimeout(() => {
-                    imgEl.src = data.image;
-                    imgEl.removeAttribute('srcset');
-                    imgEl.srcset = '';
-                    imgEl.alt = data.title;
-                    imgEl.style.opacity = '1';
-                }, 200);
+            
+            // Query dynamically in case DOM was recreated or modified
+            const freshImgEl = heroSlider.querySelector('img');
+            if (freshImgEl) {
+                // Ensure visibility and z-index just in case
+                freshImgEl.style.display = 'block';
+                freshImgEl.style.visibility = 'visible';
+                freshImgEl.style.opacity = '1';
+                
+                // Only animate if the src is actually changing
+                if (freshImgEl.getAttribute('src') !== data.image) {
+                    freshImgEl.style.transition = 'opacity 0.25s ease';
+                    freshImgEl.style.opacity = '0.3'; // Don't go completely black
+                    
+                    setTimeout(() => {
+                        freshImgEl.src = data.image;
+                        freshImgEl.removeAttribute('srcset');
+                        freshImgEl.removeAttribute('sizes');
+                        freshImgEl.alt = data.title;
+                        
+                        // Force a reflow
+                        void freshImgEl.offsetWidth;
+                        
+                        freshImgEl.style.opacity = '1';
+                    }, 250);
+                }
             }
 
             if (tabLabels && tabLabels.length) {
@@ -878,7 +899,7 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(animateHeroProgress);
     }
 
-    
+    // =========================================================================
     // =========================================================================
     // 6. CAPABLE INDUSTRIES CAROUSEL (Real-Time Drag & Smooth Transitions)
     // =========================================================================
@@ -889,31 +910,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "1 / 5",
                 headline: "Custom 3D CAD Design",
                 body: "We turn your reference photos into millimeter-accurate 3D models. You inspect every facet and approve the render before casting begins.",
-                image: "assets/cad_design.jpg"
+                image: "/assets/cad_design.jpg"
             },
             {
                 badge: "2 / 5",
                 headline: "18K Solid Gold & Platinum",
                 body: "Heavy solid 18K gold and 950 platinum. Vacuum-cast with zero porosity so the piece feels substantial, luxurious, and indestructible.",
-                image: "assets/gold_pour.png"
+                image: "/assets/gold_pour.png"
             },
             {
                 badge: "3 / 5",
                 headline: "Microscopic Hand Setting",
                 body: "Every accent stone is hand-set under 40x magnification. Perfectly aligned, ultra-secure pavé prongs that never catch on fabric or loosen.",
-                image: "assets/hand_setting.png"
+                image: "/assets/hand_setting.png"
             },
             {
                 badge: "4 / 5",
                 headline: "Certified Quality Control",
                 body: "Multi-stage inspection before any piece leaves our hands. Every primary stone is verified, weighed, and laser-inscribed with its certification.",
-                image: "assets/certified_qc.png"
+                image: "/assets/certified_qc.png"
             },
             {
                 badge: "5 / 5",
                 headline: "White-Glove Insured Delivery",
                 body: "Armored, fully insured courier direct to your door. Complete with discreet luxury unboxing packaging and certified appraisal dossiers.",
-                image: "assets/white_glove.png"
+                image: "/assets/white_glove.png"
             }
         ];
 
