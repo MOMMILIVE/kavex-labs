@@ -1,5 +1,110 @@
 
 // =========================================================================
+// KAVEX PREFS (Language & Currency Auto-Detection & Dropdown Logic)
+// =========================================================================
+window.setLang = function(code, flag, label) {
+    const btn = document.getElementById('k-lang-btn');
+    if (btn) btn.innerHTML = `<span>${flag}</span> ${label} <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    document.getElementById('k-lang-menu')?.classList.remove('open');
+    localStorage.setItem('kavex_lang', code);
+};
+
+window.setCurr = function(code, sym) {
+    const btn = document.getElementById('k-curr-btn');
+    if (btn) btn.innerHTML = `<span id="k-curr-sym">${sym}</span> <span id="k-curr-lbl">${code}</span> <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    document.getElementById('k-curr-menu')?.classList.remove('open');
+    localStorage.setItem('kavex_curr', code);
+    
+    // Future expansion: Trigger an event to update pricing displays globally
+    window.dispatchEvent(new CustomEvent('currencyChange', { detail: { code, sym } }));
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Dropdown toggles
+    const langBtn = document.getElementById('k-lang-btn');
+    const currBtn = document.getElementById('k-curr-btn');
+    const langMenu = document.getElementById('k-lang-menu');
+    const currMenu = document.getElementById('k-curr-menu');
+    
+    if (langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currMenu?.classList.remove('open');
+            langMenu.classList.toggle('open');
+        });
+    }
+    
+    if (currBtn && currMenu) {
+        currBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langMenu?.classList.remove('open');
+            currMenu.classList.toggle('open');
+        });
+    }
+    
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#k-lang-wrap')) langMenu?.classList.remove('open');
+        if (!e.target.closest('#k-curr-wrap')) currMenu?.classList.remove('open');
+    });
+
+    // Auto-detect Location & Set Defaults
+    async function initGeolocation() {
+        const savedLang = localStorage.getItem('kavex_lang');
+        const savedCurr = localStorage.getItem('kavex_curr');
+        
+        if (savedLang && savedCurr) {
+            // Already set, skip detection
+            return;
+        }
+
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            
+            // Map Country to Currency/Lang
+            const euCountries = ['AT','BE','CY','EE','FI','FR','DE','GR','IE','IT','LV','LT','LU','MT','NL','PT','SK','SI','ES'];
+            const arabicCountries = ['AE','SA','QA','BH','KW','OM'];
+            const se = 'SE';
+            const gb = 'GB';
+            
+            let targetCurr = 'USD';
+            let targetSym = '$';
+            let targetLang = 'en';
+            let targetFlag = '🇺🇸';
+            let targetLabel = 'English';
+
+            if (euCountries.includes(data.country_code)) {
+                targetCurr = 'EUR'; targetSym = '€';
+                if (data.country_code === 'FR') { targetLang = 'fr'; targetFlag = '🇫🇷'; targetLabel = 'Français'; }
+                else if (data.country_code === 'DE') { targetLang = 'de'; targetFlag = '🇩🇪'; targetLabel = 'Deutsch'; }
+                else if (data.country_code === 'ES') { targetLang = 'es'; targetFlag = '🇪🇸'; targetLabel = 'Español'; }
+                else if (data.country_code === 'IT') { targetLang = 'it'; targetFlag = '🇮🇹'; targetLabel = 'Italiano'; }
+            } else if (data.country_code === se) {
+                targetCurr = 'SEK'; targetSym = 'kr';
+                targetLang = 'sv'; targetFlag = '🇸🇪'; targetLabel = 'Svenska';
+            } else if (data.country_code === gb) {
+                targetCurr = 'GBP'; targetSym = '£';
+            } else if (arabicCountries.includes(data.country_code)) {
+                targetCurr = 'AED'; targetSym = 'د.إ';
+                targetLang = 'ar'; targetFlag = '🇦🇪'; targetLabel = 'العربية';
+            }
+
+            if (!savedCurr) window.setCurr(targetCurr, targetSym);
+            if (!savedLang) window.setLang(targetLang, targetFlag, targetLabel);
+            
+        } catch (err) {
+            console.warn('Geolocation failed, defaulting to USD/EN');
+        }
+    }
+    
+    // Slight delay to avoid blocking render
+    setTimeout(initGeolocation, 500);
+});
+
+
+
+// =========================================================================
 // 0. KAVEX NATIVE PRELOADER
 // =========================================================================
 
