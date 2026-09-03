@@ -54,7 +54,9 @@ window.setKavexLocale = function(id, skipReload = false) {
 document.addEventListener("DOMContentLoaded", () => {
 
     // FIX FRAMER HYDRATION BUG ON SUBPAGES
-    document.querySelectorAll('[style*="opacity: 0"], [style*="opacity:0"]').forEach(el => {
+    document.querySelectorAll('*').forEach(el => {
+        const op = el.style.opacity;
+        if (op === '0' || op === '0.0') {
         // If it's a framer component or section, force it visible (fixes blank pages)
         if (el.hasAttribute('data-framer-name') || el.classList.contains('gn-reveal') || el.closest('[data-framer-name]')) {
             // Be careful not to un-hide the global menu or custom modal
@@ -65,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
+    }
     });
 
     
