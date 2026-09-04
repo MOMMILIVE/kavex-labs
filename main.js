@@ -1233,6 +1233,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); setTestimonial(curTestIdx - 1, -1); });
         if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); setTestimonial(curTestIdx + 1, 1); });
 
+        // Initialize immediately so the magazine quote is visible right away
+        setTestimonial(0, 1);
+
         // Real-time Drag on Testimonials
         let isDraggingTest = false;
         let startXTest = 0;
