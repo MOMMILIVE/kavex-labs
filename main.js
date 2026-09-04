@@ -407,7 +407,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     requestAnimationFrame(renderHeroGlow);
                 }
 
-                renderHeroGlow();
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) { renderHeroGlow(); } else { // Static single render for mobile/touch
+ const w = window.innerWidth, h = heroSection.offsetHeight || window.innerHeight; ctx.clearRect(0,0,w,h); const cols = Math.ceil(w/16); const rows = Math.ceil(h/16); for(let r=-2; r<=rows+2; r++){ for(let c=-2; c<=cols+2; c++){ ctx.fillStyle = 'rgba(237,237,237,0.08)'; ctx.fillRect((w-cols*16)/2+c*16 - 0.75, (h-rows*16)/2+r*16 - 0.75, 1.5, 1.5); } } }
             }
         }
     }
@@ -769,30 +770,41 @@ document.addEventListener("DOMContentLoaded", () => {
             {
                 title: "Fancy Colored Diamonds",
                 body: "Vivid canary yellows, rare blush pinks, and oceanic blues. Museum-grade color saturation secured through our private broker syndicate without auction house markups.",
-                image: "/assets/light_table_gems.png"
+                image: "/assets/light_table_gems.webp"
             },
             {
                 title: "Exotic Colombian Emeralds & Sapphires",
                 body: "Deep green Colombian emeralds, unheated royal blue Ceylon sapphires, and vivid pigeon-blood rubies. Sourced privately for custom one-of-one heirloom pieces.",
-                image: "/assets/emeralds.jpg"
+                image: "/assets/emeralds.webp"
             },
             {
                 title: "Flawless Diamonds",
                 body: "Hand-selected 1 to 10+ carat diamonds. D to F color, VVS+ clarity, cut for maximum light return. Sourced directly from cutting floors across Antwerp and Surat.",
-                image: "/assets/flawless_diamonds.png"
+                image: "/assets/flawless_diamonds.webp"
             },
             {
                 title: "Direct Loose Stone Parcels",
                 body: "We source loose stone parcels directly from cutters before they ever touch gold. Inspect the raw cut, light return, and certification before we cast.",
-                image: "/assets/loose_parcels.png"
+                image: "/assets/loose_parcels.webp"
             }
         ];
 
-        // Preload images to prevent black flashing
-        heroSlides.forEach(slide => {
-            const preload = new Image();
-            preload.src = slide.image;
-        });
+        // Lazy-preload next slide on interaction or after idle to save mobile data
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                heroSlides.forEach(slide => {
+                    const preload = new Image();
+                    preload.src = slide.image;
+                });
+            }, { timeout: 3000 });
+        } else {
+            setTimeout(() => {
+                heroSlides.forEach(slide => {
+                    const preload = new Image();
+                    preload.src = slide.image;
+                });
+            }, 2500);
+        }
 
         let currentHeroIdx = 0;
         const titleEl = heroSlider.querySelector('h2');
@@ -913,31 +925,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 badge: "1 / 5",
                 headline: "Custom 3D CAD Design",
                 body: "We turn your reference photos into millimeter-accurate 3D models. You inspect every facet and approve the render before casting begins.",
-                image: "/assets/cad_design.jpg"
+                image: "/assets/cad_design.webp"
             },
             {
                 badge: "2 / 5",
                 headline: "18K Solid Gold & Platinum",
                 body: "Heavy solid 18K gold and 950 platinum. Vacuum-cast with zero porosity so the piece feels substantial, luxurious, and indestructible.",
-                image: "/assets/gold_pour.png"
+                image: "/assets/gold_pour.webp"
             },
             {
                 badge: "3 / 5",
                 headline: "Microscopic Hand Setting",
                 body: "Every accent stone is hand-set under 40x magnification. Perfectly aligned, ultra-secure pavé prongs that never catch on fabric or loosen.",
-                image: "/assets/hand_setting.png"
+                image: "/assets/hand_setting.webp"
             },
             {
                 badge: "4 / 5",
                 headline: "Certified Quality Control",
                 body: "Multi-stage inspection before any piece leaves our hands. Every primary stone is verified, weighed, and laser-inscribed with its certification.",
-                image: "/assets/certified_qc.png"
+                image: "/assets/certified_qc.webp"
             },
             {
                 badge: "5 / 5",
                 headline: "White-Glove Insured Delivery",
                 body: "Armored, fully insured courier direct to your door. Complete with discreet luxury unboxing packaging and certified appraisal dossiers.",
-                image: "/assets/white_glove.png"
+                image: "/assets/white_glove.webp"
             }
         ];
 
@@ -1628,7 +1640,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     requestAnimationFrame(renderFooterGlow);
                 }
 
-                renderFooterGlow();
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) { renderFooterGlow(); } else { // Static single render for footer
+ const w = window.innerWidth, h = footer.offsetHeight || 400; ctx.clearRect(0,0,w,h); const cols = Math.ceil(w/16); const rows = Math.ceil(h/16); for(let r=-2; r<=rows+2; r++){ for(let c=-2; c<=cols+2; c++){ ctx.fillStyle = 'rgba(237,237,237,0.08)'; ctx.fillRect((w-cols*16)/2+c*16 - 0.75, (h-rows*16)/2+r*16 - 0.75, 1.5, 1.5); } } }
             }
         }
     }
