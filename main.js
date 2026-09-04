@@ -912,6 +912,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
         goToHeroSlide(currentHeroIdx);
         requestAnimationFrame(animateHeroProgress);
+
+        // --- Touch & Pointer Swipe Support (Left / Right) ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        let isSwiping = false;
+
+        heroSlider.style.touchAction = 'pan-y'; // allow vertical scroll while capturing horizontal swipe
+
+        heroSlider.addEventListener('touchstart', (e) => {
+            if (e.target.closest('a') || e.target.closest('button')) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchEndX = touchStartX;
+            touchEndY = touchStartY;
+            isSwiping = true;
+        }, { passive: true });
+
+        heroSlider.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            touchEndX = e.touches[0].clientX;
+            touchEndY = e.touches[0].clientY;
+        }, { passive: true });
+
+        heroSlider.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            
+            // Only trigger if horizontal swipe is dominant and exceeds threshold (40px)
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.2) {
+                if (diffX < 0) {
+                    // Swiped Left -> Next Slide
+                    const nextIdx = (currentHeroIdx + 1) % heroSlides.length;
+                    goToHeroSlide(nextIdx);
+                } else {
+                    // Swiped Right -> Previous Slide
+                    const prevIdx = (currentHeroIdx - 1 + heroSlides.length) % heroSlides.length;
+                    goToHeroSlide(prevIdx);
+                }
+            }
+        }, { passive: true });
+
+        // Pointer event support for desktop click-and-drag testing
+        let pointerStartX = 0;
+        let pointerStartY = 0;
+        let isPointerDown = false;
+
+        heroSlider.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.gem-tab')) return;
+            pointerStartX = e.clientX;
+            pointerStartY = e.clientY;
+            isPointerDown = true;
+        });
+
+        heroSlider.addEventListener('pointerup', (e) => {
+            if (!isPointerDown) return;
+            isPointerDown = false;
+            const diffX = e.clientX - pointerStartX;
+            const diffY = e.clientY - pointerStartY;
+            if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX < 0) {
+                    goToHeroSlide((currentHeroIdx + 1) % heroSlides.length);
+                } else {
+                    goToHeroSlide((currentHeroIdx - 1 + heroSlides.length) % heroSlides.length);
+                }
+            }
+        });
+
+        heroSlider.addEventListener('pointercancel', () => {
+            isPointerDown = false;
+        });
     }
 
     // =========================================================================
