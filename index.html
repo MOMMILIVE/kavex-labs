@@ -2655,212 +2655,131 @@ footer, .framer-ZEYvg, .framer-1m3vhtb {
   inherits: false;
 }
 
-@property --gradient-angle-offset {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gradient-percent {
-  syntax: "<percentage>";
-  initial-value: 5%;
-  inherits: false;
-}
-
-@property --gradient-shine {
-  syntax: "<color>";
-  initial-value: white;
-  inherits: false;
-}
-
-.kavex-floating-concierge {
-  --shiny-cta-bg: #000000;
-  --shiny-cta-bg-subtle: #1a1818;
-  --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: #16a34a;
-  --shiny-cta-highlight-subtle: #86efac;
-  --animation: gradient-angle linear infinite;
-  --duration: 3s;
-  --shadow-size: 2px;
-  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
-  
+/* New Avatar Widget Styles */
+.kavex-floating-avatar {
   position: fixed;
   bottom: 28px;
   right: 28px;
   z-index: 999999;
-  isolation: isolate;
-  overflow: hidden;
-  cursor: pointer;
-  outline-offset: 4px;
-  padding: 0.95rem 1.75rem;
-  font-family: "Inter", sans-serif;
-  font-size: 0.9375rem;
-  line-height: 1.2;
-  font-weight: 500;
-  border: 1px solid transparent;
-  border-radius: 360px;
-  color: var(--shiny-cta-fg);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-    conic-gradient(
-      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-      transparent,
-      var(--shiny-cta-highlight) var(--gradient-percent),
-      var(--gradient-shine) calc(var(--gradient-percent) * 2),
-      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-      transparent calc(var(--gradient-percent) * 4)
-    ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle), 0 8px 32px rgba(0, 0, 0, 0.9);
-  transition: var(--transition);
-  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-}
-
-.kavex-floating-concierge::before,
-.kavex-floating-concierge::after,
-.kavex-floating-concierge span::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset-inline-start: 50%;
-  inset-block-start: 50%;
-  translate: -50% -50%;
-  z-index: -1;
-}
-
-.kavex-floating-concierge:active {
-  translate: 0 1px;
-}
-
-/* Dots pattern */
-.kavex-floating-concierge::before {
-  --size: calc(100% - var(--shadow-size) * 3);
-  --position: 2px;
-  --space: calc(var(--position) * 2);
-  width: var(--size);
-  height: var(--size);
-  background: radial-gradient(
-    circle at var(--position) var(--position),
-    white calc(var(--position) / 4),
-    transparent 0
-  ) padding-box;
-  background-size: var(--space) var(--space);
-  background-repeat: space;
-  mask-image: conic-gradient(
-    from calc(var(--gradient-angle) + 45deg),
-    black,
-    transparent 10% 90%,
-    black
-  );
-  -webkit-mask-image: conic-gradient(
-    from calc(var(--gradient-angle) + 45deg),
-    black,
-    transparent 10% 90%,
-    black
-  );
-  border-radius: inherit;
-  opacity: 0.4;
-  z-index: -1;
-}
-
-/* Inner shimmer */
-.kavex-floating-concierge::after {
-  --animation: shimmer linear infinite;
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(
-    -50deg,
-    transparent,
-    var(--shiny-cta-highlight),
-    transparent
-  );
-  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-  -webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-  opacity: 0.6;
-}
-
-.kavex-floating-concierge span {
   display: flex;
   align-items: center;
-  gap: 8px;
-  z-index: 1;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Geist', sans-serif;
 }
 
-.kavex-floating-concierge span::before {
-  --size: calc(100% + 1rem);
-  width: var(--size);
-  height: var(--size);
-  box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+.kavex-avatar-img-container {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.05));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kavex-avatar-img-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.kavex-floating-avatar:hover .kavex-avatar-img-container {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.kavex-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #111;
+  border: 2px solid #000;
+}
+
+.kavex-online-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  background: #25D366;
+  border: 2px solid #000;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.kavex-online-badge::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #25D366;
+  animation: pulse-online 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pulse-online {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+.kavex-avatar-tooltip {
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 16px;
+  border-radius: 24px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
   opacity: 0;
-  transition: opacity var(--transition);
-  animation: calc(var(--duration) * 1.5) breathe linear infinite;
+  transform: translateX(10px);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Animate */
-.kavex-floating-concierge,
-.kavex-floating-concierge::before,
-.kavex-floating-concierge::after {
-  animation: var(--animation) var(--duration),
-    var(--animation) calc(var(--duration) / 0.4) reverse paused;
-  animation-composition: add;
-}
-
-.kavex-floating-concierge:is(:hover, :focus-visible) {
-  --gradient-percent: 20%;
-  --gradient-angle-offset: 95deg;
-  --gradient-shine: var(--shiny-cta-highlight-subtle);
-}
-
-.kavex-floating-concierge:is(:hover, :focus-visible),
-.kavex-floating-concierge:is(:hover, :focus-visible)::before,
-.kavex-floating-concierge:is(:hover, :focus-visible)::after {
-  animation-play-state: running;
-}
-
-.kavex-floating-concierge:is(:hover, :focus-visible) span::before {
+.kavex-floating-avatar:hover .kavex-avatar-tooltip {
   opacity: 1;
-}
-
-@keyframes gradient-angle {
-  to {
-    --gradient-angle: 360deg;
-  }
-}
-
-@keyframes shimmer {
-  to {
-    rotate: 360deg;
-  }
-}
-
-@keyframes breathe {
-  from, to {
-    scale: 1;
-  }
-  50% {
-    scale: 1.2;
-  }
+  transform: translateX(0);
 }
 
 @media (max-width: 640px) {
-  .kavex-floating-concierge {
+  .kavex-floating-avatar {
     bottom: 20px;
     right: 20px;
-    padding: 0.75rem 1.25rem;
-    font-size: 0.8125rem;
+  }
+  .kavex-avatar-tooltip {
+    display: none;
+  }
+  .kavex-avatar-img-container {
+    width: 50px;
+    height: 50px;
   }
 }
 </style>
 
-<a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" class="kavex-floating-concierge" aria-label="Open Private Concierge">
-  <span>
-    <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
-      <path fill="currentColor" d="m7.254 18.494l.724.423A7.95 7.95 0 0 0 12.001 20a8 8 0 1 0-8-8a7.95 7.95 0 0 0 1.084 4.024l.422.724l-.653 2.401zM2.005 22l1.352-4.968A9.95 9.95 0 0 1 2.001 12c0-5.523 4.477-10 10-10s10 4.477 10 10s-4.477 10-10 10a9.95 9.95 0 0 1-5.03-1.355zM8.392 7.308q.202-.014.403-.004q.081.006.162.016c.159.018.334.115.393.249q.447 1.015.868 2.04c.062.152.025.347-.093.537c-.06.097-.154.233-.263.372c-.113.145-.356.411-.356.411s-.099.118-.061.265c.014.056.06.137.102.205l.059.095c.256.427.6.86 1.02 1.268c.12.116.237.235.363.346c.468.413.998.75 1.57 1l.005.002c.085.037.128.057.252.11q.093.039.191.066q.036.01.073.011a.35.35 0 0 0 .295-.142c.723-.876.79-.933.795-.933v.002a.48.48 0 0 1 .378-.127q.092.004.177.04c.531.243 1.4.622 1.4.622l.582.261c.098.047.187.158.19.265c.004.067.01.175-.013.373c-.032.259-.11.57-.188.733a1.2 1.2 0 0 1-.21.302a2.4 2.4 0 0 1-.33.288q-.124.092-.125.09a5 5 0 0 1-.383.22a2 2 0 0 1-.833.23c-.185.01-.37.024-.556.014c-.008 0-.568-.087-.568-.087a9.45 9.45 0 0 1-3.84-2.046c-.226-.199-.436-.413-.65-.626c-.888-.885-1.561-1.84-1.97-2.742a3.5 3.5 0 0 1-.33-1.413a2.73 2.73 0 0 1 .565-1.68c.073-.094.142-.192.261-.305c.126-.12.207-.184.294-.228a1 1 0 0 1 .371-.1"></path>
-    </svg>
+<a href="#" onclick="if(window.openConcierge) { openConcierge(); return false; }" class="kavex-floating-avatar" aria-label="Open Private Concierge">
+  <div class="kavex-avatar-tooltip">
     Private Concierge
-  </span>
+  </div>
+  <div class="kavex-avatar-img-container">
+    <img src="assets/concierge_avatar.webp" alt="Private Concierge" class="kavex-avatar-img">
+    <div class="kavex-online-badge"></div>
+  </div>
 </a>
 
 
