@@ -1151,6 +1151,139 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =========================================================================
+    // 7. TESTIMONIALS CAROUSEL (Visible Text Animation & Real-Time Drag)
+    // =========================================================================
+    const testSection = document.querySelector('section[data-framer-name="Testimonials"]');
+    if (testSection) {
+                const testimonials = [
+            {
+                badge: "1 / 4",
+                source: "James R. | London",
+                quote: "“I was quoted $45k by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
+            },
+            {
+                badge: "2 / 4",
+                source: "Elena M. | Dubai",
+                quote: "“Designing a high-jewelry piece via WhatsApp felt like a leap of faith initially. But the CAD renders were millimeter-perfect, and the final 18K gold cast is flawless. They operate with a level of precision that makes you wonder why retail even exists.”"
+            },
+            {
+                badge: "3 / 4",
+                source: "Marcus T. | New York",
+                quote: "“From the first sketch to receiving the armored delivery took exactly 14 days. The micro-pavé setting under a loupe is absolute perfection. Direct access to the factory floor is a complete game-changer.”"
+            },
+            {
+                badge: "4 / 4",
+                source: "Sofia K. | Stockholm",
+                quote: "“We wanted a massive emerald-cut engagement ring but refused to compromise on ethics or pay the traditional markup. Kavex delivered a 5-carat lab-grown masterpiece that literally stops people in restaurants.”"
+            }
+        ];
+
+        let curTestIdx = 0;
+        let isTestAnimating = false;
+        const badgeEl = testSection.querySelector('span[style*="font-variant-numeric:tabular-nums"]');
+        const authorEl = testSection.querySelector('span[style*="text-transform:uppercase"]');
+        
+        // Target specifically the VISIBLE quote element (child 1 of max-width container)
+        const quoteContainer = testSection.querySelector('div[style*="max-width:860px"]') || testSection.querySelector('div[style*="max-width: 860px"]');
+        const quoteEl = quoteContainer && quoteContainer.children[1] ? quoteContainer.children[1] : (testSection.querySelector('div[style*="font-size:32px"]:not([aria-hidden="true"])') || testSection.querySelector('div[style*="color:rgb(17, 17, 17)"]'));
+        
+        const btns = testSection.querySelectorAll('button');
+        const prevBtn = btns[0];
+        const nextBtn = btns[1];
+
+        const ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
+        function setTestimonial(idx, direction = 1) {
+            if (isTestAnimating) return;
+            isTestAnimating = true;
+
+            curTestIdx = (idx + testimonials.length) % testimonials.length;
+            const data = testimonials[curTestIdx];
+
+            if (quoteEl) {
+                quoteEl.style.transition = `opacity 0.25s ${ease}, transform 0.25s ${ease}`;
+                quoteEl.style.opacity = '0';
+                quoteEl.style.transform = `translateY(${direction > 0 ? '-14px' : '14px'})`;
+            }
+
+            setTimeout(() => {
+                if (badgeEl) badgeEl.innerHTML = `${curTestIdx + 1}<!-- --> / <!-- -->4`;
+                if (authorEl) authorEl.textContent = data.source;
+                if (quoteEl) {
+                    quoteEl.innerHTML = data.quote;
+                    quoteEl.style.transition = 'none';
+                    quoteEl.style.transform = `translateY(${direction > 0 ? '14px' : '-14px'})`;
+                }
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        if (quoteEl) {
+                            quoteEl.style.transition = `opacity 0.5s ${ease}, transform 0.5s ${ease}`;
+                            quoteEl.style.opacity = '1';
+                            quoteEl.style.transform = 'translateY(0px)';
+                        }
+                        setTimeout(() => {
+                            isTestAnimating = false;
+                        }, 500);
+                    });
+                });
+            }, 250);
+        }
+
+        if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); setTestimonial(curTestIdx - 1, -1); });
+        if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); setTestimonial(curTestIdx + 1, 1); });
+
+        // Real-time Drag on Testimonials
+        let isDraggingTest = false;
+        let startXTest = 0;
+        let diffXTest = 0;
+
+        testSection.style.cursor = 'grab';
+        testSection.style.userSelect = 'none';
+        testSection.style.touchAction = 'pan-y';
+
+        testSection.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('button')) return;
+            isDraggingTest = true;
+            startXTest = e.clientX;
+            diffXTest = 0;
+            testSection.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!isDraggingTest) return;
+            diffXTest = e.clientX - startXTest;
+            if (quoteEl) {
+                quoteEl.style.transition = 'none';
+                quoteEl.style.transform = `translateX(${diffXTest * 0.4}px)`;
+            }
+        });
+
+        const endTestDrag = (e) => {
+            if (!isDraggingTest) return;
+            isDraggingTest = false;
+            testSection.style.cursor = 'grab';
+
+            if (quoteEl) {
+                quoteEl.style.transition = `transform 0.4s ${ease}`;
+                quoteEl.style.transform = 'translateX(0px)';
+            }
+
+            if (Math.abs(diffXTest) > 40) {
+                if (diffXTest < 0) {
+                    setTestimonial(curTestIdx + 1, 1);
+                } else {
+                    setTestimonial(curTestIdx - 1, -1);
+                }
+            }
+            diffXTest = 0;
+        };
+
+        window.addEventListener('pointerup', endTestDrag);
+        window.addEventListener('pointercancel', endTestDrag);
+    }
+
+    // =========================================================================
     // 8. STATS CARDS ("By the Numbers" Smooth Spring Physics Hover)
     // =========================================================================
     const statsGrid = document.querySelector('.framer-na8vbw');
@@ -1356,7 +1489,7 @@ document.addEventListener("DOMContentLoaded", () => {
             'section[data-framer-name="Capable Industries"]',
             '.framer-16n3l3k', // Stats
             '.framer-na8vbw',
-            
+            'section[data-framer-name="Testimonials"]',
             '.framer-nbdfce'  // Newsroom
         ];
 
@@ -1411,7 +1544,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
+    // Add Pointer Swiping to Testimonials
+    const testSectionEl = document.querySelector('section[data-framer-name="Testimonials"]');
+    if (testSectionEl) {
+        let tStartX = 0;
+        testSectionEl.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('button')) return;
+            tStartX = e.clientX;
+        });
+        testSectionEl.addEventListener('pointerup', (e) => {
+            if (e.target.closest('button') || !tStartX) return;
+            const tDiff = e.clientX - tStartX;
+            const tBtns = testSectionEl.querySelectorAll('button');
+            if (tDiff < -40 && tBtns[1]) {
+                tBtns[1].click();
+            } else if (tDiff > 40 && tBtns[0]) {
+                tBtns[0].click();
+            }
+            tStartX = 0;
+        });
+    }
 // =========================================================================
     // 11. NAVIGATION DRAWER CONTROLLER (Menu Toggle, Backdrop, Smooth Anims)
     // =========================================================================
