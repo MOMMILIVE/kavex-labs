@@ -1158,23 +1158,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 const testimonials = [
             {
                 badge: "1 / 4",
-                source: "James R. | London",
-                quote: "“I was quoted $45k by a boutique in Geneva for a 3-carat flawless oval. Kavex sourced the exact stone from the cutter and built the ring for half that. The craftsmanship is indistinguishable from legacy houses.”"
+                source: "VOGUE",
+                quote: "“Kavex Labs operates more like a supercar atelier than a jewelry boutique. Sourcing flawless stones directly from the cutter to engineer bespoke high-jewelry without the legacy retail markup.”"
             },
             {
                 badge: "2 / 4",
-                source: "Elena M. | Dubai",
-                quote: "“Designing a high-jewelry piece via WhatsApp felt like a leap of faith initially. But the CAD renders were millimeter-perfect, and the final 18K gold cast is flawless. They operate with a level of precision that makes you wonder why retail even exists.”"
+                source: "HARPER'S BAZAAR",
+                quote: "“The new paradigm for modern bespoke bridal. By pairing Scandinavian engineering precision with laboratory-grown diamonds, Kavex has redefined high-jewelry craftsmanship.”"
             },
             {
                 badge: "3 / 4",
-                source: "Marcus T. | New York",
-                quote: "“From the first sketch to receiving the armored delivery took exactly 14 days. The micro-pavé setting under a loupe is absolute perfection. Direct access to the factory floor is a complete game-changer.”"
+                source: "DAZED",
+                quote: "“Brutalist aesthetics meets atomic perfection. Kavex Labs strips away traditional luxury pretension to give private clients direct access to the manufacturing floor.”"
             },
             {
                 badge: "4 / 4",
-                source: "Sofia K. | Stockholm",
-                quote: "“We wanted a massive emerald-cut engagement ring but refused to compromise on ethics or pay the traditional markup. Kavex delivered a 5-carat lab-grown masterpiece that literally stops people in restaurants.”"
+                source: "HIGHSNOBIETY",
+                quote: "“Forget the traditional blue box. Kavex Labs is quietly engineering bespoke diamond commissions for a generation that values atomic purity and precision over century-old brand markups.”"
             }
         ];
 
