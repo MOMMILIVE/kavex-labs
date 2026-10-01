@@ -1,105 +1,265 @@
 'use client';
 
-import { useId, useRef, useState } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
 import Image from 'next/image';
+import DiamondGlyph from './DiamondGlyph';
 import { makeConciergeLink, type DesignBrief } from '../lib/design-brief';
 
-const shapes = ['Round', 'Oval', 'Emerald', 'Radiant', 'Pear'];
-const chapters = ['Shape', 'Scale', 'Metal', 'Signature', 'Your brief'];
-const stories = [
-  ['The beginning of', 'something singular.', 'A ring made around you. Start with the silhouette.'],
-  ['Small details.', 'Lasting presence.', 'Find the scale that feels like you.'],
-  ['Precious by nature.', 'Personal by design.', 'The foundation of your everyday heirloom.'],
-  ['Only you', 'know its meaning.', 'A name. A date. A promise. Make it yours.'],
-  ['Your vision.', 'Our expertise.', 'From your first idea to the stone you fall for.'],
+const SHAPES = ['Round', 'Oval', 'Emerald', 'Radiant', 'Pear'] as const;
+const SCALE = [
+  { value: '1.0', label: 'Subtle presence', scale: 0.72 },
+  { value: '1.5', label: 'An elegant balance', scale: 0.86 },
+  { value: '2.0', label: 'A bolder statement', scale: 1 },
+  { value: 'Custom', label: 'Explore another scale', scale: 1.08 },
 ];
+const METALS = [
+  { value: '18K Yellow Gold', label: 'Warm. Timeless.', tone: 'yellow' },
+  { value: '18K White Gold', label: 'Cool. Understated.', tone: 'white' },
+  { value: 'Platinum', label: 'Pure. Naturally white.', tone: 'platinum' },
+];
+const FONTS = ['Classic', 'Signature', 'Modern'] as const;
+const CHAPTERS = ['Shape', 'Scale', 'Metal', 'Signature', 'Your brief'];
+const COPY = [
+  { title: 'Which shape\nspeaks to you?', intro: 'Start with instinct. We’ll help you refine the details.', first: 'The beginning of', second: 'something singular.' },
+  { title: 'How much\npresence?', intro: 'Choose a starting point. Your jeweler will show you actual stones on video.', first: 'Small details.', second: 'Lasting presence.' },
+  { title: 'Your preferred\nprecious metal.', intro: 'Choose the tone you’re drawn to. We’ll discuss the finish together.', first: 'Precious by nature.', second: 'Personal by design.' },
+  { title: 'Something\nonly yours.', intro: 'Complimentary engraving. A name, a date, a promise. Entirely optional.', first: 'Only you know', second: 'its meaning.' },
+  { title: 'Meet your\nprivate jeweler.', intro: 'Your ideas, personally selected stones, and a design made around you.', first: 'Your vision.', second: 'Our expertise.' },
+];
+const INITIAL: DesignBrief = {
+  shape: '', carat: '', metal: '', engraving: '', font: 'Signature',
+  ringSize: 'Confirm with my jeweler', name: '', phone: '',
+};
+const MICRO = 'text-[9px] font-normal uppercase tracking-[0.2em] text-white/50';
+const FIELD = 'w-full border-0 border-b border-white/20 bg-transparent py-4 text-sm text-white outline-none transition-colors duration-500 placeholder:text-white/30 focus:border-white/80';
 
-/** Distinct cut diagrams, rather than a simulated product or final CAD. */
-function Diamond({ shape, scale = 1 }: { shape: string; scale?: number }) {
-  const id = useId().replace(/:/g, '');
-  const outline = shape === 'Round' ? 'M50 10a40 40 0 1 1-.01 0Z'
-    : shape === 'Oval' ? 'M50 4a29 46 0 1 1-.01 0Z'
-    : shape === 'Pear' ? 'M50 4C43 21 17 45 17 66C17 106 83 106 83 66C83 45 57 21 50 4Z'
-    : shape === 'Emerald' ? 'M29 7H71L82 18V82L71 93H29L18 82V18Z'
-    : 'M29 8H71L84 21V79L71 92H29L16 79V21Z';
-  const vertices = Array.from({ length: 16 }, (_, i) => {
-    const a = i * Math.PI / 8 - Math.PI / 2;
-    return [50 + Math.cos(a) * (shape === 'Round' ? 40 : 33), 50 + Math.sin(a) * 46];
-  });
-  return <svg viewBox="0 0 100 100" aria-hidden="true" style={{ transform: `scale(${scale})` }}>
-    <defs><linearGradient id={`${id}-light`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f0f4f5" /><stop offset=".45" stopColor="#7b858d" /><stop offset=".72" stopColor="#dde6eb" /><stop offset="1" stopColor="#434d56" /></linearGradient><clipPath id={`${id}-cut`}><path d={outline} /></clipPath></defs>
-    <g clipPath={`url(#${id}-cut)`}>
-      <path d={outline} fill={`url(#${id}-light)`} />
-      {shape === 'Emerald' ? <g fill="none" stroke="#f2f7fa" strokeWidth=".7">
-        {[0, 1, 2, 3].map(i => <path key={i} d={`M${29+i*3} ${7+i*7}H${71-i*3}L${82-i*6} ${18+i*6}V${82-i*6}L${71-i*3} ${93-i*7}H${29+i*3}L${18+i*6} ${82-i*6}V${18+i*6}Z`} />)}
-        <path d="M29 7L41 28M71 7L59 28M82 18L64 36M82 82L64 64M71 93L59 72M29 93L41 72M18 82L36 64M18 18L36 36" />
-      </g> : <g stroke="#d9e4eb" strokeWidth=".45">{vertices.map((v, i) => {
-        const next = vertices[(i + 1) % 16];
-        const mid = [50+(v[0]-50)*.46, 50+(v[1]-50)*.46];
-        return <g key={i}><path d={`M${v}L${next}L${mid}Z`} fill={['#f4f8fa','#697680','#c4cfd7','#a2b0bb'][i%4]} /><path d={`M${v}L50 50L${mid}Z`} fill={i%2?'#b8c7d1':'#ecf1f5'} /></g>;
-      })}<path d="M50 30L65 40V60L50 70L35 60V40Z" fill="#c2cdd4" /></g>}
-    </g><path d={outline} fill="none" stroke="#edf5fa" strokeOpacity=".85" strokeWidth=".65" />
+function Arrow({ back = false }: { back?: boolean }) {
+  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"
+    className={'h-5 w-5 shrink-0 transition-transform duration-300 ease-out motion-reduce:transition-none ' +
+      (back ? 'rotate-180' : 'group-hover:translate-x-2 group-disabled:translate-x-0')}>
+    <path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1" />
   </svg>;
 }
 
-function Arrow({ back = false }: { back?: boolean }) {
-  return <svg viewBox="0 0 24 24" aria-hidden="true" style={back ? { transform: 'rotate(180deg)' } : undefined}><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.3" /></svg>;
+function SelectionCard({ name, value, selected, onSelect, children, className = '' }: {
+  name: string; value: string; selected: boolean;
+  onSelect: () => void; children: ReactNode; className?: string;
+}) {
+  return <label className={[
+    'group relative cursor-pointer border p-5 transition-all duration-500 ease-out',
+    'has-[:focus-visible]:outline-1 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-white',
+    'motion-reduce:transition-none',
+    selected ? 'border-white/80 bg-white/5 text-white backdrop-blur-md'
+      : 'border-white/10 bg-transparent text-white/60 hover:border-white/40',
+    className,
+  ].join(' ')}>
+    <input className="sr-only" type="radio" name={name} value={value}
+      checked={selected} onChange={onSelect} />
+    <span aria-hidden="true" className={'absolute right-3 top-3 grid h-3 w-3 place-items-center rounded-full border ' +
+      (selected ? 'border-white/80' : 'border-white/30')}>
+      <span className={'h-1 w-1 rounded-full bg-white transition-opacity duration-500 ' +
+        (selected ? 'motion-safe:animate-selection-pulse opacity-100' : 'opacity-0')} />
+    </span>
+    {children}
+  </label>;
 }
 
 export default function KavexBespoke() {
   const [step, setStep] = useState(0);
   const [furthest, setFurthest] = useState(0);
-  const [brief, setBrief] = useState<DesignBrief>({ shape: '', carat: '', metal: '', engraving: '', font: 'Signature', ringSize: 'Confirm with my jeweler', name: '', phone: '' });
+  const [brief, setBrief] = useState<DesignBrief>(INITIAL);
   const heading = useRef<HTMLHeadingElement>(null);
-  const formId = useId();
-  const update = <K extends keyof DesignBrief>(key: K, value: DesignBrief[K]) => setBrief(b => ({ ...b, [key]: value }));
-  const selected = [brief.shape, brief.carat, brief.metal, true, true][step];
-  const needsGuidance = ['shape', 'carat', 'metal'][step] as 'shape' | 'carat' | 'metal';
-  const mainVisual = step < 2 || step === 4 ? '/assets/bespoke/atelier-hero.png' : '/assets/editorial_bands.webp';
-  const go = (next: number) => { setStep(next); setFurthest(value => Math.max(value,next)); requestAnimationFrame(() => heading.current?.focus({ preventScroll: true })); };
+  const id = useId();
+  const copy = COPY[step];
+  const field = (['shape', 'carat', 'metal'] as const)[step];
+  const canContinue = step > 2 || Boolean(brief[field]);
+  const bands = step === 2 || step === 3;
+  const scaleLabel = brief.carat === 'Custom' || brief.carat === 'Guide me'
+    ? brief.carat : brief.carat + ' ct';
 
-  return <div className="atelier">
-    <a className="skip-content" href="#atelier-question">Skip to design choices</a>
-    <header className="atelier-header">
-      <a href="/" className="atelier-brand" aria-label="Kavex Labs home"><img src="/kavex_logo.svg" alt="" /><span>KAVEX LABS</span></a>
-      <span className="atelier-header-label">THE BESPOKE ATELIER</span>
-      <a href="https://wa.me/4748900083" target="_blank" rel="noopener noreferrer" className="atelier-concierge"><span className="concierge-dot" />Private concierge <Arrow /></a>
+  function update<K extends keyof DesignBrief>(key: K, value: DesignBrief[K]) {
+    setBrief(previous => ({ ...previous, [key]: value }));
+  }
+  function go(next: number) {
+    setStep(next);
+    setFurthest(previous => Math.max(previous, next));
+    requestAnimationFrame(() => heading.current?.focus());
+  }
+
+  return <div className="min-h-svh bg-ink font-sans text-white antialiased">
+    <a href="#design-question" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:p-4 focus:text-black">Skip to design choices</a>
+
+    <header className="relative z-20 flex h-24 items-center justify-between px-6 md:px-12 xl:px-16">
+      <a href="/" aria-label="Kavex Labs home" className="flex items-center gap-3">
+        <Image src="/kavex_logo.svg" width={28} height={28} alt="" />
+        <span className="text-sm font-normal tracking-[0.22em] md:text-base">KAVEX LABS</span>
+      </a>
+      <span className={MICRO + ' hidden lg:block'}>The bespoke atelier</span>
+      <a href="https://wa.me/4748900083" target="_blank" rel="noopener noreferrer"
+        className="group flex items-center gap-3 text-[9px] uppercase tracking-[0.16em] text-white/60 transition-colors duration-500 hover:text-white">
+        Private concierge <Arrow />
+      </a>
     </header>
-    <main className="atelier-main">
-      <section className="atelier-stage" aria-label="Design inspiration">
-        <div className="atelier-image" key={mainVisual}><Image src={mainVisual} alt={step < 2 || step === 4 ? 'Oval diamond solitaire in yellow gold, an atelier design inspiration' : 'Polished gold bands photographed in the Kavex laboratory'} fill preload={step === 0} sizes="(max-width: 700px) 100vw, 65vw" /></div>
-        <div className="atelier-story" key={step}><p className="eyebrow">KAVEX / PRIVATE COMMISSIONS</p><h1>{stories[step][0]}<br /><span>{stories[step][1]}</span></h1><p>{stories[step][2]}</p></div>
-        <div className="atelier-caption"><span>DESIGN INSPIRATION</span><span>{step < 2 || step === 4 ? 'OVAL SOLITAIRE / YELLOW GOLD' : 'THE PRECIOUS METALS STUDY'}</span></div>
-        <div className="atelier-selected" aria-live="polite">{[brief.shape, brief.carat && (brief.carat === 'Guide me' ? 'Scale to explore' : brief.carat === 'Custom' ? 'Custom scale' : `${brief.carat} ct`), brief.metal].filter(Boolean).map((v,i) => <span key={i}>{v}</span>)}</div>
+
+    <main className="relative isolate grid lg:min-h-[calc(100svh-144px)] lg:grid-cols-[58%_42%]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[440px] overflow-hidden md:h-[500px] lg:inset-y-0 lg:right-[30%] lg:h-auto">
+        <div key={bands ? 'bands' : 'solitaire'} className="image-reveal absolute inset-0">
+          <Image src={bands ? '/assets/editorial_bands.webp' : '/assets/bespoke/atelier-hero.png'}
+            alt={bands ? 'Gold bands, an atelier design inspiration' : 'Oval diamond solitaire in yellow gold, an atelier design inspiration'}
+            fill preload={step === 0} sizes="(min-width:1024px) 70vw, 100vw"
+            className="translate-y-24 object-cover object-[50%_45%] lg:translate-y-32 lg:object-[44%_50%]" />
+        </div>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#060606_0%,transparent_28%,transparent_60%,#060606_100%)]" />
+        <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,transparent_45%,#060606_100%)] lg:block" />
+      </div>
+
+      <section aria-label="Design inspiration" className="relative flex min-h-[440px] flex-col justify-between px-6 py-10 md:min-h-[500px] md:px-12 lg:min-h-[720px] lg:p-12 xl:p-16">
+        <div key={step} className="chapter-reveal">
+          <p className={MICRO}>Kavex / Private commissions</p>
+          <h1 className="mt-6 max-w-[690px] font-display text-[clamp(2.75rem,5.2vw,5.5rem)] font-normal leading-[0.98] tracking-[-0.035em]">
+            {copy.first}<br /><em className="font-normal text-white/80">{copy.second}</em>
+          </h1>
+        </div>
+        <div className="relative mt-56 space-y-5 lg:mt-80">
+          <p className={MICRO + ' text-[8px]'}>Design inspiration / {bands ? 'Precious metals study' : 'Oval solitaire, yellow gold'}</p>
+          <p aria-live="polite" className="flex flex-wrap gap-x-4 gap-y-2 text-[10px] uppercase tracking-[0.16em] text-white/70">
+            {[brief.shape, brief.carat && scaleLabel, brief.metal].filter(Boolean).map((value, index) =>
+              <span key={index}>{index > 0 && <span className="mr-4 text-white/25">/</span>}{value}</span>)}
+          </p>
+        </div>
       </section>
-      <section className="atelier-panel" id="atelier-question">
-        <nav className="atelier-progress" aria-label="Design chapters">{chapters.map((label, i) => <button key={label} type="button" aria-label={`Edit ${label}`} aria-current={step === i ? 'step' : undefined} disabled={i > furthest} onClick={() => go(i)}><span>{String(i+1).padStart(2,'0')}</span><span className="chapter-label">{label}</span></button>)}</nav>
-        <div className="atelier-question" key={step}>
-          <p className="eyebrow">{step < 4 ? 'MAKE IT YOURS' : 'A PERSONAL INTRODUCTION'} / {String(step+1).padStart(2,'0')}</p>
-          <h2 ref={heading} tabIndex={-1}>{['Which shape\nspeaks to you?', 'How much\npresence?', 'Your preferred\nprecious metal.', 'Something\nonly yours.', 'Meet your\nprivate jeweler.'][step]}</h2>
-          <p className="question-intro">{['Start with instinct. We’ll help you refine the details.', 'Choose a starting point. Your jeweler will show you actual stones on video.', 'Choose the tone you’re drawn to. We’ll discuss the finish together.', 'Complimentary engraving. The finishing touch is entirely optional.', 'Your ideas, brought to life with personally selected stones and a design made for you.'][step]}</p>
-          {step < 3 && <button className="guide-choice" type="button" aria-pressed={brief[needsGuidance]==='Guide me'} onClick={()=>update(needsGuidance,'Guide me')}>I’d like my jeweler’s guidance <span>↗</span></button>}
-          {step === 0 && <fieldset className="shape-options"><legend className="sr-only">Diamond shape</legend>{shapes.map(shape => <label key={shape} className="shape-option"><input type="radio" name="shape" value={shape} checked={brief.shape===shape} onChange={()=>update('shape',shape)} /><span className="shape-art"><Diamond shape={shape} /></span><span className="shape-name">{shape}</span><span className="choice-mark" aria-hidden="true" /></label>)}</fieldset>}
-          {step === 1 && <fieldset className="scale-options"><legend className="sr-only">Diamond carat</legend>{[['1.0','Subtle presence',.72],['1.5','An elegant balance',.86],['2.0','A bolder statement',1],['Custom','Explore another scale',1.08]].map(([carat,label,scale]) => <label className="scale-option" key={carat}><input type="radio" name="carat" value={String(carat)} checked={brief.carat===carat} onChange={()=>update('carat',String(carat))} /><Diamond shape={brief.shape === 'Guide me' ? 'Oval' : brief.shape || 'Oval'} scale={Number(scale)} /><span><strong>{carat}{carat!=='Custom'&&<small> ct</small>}</strong><span>{label}</span></span><span className="choice-mark" aria-hidden="true" /></label>)}</fieldset>}
-          {step === 2 && <fieldset className="metal-options"><legend className="sr-only">Precious metal</legend>{[['18K Yellow Gold','Warm. Timeless.','yellow'],['18K White Gold','Cool. Understated.','white'],['Platinum','Pure. Naturally white.','platinum']].map(([metal,desc,tone]) => <label className="metal-option" key={metal}><input type="radio" name="metal" value={metal} checked={brief.metal===metal} onChange={()=>update('metal',metal)} /><span className={`metal-swatch ${tone}`} /><span><strong>{metal}</strong><span>{desc}</span></span><span className="choice-mark" aria-hidden="true" /></label>)}</fieldset>}
-          {step === 3 && <div className="signature-options">
-            <div className="engraving-preview" data-font={brief.font}><span>{brief.engraving || 'Forever, in your words.'}</span><small>YOUR ENGRAVING / {brief.font.toUpperCase()}</small></div>
-            <label className="input-label" htmlFor={`${formId}-engraving`}>Your inscription <span>{Array.from(brief.engraving).length}/24</span></label>
-            <input id={`${formId}-engraving`} className="line-input" placeholder="A name, a date, a promise…" value={brief.engraving} onChange={e=>update('engraving',Array.from(e.target.value.replace(/[\u0000-\u001f\u007f]/g,'')).slice(0,24).join(''))} />
-            <div className="font-options" role="group" aria-label="Engraving font">{['Classic','Signature','Modern'].map(font=><button type="button" key={font} data-font={font} aria-pressed={brief.font===font} onClick={()=>update('font',font)}>{font}</button>)}</div>
-            <label className="input-label" htmlFor={`${formId}-size`}>Ring size <span>Optional</span></label>
-            <select className="line-input" id={`${formId}-size`} value={brief.ringSize} onChange={e=>update('ringSize',e.target.value)}><option>Confirm with my jeweler</option>{Array.from({length:29},(_,i)=>44+i).map(size=><option key={size}>EU {size}</option>)}</select>
+
+      <section id="design-question" className="relative z-10 flex flex-col px-6 pb-10 pt-6 md:px-12 lg:p-12 xl:px-16">
+        <nav aria-label="Design chapters" className="flex items-center justify-between gap-3">
+          {CHAPTERS.map((label, index) => <button key={label} type="button"
+            aria-label={'Edit ' + label} aria-current={step === index ? 'step' : undefined}
+            disabled={index > furthest} onClick={() => go(index)}
+            className={'flex items-center gap-2 py-3 text-[9px] uppercase tracking-[0.2em] transition-colors duration-500 disabled:cursor-default disabled:text-white/20 ' +
+              (step === index ? 'text-white' : 'text-white/50 hover:text-white')}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span className="hidden 2xl:inline">{label}</span>
+          </button>)}
+        </nav>
+
+        <div key={step} className="chapter-reveal mt-10 flex-1 lg:mt-12">
+          <p className={MICRO}>{step === 4 ? 'A personal introduction' : 'Make it yours'} / {String(step + 1).padStart(2, '0')}</p>
+          <h2 ref={heading} tabIndex={-1}
+            className="mt-4 whitespace-pre-line font-display text-5xl font-normal leading-[1.02] tracking-[-0.025em] outline-none xl:text-[56px]">
+            {copy.title}
+          </h2>
+          <p className="mt-5 max-w-sm text-xs leading-7 text-white/60">{copy.intro}</p>
+
+          {step < 3 && <button type="button" aria-pressed={brief[field] === 'Guide me'}
+            onClick={() => update(field, 'Guide me')}
+            className={'group mt-6 flex w-full items-center justify-between gap-6 py-3 text-left text-[9px] uppercase tracking-[0.16em] transition-colors duration-500 ' +
+              (brief[field] === 'Guide me' ? 'text-white' : 'text-white/50 hover:text-white')}>
+            I’d like my jeweler’s guidance <Arrow />
+          </button>}
+
+          {step === 0 && <fieldset className="mt-6 grid grid-cols-3 gap-4">
+            <legend className="sr-only">Diamond shape</legend>
+            {SHAPES.map(shape => <SelectionCard key={shape} name="shape" value={shape}
+              selected={brief.shape === shape} onSelect={() => update('shape', shape)}
+              className="flex min-h-32 flex-col items-center justify-center gap-5 px-3 py-6">
+              <span className="h-14 w-14 [&>svg]:h-full [&>svg]:w-full"><DiamondGlyph shape={shape} /></span>
+              <span className="text-[9px] uppercase tracking-[0.2em]">{shape}</span>
+            </SelectionCard>)}
+          </fieldset>}
+
+          {step === 1 && <fieldset className="mt-6 grid gap-4">
+            <legend className="sr-only">Diamond carat</legend>
+            {SCALE.map(option => <SelectionCard key={option.value} name="carat" value={option.value}
+              selected={brief.carat === option.value} onSelect={() => update('carat', option.value)}
+              className="flex items-center gap-8 p-6">
+              <span className="h-12 w-12 shrink-0 [&>svg]:h-full [&>svg]:w-full"><DiamondGlyph shape={brief.shape === 'Guide me' ? 'Oval' : brief.shape || 'Oval'} scale={option.scale} /></span>
+              <span><span className="block font-display text-3xl">{option.value}{option.value !== 'Custom' && <small className="ml-1 font-sans text-xs">ct</small>}</span><span className="mt-2 block text-[10px] text-white/50">{option.label}</span></span>
+            </SelectionCard>)}
+          </fieldset>}
+
+          {step === 2 && <fieldset className="mt-6 grid gap-4">
+            <legend className="sr-only">Precious metal</legend>
+            {METALS.map(option => <SelectionCard key={option.value} name="metal" value={option.value}
+              selected={brief.metal === option.value} onSelect={() => update('metal', option.value)}
+              className="flex items-center gap-8 p-7">
+              <span aria-hidden="true" className={'metal-swatch metal-' + option.tone} />
+              <span><span className="block text-[10px] uppercase tracking-[0.16em]">{option.value}</span><span className="mt-3 block text-[10px] text-white/50">{option.label}</span></span>
+            </SelectionCard>)}
+          </fieldset>}
+
+          {step === 3 && <div className="mt-8 space-y-8">
+            <div className="engraving-study flex min-h-36 flex-col items-center justify-center gap-5 px-6 py-8">
+              <span className="engraving-text break-all text-center text-white/85" data-font={brief.font}>{brief.engraving || 'Forever, in your words.'}</span>
+              <span className={MICRO + ' text-[8px]'}>Your engraving / {brief.font}</span>
+            </div>
+            <div>
+              <label htmlFor={id + '-engraving'} className={MICRO + ' flex justify-between gap-4'}>Your inscription <span>{Array.from(brief.engraving).length}/24</span></label>
+              <input id={id + '-engraving'} className={FIELD} placeholder="A name, a date, a promise…"
+                value={brief.engraving} onChange={event => update('engraving',
+                  Array.from(event.target.value.replace(/[\u0000-\u001f\u007f]/g, '')).slice(0, 24).join(''))} />
+              <div role="group" aria-label="Engraving font" className="mt-6 grid grid-cols-3 gap-3">
+                {FONTS.map(font => <button key={font} type="button" data-font={font}
+                  aria-pressed={brief.font === font} onClick={() => update('font', font)}
+                  className={'font-choice border px-2 py-4 transition-all duration-500 ease-out ' +
+                    (brief.font === font ? 'border-white/80 bg-white/5 text-white backdrop-blur-md' : 'border-white/10 text-white/60 hover:border-white/40')}>
+                  {font}
+                </button>)}
+              </div>
+            </div>
+            <div>
+              <label htmlFor={id + '-size'} className={MICRO + ' flex justify-between gap-4'}>Ring size <span>Optional</span></label>
+              <select id={id + '-size'} className={FIELD} value={brief.ringSize} onChange={event => update('ringSize', event.target.value)}>
+                <option>Confirm with my jeweler</option>
+                {Array.from({ length: 29 }, (_, index) => 44 + index).map(size => <option key={size}>{'EU ' + size}</option>)}
+              </select>
+            </div>
           </div>}
-          {step === 4 && <form id="concierge-brief" onSubmit={e=>{e.preventDefault();window.location.assign(makeConciergeLink(brief));}}>
-            <dl className="brief-summary">{[['Shape',brief.shape],['Scale',brief.carat === 'Custom' ? 'Custom' : brief.carat === 'Guide me' ? 'Guide me' : `${brief.carat} ct`],['Metal',brief.metal],['Inscription',brief.engraving ? `${brief.engraving} · ${brief.font}` : 'Decide together'],['Ring size',brief.ringSize]].map(([key,value])=><div key={key}><dt>{key}</dt><dd>{value}<button type="button" aria-label={`Change ${key}`} onClick={()=>go(key==='Shape'?0:key==='Scale'?1:key==='Metal'?2:3)}><span aria-hidden="true">↗</span></button></dd></div>)}</dl>
-            <label className="input-label" htmlFor={`${formId}-name`}>Your name</label><input id={`${formId}-name`} className="line-input" autoComplete="name" required maxLength={80} value={brief.name} onChange={e=>update('name',e.target.value)} placeholder="First and last name" pattern=".*\S.*" />
-            <label className="input-label" htmlFor={`${formId}-phone`}>WhatsApp number <span>Include country code</span></label><input id={`${formId}-phone`} className="line-input" type="tel" autoComplete="tel" required pattern={"\\+?[0-9 \\(\\)\\-]{8,24}"} maxLength={24} placeholder="+47" value={brief.phone} onChange={e=>update('phone',e.target.value)} />
-            <p className="handoff-note">Continue to WhatsApp to send your brief. Your jeweler will share stone videos and guide the final design. No payment required.</p>
+
+          {step === 4 && <form id="concierge-brief" className="mt-8"
+            onSubmit={event => { event.preventDefault(); window.location.assign(makeConciergeLink(brief)); }}>
+            <dl className="space-y-5">
+              {[['Shape', brief.shape, 0], ['Scale', scaleLabel, 1], ['Metal', brief.metal, 2],
+                ['Inscription', brief.engraving ? brief.engraving + ' · ' + brief.font : 'Decide together', 3],
+                ['Ring size', brief.ringSize, 3]].map(([label, value, chapter]) =>
+                <div key={label} className="flex justify-between gap-8">
+                  <dt className={MICRO}>{label}</dt>
+                  <dd className="flex items-start gap-4 text-right text-xs text-white/80">
+                    <span className="max-w-52 break-words">{value}</span>
+                    <button type="button" aria-label={'Change ' + label} onClick={() => go(Number(chapter))}
+                      className="text-white/40 transition-colors duration-500 hover:text-white">↗</button>
+                  </dd>
+                </div>)}
+            </dl>
+            <div className="mt-10 space-y-8">
+              <div><label htmlFor={id + '-name'} className={MICRO}>Your name</label>
+                <input id={id + '-name'} className={FIELD} autoComplete="name" required pattern={'.*\\S.*'}
+                  maxLength={80} placeholder="First and last name" value={brief.name} onChange={event => update('name', event.target.value)} /></div>
+              <div><label htmlFor={id + '-phone'} className={MICRO}>WhatsApp number</label>
+                <input id={id + '-phone'} className={FIELD} type="tel" autoComplete="tel" required
+                  pattern={'(?=(?:[^0-9]*[0-9]){8,15}[^0-9]*$)\\+?[0-9 \\(\\)\\-]+'}
+                  maxLength={24} placeholder="+47" value={brief.phone} onChange={event => update('phone', event.target.value)} /></div>
+            </div>
+            <p className="mt-8 text-[11px] leading-6 text-white/50">Continue to WhatsApp to send your brief. Your jeweler will share stone videos and guide the final design. No payment required.</p>
           </form>}
         </div>
-        <div className="atelier-actions"><div className="step-actions">{step>0 && <button type="button" className="back-button" onClick={()=>go(step-1)} aria-label="Previous design chapter"><Arrow back /></button>}{step<4 ? <button type="button" className="continue-button" disabled={!selected} onClick={()=>go(step+1)}>{step===3?'Review your brief':'Continue'}<Arrow /></button> : <button type="submit" form="concierge-brief" className="continue-button">Send brief on WhatsApp<Arrow /></button>}</div><p className="atelier-reassurance">{step===4?'PERSONALLY SOURCED. INDIVIDUALLY MADE.':'YOUR IDEAS FIRST. THE DETAILS, TOGETHER.'}</p></div>
+
+        <div className="mt-10 pt-4 lg:mt-12">
+          <div className="flex items-center gap-4">
+            {step > 0 && <button type="button" aria-label="Previous design chapter" onClick={() => go(step - 1)}
+              className="group grid h-14 w-12 shrink-0 place-items-center text-white/50 transition-colors duration-500 hover:text-white"><Arrow back /></button>}
+            <button type={step === 4 ? 'submit' : 'button'} form={step === 4 ? 'concierge-brief' : undefined}
+              disabled={!canContinue} onClick={step < 4 ? () => go(step + 1) : undefined}
+              className="group flex min-h-14 flex-1 items-center justify-between gap-6 bg-white px-8 py-4 text-left text-[10px] font-medium uppercase tracking-[0.22em] text-black transition-all duration-500 ease-out hover:bg-white/90 disabled:cursor-default disabled:opacity-25 motion-reduce:transition-none">
+              {step === 4 ? 'Send brief on WhatsApp' : step === 3 ? 'Review your brief' : 'Continue'}<Arrow />
+            </button>
+          </div>
+          <p className={MICRO + ' mt-5 text-center text-[8px]'}>Your ideas first. The details, together.</p>
+        </div>
       </section>
     </main>
-    <footer className="atelier-footer"><span>LAB-GROWN DIAMONDS. PRIVATE COMMISSIONS.</span><span>STONE SELECTION <i /> DESIGN APPROVAL <i /> CRAFTED FOR YOU</span></footer>
+
+    <footer className="flex min-h-12 items-center justify-between gap-8 px-6 py-5 md:px-12 xl:px-16">
+      <span className={MICRO + ' text-[8px]'}>Lab-grown diamonds / Private commissions</span>
+      <span className={MICRO + ' hidden text-[8px] md:block'}>Personally sourced. Individually made.</span>
+    </footer>
   </div>;
 }
