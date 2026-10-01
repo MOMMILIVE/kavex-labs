@@ -4,7 +4,8 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Stripe from 'stripe';
 import checkout from '../pages/api/checkout';
-import Configurator from '../components/BespokeConfigurator';
+import Configurator from '../components/KavexBespoke';
+import { makeConciergeLink } from '../lib/design-brief';
 
 process.env.STRIPE_SECRET_KEY = 'sk_test_SYNTHETIC_NO_NETWORK';
 process.env.APP_URL = 'http://localhost:3000';
@@ -27,12 +28,22 @@ async function request(body: any = payload(), overrides: any = {}) {
   return result;
 }
 
-test('default UI renders the 32,000 NOK build with three steps and no login gate', () => {
+test('the public flow begins with shape selection, no prices and no contact gate', () => {
   const html = renderToStaticMarkup(<Configurator />);
-  assert.match(html, /32[^0-9]000/);
-  assert.match(html, /Configuration steps/);
-  assert.match(html, /Engraving included/);
-  assert.doesNotMatch(html, /<dialog|type="password"/);
+  assert.match(html, /Which shape/);
+  assert.match(html, /Diamond shape/);
+  assert.match(html, /atelier-hero/);
+  assert.doesNotMatch(html, /NOK|32[^0-9]000|Klarna|type="tel"|type="password"|checkout|canvas/);
+});
+test('the concierge draft preserves the complete brief, including Unicode and guidance choices', () => {
+  const url = new URL(makeConciergeLink({shape:'Pear',carat:'Custom',metal:'Platinum',engraving:'For alltid ♥ & oss',font:'Classic',ringSize:'EU 57',name:' Review Customer ',phone:'+47 00000000'}));
+  assert.equal(url.origin, 'https://wa.me');
+  assert.equal(url.pathname, '/4748900083');
+  const message = url.searchParams.get('text')!;
+  assert.match(message, /Name: Review Customer\nWhatsApp: \+47 00000000/);
+  assert.match(message, /Diamond shape: Pear\nScale: Custom\nMetal: Platinum\nRing size: EU 57/);
+  assert.match(message, /For alltid ♥ & oss \(Classic\)/);
+  assert.doesNotMatch(message, /NOK|paid|confirmed|price/i);
 });
 test('server charges the default quote in øre, with the requested NOK/Klarna/card settings', async () => {
   assert.equal((await request()).code, 200);
