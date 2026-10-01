@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #060606;
+  --font-sans: var(--font-geometric), Arial, sans-serif;
+  --font-display: var(--font-editorial), Georgia, serif;
+  --animate-selection-pulse: selection-pulse 2.8s ease-in-out infinite;
+}
+
+@layer base {
+  :root { color-scheme: dark; }
+  body { background: #060606; color: white; font-family: var(--font-sans); }
+  button:not(:disabled), label:has(input[type="radio"]) { cursor: pointer; }
+  button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, .8);
+    outline-offset: 5px;
+  }
+  select option { background: #060606; color: white; }
+  ::selection { background: #e4e0d8; color: #060606; }
+}
+
+@layer components {
+  .chapter-reveal { animation: chapter-reveal 650ms cubic-bezier(.22, 1, .36, 1) both; }
+  .image-reveal { animation: image-reveal 1100ms ease-out both; }
+  .metal-swatch {
+    display: block; width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,.05);
+  }
+  .metal-yellow { background: conic-gradient(from 30deg,#e3bd70,#6c532c,#f3d99c,#987447,#e3bd70); }
+  .metal-white { background: conic-gradient(from 30deg,#cbd2dc,#676c75,#eef0f6,#838996,#cbd2dc); }
+  .metal-platinum { background: conic-gradient(from 30deg,#dedfde,#797c7f,#fbfafa,#a6a8a9,#dedfde); }
+  .engraving-study { background: linear-gradient(115deg,transparent,#ffffff05,transparent); }
+  .engraving-text[data-font="Classic"], .font-choice[data-font="Classic"] { font-family: var(--font-editorial), Georgia, serif; font-size: 26px; }
+  .engraving-text[data-font="Signature"], .font-choice[data-font="Signature"] { font-family: var(--font-handwriting), cursive; font-size: 36px; }
+  .engraving-text[data-font="Modern"], .font-choice[data-font="Modern"] { font-family: var(--font-geometric), sans-serif; font-size: 18px; }
+  .font-choice[data-font="Classic"] { font-size: 18px; }
+  .font-choice[data-font="Signature"] { font-size: 28px; }
+  .font-choice[data-font="Modern"] { font-size: 11px; }
+}
+
+@keyframes selection-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .65; transform: scale(.72); }
+}
+@keyframes chapter-reveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes image-reveal { from { opacity: .35; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
