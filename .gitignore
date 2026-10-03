@@ -10,3 +10,5 @@ test-results/
 .next/
 public/
 *.tsbuildinfo
+
+data/

@@ -56,3 +56,14 @@
     scroll-behavior: auto !important;
   }
 }
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { background: #000000; color: #F3F3F3; }
+}
+@layer components {
+  .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .25em; color: #C0C0C0; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.catalog-dot-field { background-image: radial-gradient(#c0c0c01a .7px, transparent .7px); background-size: 16px 16px; }
