@@ -4,7 +4,7 @@
 **Goal:** This page must NOT look like a Shopify store. It must look like a feature article on a high-end financial or luxury publication (e.g., Bloomberg Pursuits, GQ, or Financial Times).
 
 *   **Header:** Minimalist logo (KAVEX LABS), black background, white text.
-*   **Meta-Data:** Under the headline, include a "Read Time: 3 Min" and "By: M. Hassen - Head of Sourcing".
+*   **Meta-Data:** Under the headline, include a "Read Time: 3 Min" and "By: M. Jacob - Head of Sourcing".
 *   **Hero Image:** A cinematic, wide shot of a glowing diamond in a dark industrial forge, or a sleek CAD blueprint overlay.
 *   **Social Proof Injection:** Halfway down the page, embed a block: *"Rated 4.9/5 by 120+ Private Clients in Europe."*
 *   **Formatting:** Use short paragraphs (max 3 sentences). High read-speed. Bold critical phrases.

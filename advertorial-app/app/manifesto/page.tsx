@@ -42,10 +42,10 @@ export default function Manifesto() {
             <div className="byline">
               <div>
                 <span className="byline-mark" aria-hidden="true">
-                  MH
+                  MJ
                 </span>
                 <div>
-                  <span>By: M. Hassen</span>
+                  <span>By: M. Jacob</span>
                   <span className="byline-role">Head of Sourcing</span>
                 </div>
               </div>
