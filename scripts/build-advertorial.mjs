@@ -73,6 +73,8 @@ mkdirSync(path.join(dist, "advertorial"), { recursive: true });
 cpSync(path.join(app, "out/_next"), path.join(dist, "advertorial/_next"), {
   recursive: true,
 });
+// Responsive, content-hashed images belong only to the advertorial routes.
+cpSync(path.join(app, "public/advertorial/media"), path.join(dist, "advertorial/media"), { recursive: true });
 if (
   digest(path.join(root, "index.html")) !== homepageBefore ||
   digest(path.join(dist, "index.html")) !== homepageBefore

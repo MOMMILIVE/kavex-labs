@@ -1,14 +1,6 @@
-export type Language = "en" | "ar" | "no";
-export const languages: Language[] = ["en", "ar", "no"];
-export function getLanguage(value?: string): Language {
-  return value === "ar" || value === "no" ? value : "en";
-}
-export function routeFor(
-  language: Language,
-  page: "manifesto" | "vault-allocation",
-) {
-  return `${language === "en" ? "" : `/${language}`}/${page}`;
-}
+import type { Language } from "./languages";
+export { languages, getLanguage, routeFor, type Language } from "./languages";
+
 // Norwegian Bokmål and Arabic translations. English remains the supplied copy source.
 const translations: Record<string, [string, string]> = {
   "🌐 MARKET UPDATE: Global gold and raw diamond commodities fluctuate daily. Secure your allocation today to lock in current direct-forge pricing.": [

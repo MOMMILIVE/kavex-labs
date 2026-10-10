@@ -1,5 +1,6 @@
 import { translate, type Language } from "../lib/i18n";
 import { Header, Footer } from "./Brand";
+import { getQuizMessages } from "../lib/quiz-messages";
 import VaultQuiz from "./VaultQuiz";
 export default function VaultPage({
   language = "en",
@@ -17,7 +18,7 @@ export default function VaultPage({
           </span>
           <span>{t("KAVEX LABS / DIRECT ACCESS")}</span>
         </div>
-        <VaultQuiz language={language} />
+        <VaultQuiz language={language} messages={getQuizMessages(language)} />
       </main>
       <Footer language={language} />
     </>

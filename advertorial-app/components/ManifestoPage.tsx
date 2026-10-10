@@ -1,5 +1,6 @@
 import { translate, routeFor, type Language } from "../lib/i18n";
 import { Header, Footer, Arrow, InlineCopy } from "./Brand";
+import { media } from "../lib/media";
 import { manifesto as copy } from "../lib/manifesto";
 
 export default function ManifestoPage({
@@ -46,9 +47,12 @@ export default function ManifestoPage({
           <figure className="hero-figure shell">
             <div className="hero-image">
               <img
-                src="/assets/cad_design.webp"
-                width="1024"
-                height="1024"
+                src={media.cad_design.src}
+                srcSet={media.cad_design.srcSet}
+                sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1000px) calc(100vw - 64px), (max-width: 1280px) calc(100vw - 96px), 1184px"
+                decoding="async"
+                width={media.cad_design.width}
+                height={media.cad_design.height}
                 alt={t(
                   "A Kavex engagement ring rendered as a precision CAD blueprint on an atelier monitor",
                 )}
@@ -181,12 +185,15 @@ export default function ManifestoPage({
               </section>
               <figure className="craft-figure">
                 <img
-                  src="/assets/gold_pour.webp"
+                  src={media.gold_pour.src}
+                  srcSet={media.gold_pour.srcSet}
+                  sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1000px) calc(100vw - 274px), (max-width: 1142px) calc(100vw - 422px), 720px"
+                  decoding="async"
                   alt={t(
                     "Molten gold being poured by a gloved jeweler in a dark workshop",
                   )}
-                  width="1024"
-                  height="1024"
+                  width={media.gold_pour.width}
+                  height={media.gold_pour.height}
                   loading="lazy"
                 />
                 <figcaption>
