@@ -44,4 +44,4 @@ Traditional jewelers will try to tell you that natural diamonds are an "investme
 If she sent you here, she already knows what she wants. Now it is your job to execute it intelligently. Do not step foot in a retail store until you see what is in the vault.
 
 **[CTA Button]**
-[ REQUEST VAULT ALLOCATION ] *(Links to 3-step WhatsApp capture quiz)*
+[ REQUEST VAULT ALLOCATION ] *(Links to 5-step private qualification quiz)*

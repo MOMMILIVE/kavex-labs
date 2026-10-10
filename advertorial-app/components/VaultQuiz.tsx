@@ -20,6 +20,42 @@ const commissions = [
     image: "/assets/fancy_yellow.webp",
   },
 ];
+const shapes = [
+  "Oval",
+  "Round",
+  "Emerald",
+  "Radiant",
+  "Pear",
+  "I need a recommendation",
+];
+const scales = [
+  "1 - 2 Carats (Subtle)",
+  "2 - 3 Carats (Statement)",
+  "3 - 4 Carats (The Kavex Standard)",
+  "4 - 5+ Carats (Bespoke)",
+  "I need a recommendation",
+];
+const progressLabels = [
+  "Your vision",
+  "Centerpiece",
+  "The scale",
+  "Allocation",
+  "Introduction",
+];
+const titles = [
+  "What are we creating?",
+  "Define the aesthetic.",
+  "Define the carat weight.",
+  "Define your allocation.",
+  "A private introduction.",
+];
+const descriptions = [
+  "Every commission starts with a vision. Tell us yours.",
+  "Select her preferred diamond shape, or let our concierge guide you.",
+  "Select the target scale for the centerpiece.",
+  "Choose a comfortable budget. Your concierge will shape the brief with you.",
+  "Your brief is ready. Introduce yourself to our private concierge.",
+];
 const budgets = [
   "25,000–45,000 NOK",
   "45,000–75,000 NOK",
@@ -27,9 +63,50 @@ const budgets = [
   "Let's discuss my vision",
 ];
 
+function SelectionOptions({
+  name,
+  legend,
+  options,
+  value,
+  onSelect,
+}: {
+  name: string;
+  legend: string;
+  options: readonly string[];
+  value: string;
+  onSelect: (value: string) => void;
+}) {
+  return (
+    <fieldset
+      className={`budget-options ${name === "shape" ? "shape-options" : ""}`}
+    >
+      <legend className="sr-only">{legend}</legend>
+      {options.map((item, i) => (
+        <label
+          key={item}
+          className={`budget-option ${value === item ? "selected" : ""}`}
+        >
+          <input
+            type="radio"
+            name={name}
+            value={item}
+            checked={value === item}
+            onChange={() => onSelect(item)}
+          />
+          <span className="micro">0{i + 1}</span>
+          <span>{item}</span>
+          <span className="radio-indicator" aria-hidden="true" />
+        </label>
+      ))}
+    </fieldset>
+  );
+}
+
 export default function VaultQuiz() {
   const [step, setStep] = useState(0);
   const [commission, setCommission] = useState("");
+  const [shape, setShape] = useState("");
+  const [scale, setScale] = useState("");
   const [budget, setBudget] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -49,7 +126,19 @@ export default function VaultQuiz() {
       setError("Choose a commission to continue.");
       return;
     }
-    if (step === 1 && !budget) {
+    if (step === 1 && !shape) {
+      setError(
+        "Choose a diamond shape or request a recommendation to continue.",
+      );
+      return;
+    }
+    if (step === 2 && !scale) {
+      setError(
+        "Choose a carat weight or request a recommendation to continue.",
+      );
+      return;
+    }
+    if (step === 3 && !budget) {
       setError("Choose a budget to continue.");
       return;
     }
@@ -58,9 +147,12 @@ export default function VaultQuiz() {
   const message = [
     "Hello Kavex Labs — I would like to request a private vault allocation.",
     `Commission: ${commission}`,
+    `Diamond shape: ${shape}`,
+    `Carat weight: ${scale}`,
     `Budget: ${budget}`,
     `Name: ${name.trim()}`,
-    `WhatsApp: ${phone.trim()}`,
+    `Phone: ${phone.trim()}`,
+    "Preferred contact: iMessage / SMS Concierge",
     "Source: The Manifesto",
   ].join("\n");
   // Existing site's concierge number. This opens a draft; the client sends it in WhatsApp.
@@ -69,39 +161,23 @@ export default function VaultQuiz() {
   return (
     <div className="quiz">
       <ol className="quiz-progress" aria-label="Request progress">
-        {["Your vision", "Your allocation", "Private access"].map(
-          (label, i) => (
-            <li
-              key={label}
-              aria-current={step === i ? "step" : undefined}
-              className={step >= i ? "active" : ""}
-            >
-              <span>0{i + 1}</span>
-              <span>{label}</span>
-            </li>
-          ),
-        )}
+        {progressLabels.map((label, i) => (
+          <li
+            key={label}
+            aria-current={step === i ? "step" : undefined}
+            className={step >= i ? "active" : ""}
+          >
+            <span>0{i + 1}</span>
+            <span>{label}</span>
+          </li>
+        ))}
       </ol>
       <div className="quiz-step">
-        <p className="micro chapter-label">STEP 0{step + 1} / 03</p>
+        <p className="micro chapter-label">STEP 0{step + 1} / 05</p>
         <h1 ref={heading} tabIndex={-1}>
-          {
-            [
-              "What are we creating?",
-              "Define your allocation.",
-              "A private introduction.",
-            ][step]
-          }
+          {titles[step]}
         </h1>
-        <p className="quiz-description">
-          {
-            [
-              "Every commission starts with a vision. Tell us yours.",
-              "Choose a comfortable budget. Your concierge will shape the brief with you.",
-              "Your brief is ready. Introduce yourself to our private concierge.",
-            ][step]
-          }
-        </p>
+        <p className="quiz-description">{descriptions[step]}</p>
         {step === 0 ? (
           <fieldset className="vision-options">
             <legend className="sr-only">Commission type</legend>
@@ -133,31 +209,42 @@ export default function VaultQuiz() {
           </fieldset>
         ) : null}
         {step === 1 ? (
-          <fieldset className="budget-options">
-            <legend className="sr-only">Comfortable budget in NOK</legend>
-            {budgets.map((item, i) => (
-              <label
-                key={item}
-                className={`budget-option ${budget === item ? "selected" : ""}`}
-              >
-                <input
-                  type="radio"
-                  name="budget"
-                  value={item}
-                  checked={budget === item}
-                  onChange={() => {
-                    setBudget(item);
-                    setError("");
-                  }}
-                />
-                <span className="micro">0{i + 1}</span>
-                <span>{item}</span>
-                <span className="radio-indicator" aria-hidden="true" />
-              </label>
-            ))}
-          </fieldset>
+          <SelectionOptions
+            name="shape"
+            legend="Preferred diamond shape"
+            options={shapes}
+            value={shape}
+            onSelect={(value) => {
+              setShape(value);
+              setError("");
+            }}
+          />
         ) : null}
         {step === 2 ? (
+          <SelectionOptions
+            name="scale"
+            legend="Target carat weight"
+            options={scales}
+            value={scale}
+            onSelect={(value) => {
+              setScale(value);
+              setError("");
+            }}
+          />
+        ) : null}
+        {step === 3 ? (
+          <SelectionOptions
+            name="budget"
+            legend="Comfortable budget in NOK"
+            options={budgets}
+            value={budget}
+            onSelect={(value) => {
+              setBudget(value);
+              setError("");
+            }}
+          />
+        ) : null}
+        {step === 4 ? (
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -172,7 +259,7 @@ export default function VaultQuiz() {
                 digits.length > 15
               ) {
                 setError(
-                  "Enter your WhatsApp number with its country code, for example +47 489 00 083.",
+                  "Enter your phone number with its country code, for example +47 489 00 083.",
                 );
                 return;
               }
@@ -184,6 +271,8 @@ export default function VaultQuiz() {
             <div className="brief-summary">
               <span className="micro">YOUR PRIVATE BRIEF</span>
               <span>{commission}</span>
+              <span>Shape: {shape}</span>
+              <span>Scale: {scale}</span>
               <span>{budget}</span>
             </div>
             <label>
@@ -203,7 +292,7 @@ export default function VaultQuiz() {
               />
             </label>
             <label>
-              WhatsApp number
+              Phone Number (For iMessage / SMS Concierge)
               <input
                 autoComplete="tel"
                 name="phone"
@@ -221,7 +310,8 @@ export default function VaultQuiz() {
             </label>
             <p id="phone-note" className="form-note">
               Include your country code. Your details will be included in your
-              WhatsApp message.
+              WhatsApp brief so the concierge can contact you by iMessage or
+              SMS.
             </p>
             <label className="consent">
               <input
@@ -269,7 +359,7 @@ export default function VaultQuiz() {
             )}
           </form>
         ) : null}
-        {step < 2 && error ? (
+        {step < 4 && error ? (
           <p className="form-error" role="alert">
             {error}
           </p>
@@ -288,7 +378,7 @@ export default function VaultQuiz() {
               ← The manifesto
             </a>
           )}
-          {step < 2 ? (
+          {step < 4 ? (
             <button type="button" className="pill" onClick={continueStep}>
               Continue <Arrow />
             </button>
@@ -297,7 +387,7 @@ export default function VaultQuiz() {
       </div>
       <noscript>
         <p>
-          Please enable JavaScript to complete the three-step request, or{" "}
+          Please enable JavaScript to complete the five-step request, or{" "}
           <a href="https://wa.me/4748900083">
             contact the Kavex concierge on WhatsApp
           </a>

@@ -23,7 +23,7 @@ Deploy with the repository root unchanged. `vercel.json` supplies the install/bu
 
 ## Private request
 
-The quiz asks for commission, comfortable budget, and name/WhatsApp number. Radio inputs, keyboard focus, inline validation, back navigation, consent, mobile layouts, and reduced-motion preferences are supported. It uses the site's existing concierge number `+47 489 00 083`.
+The five-step quiz asks for commission, diamond shape, carat weight, comfortable budget, and name/phone number. The phone label requests an iMessage/SMS concierge contact; the existing WhatsApp draft handoff includes that preference and all five answers. Radio inputs, keyboard focus, inline validation, back navigation, consent, mobile layouts, and reduced-motion preferences are supported. It uses the site's existing concierge number `+47 489 00 083`.
 
 Contact details stay in React state. The final action opens a WhatsApp draft containing the brief; the client must tap Send in WhatsApp. There is no backend lead storage or automatic outbound message. The UI explains this handoff explicitly. No phone number is added to a local URL or analytics payload.
 

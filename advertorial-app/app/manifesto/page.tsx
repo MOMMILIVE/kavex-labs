@@ -241,7 +241,7 @@ export default function Manifesto() {
                   <Arrow diagonal />
                 </a>
                 <p className="cta-note micro">
-                  THREE STEPS. ONE PRIVATE CONVERSATION.
+                  FIVE STEPS. ONE PRIVATE CONVERSATION.
                 </p>
               </section>
             </div>

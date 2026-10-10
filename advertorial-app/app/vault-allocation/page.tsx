@@ -5,7 +5,7 @@ import VaultQuiz from "../../components/VaultQuiz";
 export const metadata: Metadata = {
   title: "Request Vault Allocation",
   description:
-    "Create a private brief in three steps and connect with the Kavex Labs concierge on WhatsApp.",
+    "Create a private brief in five steps and connect with the Kavex Labs concierge on WhatsApp.",
 };
 export default function VaultAllocation() {
   return (
