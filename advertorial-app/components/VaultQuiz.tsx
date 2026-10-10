@@ -152,7 +152,7 @@ export default function VaultQuiz() {
     `Budget: ${budget}`,
     `Name: ${name.trim()}`,
     `Phone: ${phone.trim()}`,
-    "Preferred contact: iMessage / SMS Concierge",
+    "Preferred contact: iMessage / WhatsApp Concierge",
     "Source: The Manifesto",
   ].join("\n");
   // Existing site's concierge number. This opens a draft; the client sends it in WhatsApp.
@@ -292,7 +292,7 @@ export default function VaultQuiz() {
               />
             </label>
             <label>
-              Phone Number (For iMessage / SMS Concierge)
+              Phone Number (For iMessage / WhatsApp Concierge)
               <input
                 autoComplete="tel"
                 name="phone"
@@ -311,7 +311,7 @@ export default function VaultQuiz() {
             <p id="phone-note" className="form-note">
               Include your country code. Your details will be included in your
               WhatsApp brief so the concierge can contact you by iMessage or
-              SMS.
+              WhatsApp.
             </p>
             <label className="consent">
               <input
