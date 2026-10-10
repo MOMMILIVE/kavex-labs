@@ -1,3 +1,5 @@
+import { languages, routeFor, translate, type Language } from "../lib/i18n";
+
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
     <svg
@@ -16,34 +18,85 @@ export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   );
 }
 
-export function Header() {
+export function Header({
+  language = "en",
+  page = "manifesto",
+}: {
+  language?: Language;
+  page?: "manifesto" | "vault-allocation";
+}) {
+  const t = (text: string) => translate(language, text);
   return (
-    <header className="masthead">
-      <a href="/" className="brand" aria-label="Kavex Labs home">
+    <header className="masthead" dir="ltr">
+      <a href="/" className="brand" aria-label={t("Kavex Labs home")}>
         <img src="/kavex_logo.svg" width="36" height="36" alt="" />
         <span>
           KAVEX <span className="brand-light">LABS</span>
         </span>
       </a>
-      <span className="masthead-edition micro">THE SOURCING JOURNAL</span>
-      <a className="pill pill-small" href="/vault-allocation">
-        Request access <Arrow diagonal />
-      </a>
+      <span className="masthead-edition micro">
+        {t("THE SOURCING JOURNAL")}
+      </span>
+      <div className="masthead-actions">
+        <a
+          className="pill pill-small"
+          href={routeFor(language, "vault-allocation")}
+        >
+          {t("Request access")} <Arrow diagonal />
+        </a>
+        <nav
+          className="language-switcher micro"
+          aria-label={
+            language === "ar"
+              ? "اللغة"
+              : language === "no"
+                ? "Språk"
+                : "Language"
+          }
+          dir="ltr"
+        >
+          {languages.map((item, index) => (
+            <span key={item}>
+              {index > 0 ? (
+                <span className="language-divider" aria-hidden="true">
+                  |
+                </span>
+              ) : null}
+              <a
+                href={routeFor(item, page)}
+                hrefLang={item === "no" ? "nb" : item}
+                lang={item === "no" ? "nb" : item}
+                aria-label={
+                  item === "en"
+                    ? "English"
+                    : item === "ar"
+                      ? "العربية"
+                      : "Norsk"
+                }
+                aria-current={language === item ? "true" : undefined}
+              >
+                {item.toUpperCase()}
+              </a>
+            </span>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }
 
-export function Footer() {
+export function Footer({ language = "en" }: { language?: Language }) {
+  const t = (text: string) => translate(language, text);
   return (
     <footer className="footer">
-      <a href="/" className="brand" aria-label="Kavex Labs home">
+      <a href="/" className="brand" aria-label={t("Kavex Labs home")}>
         <img src="/kavex_logo.svg" width="28" height="28" alt="" />
         <span>KAVEX LABS</span>
       </a>
-      <span className="micro">ENGINEERED DIRECTLY AT THE SOURCE.</span>
-      <a href="/privacy">Privacy</a>
-      <a href="/manifesto#top" className="back-top">
-        Back to top ↑
+      <span className="micro">{t("ENGINEERED DIRECTLY AT THE SOURCE.")}</span>
+      <a href="/privacy">{t("Privacy")}</a>
+      <a href={`${routeFor(language, "manifesto")}#top`} className="back-top">
+        {t("Back to top ↑")}
       </a>
     </footer>
   );

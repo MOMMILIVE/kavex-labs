@@ -54,9 +54,19 @@ for (const entry of readdirSync(root, { withFileTypes: true })) {
 }
 
 // Export only the new pages and their own bundle; discard Next's generated 404.
-for (const route of ["manifesto", "vault-allocation"]) {
+for (const route of [
+  "manifesto",
+  "vault-allocation",
+  "ar/manifesto",
+  "ar/vault-allocation",
+  "no/manifesto",
+  "no/vault-allocation",
+]) {
   const file = path.join(app, "out", `${route}.html`);
   if (!existsSync(file)) throw new Error(`Missing exported route: ${route}`);
+  mkdirSync(path.dirname(path.join(dist, `${route}.html`)), {
+    recursive: true,
+  });
   cpSync(file, path.join(dist, `${route}.html`));
 }
 mkdirSync(path.join(dist, "advertorial"), { recursive: true });
@@ -69,5 +79,5 @@ if (
 )
   throw new Error("Homepage integrity check failed");
 console.log(
-  "Added /manifesto and /vault-allocation. Homepage SHA-256 unchanged.",
+  "Added manifesto and vault-allocation routes in EN, AR, and NO. Homepage SHA-256 unchanged.",
 );

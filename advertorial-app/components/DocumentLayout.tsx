@@ -1,10 +1,17 @@
+import { translate, type Language } from "../lib/i18n";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "../app/globals.css";
 
 const geist = localFont({
   src: "../fonts/geist-latin.woff2",
   variable: "--font-geist",
+  display: "swap",
+  weight: "100 900",
+});
+const arabic = localFont({
+  src: "../fonts/noto-sans-arabic.ttf",
+  variable: "--font-arabic",
   display: "swap",
   weight: "100 900",
 });
@@ -19,14 +26,19 @@ export const viewport: Viewport = {
   themeColor: "#121212",
   colorScheme: "dark",
 };
-export default function Layout({
+export default function DocumentLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  language = "en",
+}: Readonly<{ children: React.ReactNode; language?: Language }>) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html
+      lang={language === "no" ? "nb" : language}
+      dir={language === "ar" ? "rtl" : "ltr"}
+      className={`${geist.variable} ${language === "ar" ? arabic.variable : ""}`}
+    >
       <body>
         <a className="skip-link" href="#main">
-          Skip to content
+          {translate(language, "Skip to content")}
         </a>
         {children}
       </body>

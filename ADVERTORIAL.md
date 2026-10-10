@@ -1,12 +1,14 @@
 # Kavex Labs advertorial
 
-Ad destination: `/manifesto`. CTA destination: `/vault-allocation`.
+Ad destination: `/manifesto`. CTA destination: `/vault-allocation`. Arabic versions use `/ar/manifesto` and `/ar/vault-allocation`; Norwegian Bokmål versions use `/no/manifesto` and `/no/vault-allocation`.
 
-The existing homepage and routes remain static. `advertorial-app/` is an isolated Next.js App Router app with a static export. The root build stages existing public files into `dist/`, then adds only the two exported pages and their compiled assets under `/advertorial/_next/`. It checks that the staged homepage is byte-for-byte identical to the original. Vercel still handles the existing root `api/` functions separately.
+The existing homepage and routes remain static. `advertorial-app/` is an isolated Next.js App Router app with a static export. The root build stages existing public files into `dist/`, then adds the six exported language/page combinations and their compiled assets under `/advertorial/_next/`. It checks that the staged homepage is byte-for-byte identical to the original. Vercel still handles the existing root `api/` functions separately.
 
 ## Copy and identity
 
-`advertorial-app/content/03_Advertorial_Copy_and_Layout.md` is the supplied copy source. The server component reads the marked copy sections at build time; layout instructions are not displayed. The existing site provided the Kavex mark, Geist font family, #121212 background, white pill controls, and original CAD / gold-pour photographs. Geist is self-hosted with its OFL license.
+`advertorial-app/content/03_Advertorial_Copy_and_Layout.md` is the supplied copy source. The server component reads the marked copy sections at build time; layout instructions are not displayed. The existing site provided the Kavex mark, Geist font family, #121212 background, white pill controls, and original CAD / gold-pour photographs. Geist and Noto Sans Arabic are self-hosted with their OFL licenses. The English headline and client proof target Scandinavia.
+
+The understated EN | AR | NO switcher preserves the current page when changing language. Both the article and all five quiz steps are translated through `advertorial-app/lib/i18n.ts`. Arabic uses right-to-left layout with left-to-right brand, prices, and telephone input. Dedicated root layouts set each exported document's language and direction. Canonical and language-alternate links cover all three versions. A language change navigates to the translated page and starts a fresh quiz; the selected language is included in the concierge draft. Review the translations with native speakers before publication.
 
 The source's retail markup, rating/client count, testimonial, price comparison, tax/import guarantee, conflict-free, sustainability, and climate-neutral statements are user-supplied marketing claims. This implementation does not independently verify them. Confirm these claims before approving publication. Ad routes are `noindex, follow` by default and are not added to homepage navigation.
 

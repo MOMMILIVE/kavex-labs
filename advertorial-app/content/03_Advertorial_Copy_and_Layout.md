@@ -6,7 +6,7 @@
 *   **Header:** Minimalist logo (KAVEX LABS), black background, white text.
 *   **Meta-Data:** Under the headline, include a "Read Time: 3 Min" and "By: M. Jacob - Head of Sourcing".
 *   **Hero Image:** A cinematic, wide shot of a glowing diamond in a dark industrial forge, or a sleek CAD blueprint overlay.
-*   **Social Proof Injection:** Halfway down the page, embed a block: *"Rated 4.9/5 by 120+ Private Clients in Europe."*
+*   **Social Proof Injection:** Halfway down the page, embed a block: *"Rated 4.9/5 by 120+ Private Clients in Scandinavia."*
 *   **Formatting:** Use short paragraphs (max 3 sentences). High read-speed. Bold critical phrases.
 
 ---
@@ -14,7 +14,7 @@
 ## 2. The Copy
 
 **[Dynamic Headline]**
-Why Europe's Elite Are Quietly Ditching Traditional Luxury For Engineered Status.
+Why Scandinavia's Elite Are Quietly Ditching Traditional Retail Jewelers For Engineered Status.
 
 **[Subhead]**
 If she sent you this link, she wants the dream ring. But she doesn't want you to be ripped off by the retail industry's 50,000 NOK lie. Welcome to the Bespoke Architect protocol.

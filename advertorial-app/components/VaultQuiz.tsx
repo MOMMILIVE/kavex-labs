@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Arrow } from "./Brand";
+import { translate, routeFor, type Language } from "../lib/i18n";
 
 const commissions = [
   {
@@ -69,7 +70,9 @@ function SelectionOptions({
   options,
   value,
   onSelect,
+  language,
 }: {
+  language: Language;
   name: string;
   legend: string;
   options: readonly string[];
@@ -80,7 +83,7 @@ function SelectionOptions({
     <fieldset
       className={`budget-options ${name === "shape" ? "shape-options" : ""}`}
     >
-      <legend className="sr-only">{legend}</legend>
+      <legend className="sr-only">{translate(language, legend)}</legend>
       {options.map((item, i) => (
         <label
           key={item}
@@ -94,7 +97,7 @@ function SelectionOptions({
             onChange={() => onSelect(item)}
           />
           <span className="micro">0{i + 1}</span>
-          <span>{item}</span>
+          <span>{translate(language, item)}</span>
           <span className="radio-indicator" aria-hidden="true" />
         </label>
       ))}
@@ -102,7 +105,12 @@ function SelectionOptions({
   );
 }
 
-export default function VaultQuiz() {
+export default function VaultQuiz({
+  language = "en",
+}: {
+  language?: Language;
+}) {
+  const t = (text: string) => translate(language, text);
   const [step, setStep] = useState(0);
   const [commission, setCommission] = useState("");
   const [shape, setShape] = useState("");
@@ -153,6 +161,7 @@ export default function VaultQuiz() {
     `Name: ${name.trim()}`,
     `Phone: ${phone.trim()}`,
     "Preferred contact: iMessage / WhatsApp Concierge",
+    `Language: ${language === "ar" ? "Arabic" : language === "no" ? "Norwegian" : "English"}`,
     "Source: The Manifesto",
   ].join("\n");
   // Existing site's concierge number. This opens a draft; the client sends it in WhatsApp.
@@ -160,7 +169,7 @@ export default function VaultQuiz() {
 
   return (
     <div className="quiz">
-      <ol className="quiz-progress" aria-label="Request progress">
+      <ol className="quiz-progress" aria-label={t("Request progress")}>
         {progressLabels.map((label, i) => (
           <li
             key={label}
@@ -168,19 +177,21 @@ export default function VaultQuiz() {
             className={step >= i ? "active" : ""}
           >
             <span>0{i + 1}</span>
-            <span>{label}</span>
+            <span>{t(label)}</span>
           </li>
         ))}
       </ol>
       <div className="quiz-step">
-        <p className="micro chapter-label">STEP 0{step + 1} / 05</p>
+        <p className="micro chapter-label">
+          {t("STEP")} <bdi dir="ltr">0{step + 1} / 05</bdi>
+        </p>
         <h1 ref={heading} tabIndex={-1}>
-          {titles[step]}
+          {t(titles[step])}
         </h1>
-        <p className="quiz-description">{descriptions[step]}</p>
+        <p className="quiz-description">{t(descriptions[step])}</p>
         {step === 0 ? (
           <fieldset className="vision-options">
-            <legend className="sr-only">Commission type</legend>
+            <legend className="sr-only">{t("Commission type")}</legend>
             {commissions.map((item) => (
               <label
                 key={item.name}
@@ -199,8 +210,8 @@ export default function VaultQuiz() {
                 <img src={item.image} alt="" width="400" height="400" />
                 <span className="option-detail">
                   <span>
-                    <strong>{item.name}</strong>
-                    <span>{item.caption}</span>
+                    <strong>{t(item.name)}</strong>
+                    <span>{t(item.caption)}</span>
                   </span>
                   <span className="radio-indicator" aria-hidden="true" />
                 </span>
@@ -210,6 +221,7 @@ export default function VaultQuiz() {
         ) : null}
         {step === 1 ? (
           <SelectionOptions
+            language={language}
             name="shape"
             legend="Preferred diamond shape"
             options={shapes}
@@ -222,6 +234,7 @@ export default function VaultQuiz() {
         ) : null}
         {step === 2 ? (
           <SelectionOptions
+            language={language}
             name="scale"
             legend="Target carat weight"
             options={scales}
@@ -234,6 +247,7 @@ export default function VaultQuiz() {
         ) : null}
         {step === 3 ? (
           <SelectionOptions
+            language={language}
             name="budget"
             legend="Comfortable budget in NOK"
             options={budgets}
@@ -269,14 +283,18 @@ export default function VaultQuiz() {
             className="contact-form"
           >
             <div className="brief-summary">
-              <span className="micro">YOUR PRIVATE BRIEF</span>
-              <span>{commission}</span>
-              <span>Shape: {shape}</span>
-              <span>Scale: {scale}</span>
-              <span>{budget}</span>
+              <span className="micro">{t("YOUR PRIVATE BRIEF")}</span>
+              <span>{t(commission)}</span>
+              <span>
+                {t("Shape")}: {t(shape)}
+              </span>
+              <span>
+                {t("Scale")}: {t(scale)}
+              </span>
+              <span>{t(budget)}</span>
             </div>
             <label>
-              Your name
+              {t("Your name")}
               <input
                 autoComplete="name"
                 name="name"
@@ -288,11 +306,11 @@ export default function VaultQuiz() {
                   setName(event.target.value);
                   setHandoff(false);
                 }}
-                placeholder="Full name"
+                placeholder={t("Full name")}
               />
             </label>
             <label>
-              Phone Number (For iMessage / WhatsApp Concierge)
+              {t("Phone Number (For iMessage / WhatsApp Concierge)")}
               <input
                 autoComplete="tel"
                 name="phone"
@@ -304,14 +322,15 @@ export default function VaultQuiz() {
                   setPhone(event.target.value);
                   setHandoff(false);
                 }}
-                placeholder="+47 · Your number"
+                placeholder={t("+47 · Your number")}
+                dir="ltr"
                 aria-describedby="phone-note"
               />
             </label>
             <p id="phone-note" className="form-note">
-              Include your country code. Your details will be included in your
-              WhatsApp brief so the concierge can contact you by iMessage or
-              WhatsApp.
+              {t(
+                "Include your country code. Your details will be included in your WhatsApp brief so the concierge can contact you by iMessage or WhatsApp.",
+              )}
             </p>
             <label className="consent">
               <input
@@ -324,44 +343,48 @@ export default function VaultQuiz() {
                 }}
               />
               <span>
-                I agree to share this brief and my details with Kavex Labs via
-                WhatsApp.{" "}
+                {t(
+                  "I agree to share this brief and my details with Kavex Labs via WhatsApp.",
+                )}{" "}
                 <a href="/privacy" target="_blank" rel="noopener noreferrer">
-                  Privacy policy ↗
+                  {t("Privacy policy ↗")}
                 </a>
               </span>
             </label>
             {error ? (
               <p className="form-error" role="alert">
-                {error}
+                {t(error)}
               </p>
             ) : null}
             {handoff && consent && name.trim() ? (
               <div className="handoff" role="status">
-                <p>Your introduction is ready.</p>
+                <p>{t("Your introduction is ready.")}</p>
                 <a
                   className="pill"
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Continue on WhatsApp <Arrow diagonal />
+                  {t("Continue on WhatsApp")}
+                  <Arrow diagonal />
                 </a>
                 <p className="form-note">
-                  WhatsApp opens with your brief. Tap send there to submit your
-                  request.
+                  {t(
+                    "WhatsApp opens with your brief. Tap send there to submit your request.",
+                  )}
                 </p>
               </div>
             ) : (
               <button className="pill" type="submit">
-                Prepare my introduction <Arrow />
+                {t("Prepare my introduction")}
+                <Arrow />
               </button>
             )}
           </form>
         ) : null}
         {step < 4 && error ? (
           <p className="form-error" role="alert">
-            {error}
+            {t(error)}
           </p>
         ) : null}
         <div className="quiz-actions">
@@ -371,25 +394,26 @@ export default function VaultQuiz() {
               className="text-button"
               onClick={() => goTo(step - 1)}
             >
-              ← Back
+              {t("← Back")}
             </button>
           ) : (
-            <a className="text-button" href="/manifesto">
-              ← The manifesto
+            <a className="text-button" href={routeFor(language, "manifesto")}>
+              {t("← The manifesto")}
             </a>
           )}
           {step < 4 ? (
             <button type="button" className="pill" onClick={continueStep}>
-              Continue <Arrow />
+              {t("Continue")}
+              <Arrow />
             </button>
           ) : null}
         </div>
       </div>
       <noscript>
         <p>
-          Please enable JavaScript to complete the five-step request, or{" "}
+          {t("Please enable JavaScript to complete the five-step request, or")}{" "}
           <a href="https://wa.me/4748900083">
-            contact the Kavex concierge on WhatsApp
+            {t("contact the Kavex concierge on WhatsApp")}
           </a>
           .
         </p>

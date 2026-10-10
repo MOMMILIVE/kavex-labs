@@ -1,57 +1,45 @@
-import type { Metadata } from "next";
-import { Header, Footer, Arrow, InlineCopy } from "../../components/Brand";
-import { manifesto as copy } from "../../lib/manifesto";
+import { translate, routeFor, type Language } from "../lib/i18n";
+import { Header, Footer, Arrow, InlineCopy } from "./Brand";
+import { manifesto as copy } from "../lib/manifesto";
 
-export const metadata: Metadata = {
-  title: "Engineered Status · The Manifesto",
-  alternates: { canonical: "/manifesto" },
-  openGraph: {
-    title: copy.headline,
-    description: copy.subhead,
-    type: "article",
-    images: [
-      {
-        url: "/assets/cad_design.webp",
-        width: 1024,
-        height: 1024,
-        alt: "Kavex engagement ring CAD design",
-      },
-    ],
-  },
-};
-
-export default function Manifesto() {
-  const closingWords = "Engineered Status.";
+export default function ManifestoPage({
+  language = "en",
+}: {
+  language?: Language;
+}) {
+  const t = (text: string) => translate(language, text);
+  const closingWords = t("Engineered Status.");
   return (
     <>
-      <Header />
+      <Header language={language} />
       <main id="main">
         <article id="top">
           <div className="article-intro shell">
             <div className="edition-line micro">
               <span>
-                <span className="status-dot" /> KAVEX PERSPECTIVES
+                <span className="status-dot" /> {t("KAVEX PERSPECTIVES")}
               </span>
-              <span>VOL. 01 &nbsp; / &nbsp; THE MANIFESTO</span>
+              <span>{t("VOL. 01 / THE MANIFESTO")}</span>
             </div>
             <h1>
-              {copy.headline.replace(closingWords, "")}
+              {t(copy.headline).replace(closingWords, "")}
               <span>{closingWords}</span>
             </h1>
-            <p className="standfirst">{copy.subhead}</p>
+            <p className="standfirst">{t(copy.subhead)}</p>
             <div className="byline">
               <div>
                 <span className="byline-mark" aria-hidden="true">
                   MJ
                 </span>
                 <div>
-                  <span>By: M. Jacob</span>
-                  <span className="byline-role">Head of Sourcing</span>
+                  <span>{t("By: M. Jacob")}</span>
+                  <span className="byline-role">{t("Head of Sourcing")}</span>
                 </div>
               </div>
-              <span className="micro">READ TIME: 3 MIN</span>
+              <span className="micro">{t("READ TIME: 3 MIN")}</span>
               <a href="#the-protocol" className="micro">
-                READ THE STORY <span aria-hidden="true">↓</span>
+                {t("READ THE STORY")}
+                <span aria-hidden="true">↓</span>
               </a>
             </div>
           </div>
@@ -61,68 +49,74 @@ export default function Manifesto() {
                 src="/assets/cad_design.webp"
                 width="1024"
                 height="1024"
-                alt="A Kavex engagement ring rendered as a precision CAD blueprint on an atelier monitor"
+                alt={t(
+                  "A Kavex engagement ring rendered as a precision CAD blueprint on an atelier monitor",
+                )}
                 fetchPriority="high"
               />
               <div className="hero-overlay">
-                <span className="micro">THE BESPOKE ARCHITECT PROTOCOL</span>
+                <span className="micro">
+                  {t("THE BESPOKE ARCHITECT PROTOCOL")}
+                </span>
                 <p>
-                  Precision.
+                  {t("Precision.")}
                   <br />
-                  Without the theatre.
+                  {t("Without the theatre.")}
                 </p>
                 <span className="micro hero-coordinate">
-                  DESIGN → SOURCE → ENGINEER
+                  {t("DESIGN → SOURCE → ENGINEER")}
                 </span>
               </div>
               <span className="image-index micro">
-                FIG. 01 / THE ARCHITECTURE
+                {t("FIG. 01 / THE ARCHITECTURE")}
               </span>
             </div>
             <figcaption>
               <span>
-                From a private vision to a precisely engineered setting.
+                {t("From a private vision to a precisely engineered setting.")}
               </span>
-              <span className="micro">KAVEX LABS / ATELIER STUDY</span>
+              <span className="micro">{t("KAVEX LABS / ATELIER STUDY")}</span>
             </figcaption>
           </figure>
           <div className="reading-layout shell">
-            <aside className="article-rail" aria-label="Article contents">
+            <aside className="article-rail" aria-label={t("Article contents")}>
               <div className="rail-sticky">
-                <span className="micro">IN THIS PERSPECTIVE</span>
+                <span className="micro">{t("IN THIS PERSPECTIVE")}</span>
                 <nav>
                   <a href="#the-protocol">
-                    <span>01</span> The protocol
+                    <span>01</span> {t("The protocol")}
                   </a>
                   <a href="#modern-wealth">
-                    <span>02</span> Modern wealth
+                    <span>02</span> {t("Modern wealth")}
                   </a>
                   <a href="#the-guarantee">
-                    <span>03</span> The guarantee
+                    <span>03</span> {t("The guarantee")}
                   </a>
                   <a href="#private-access">
-                    <span>04</span> Private access
+                    <span>04</span> {t("Private access")}
                   </a>
                 </nav>
                 <div className="rail-signature">
                   <img src="/kavex_logo.svg" width="38" height="38" alt="" />
                   <p>
-                    Direct access.
+                    {t("Direct access.")}
                     <br />
-                    Singular vision.
+                    {t("Singular vision.")}
                   </p>
                 </div>
               </div>
             </aside>
             <div className="article-body">
               <section id="the-protocol" className="chapter">
-                <div className="chapter-label micro">01 / THE PROTOCOL</div>
+                <div className="chapter-label micro">
+                  {t("01 / THE PROTOCOL")}
+                </div>
                 <p className="opening">
-                  <InlineCopy text={copy.body[0]} />
+                  <InlineCopy text={t(copy.body[0])} />
                 </p>
                 {copy.body.slice(1).map((paragraph, i) => (
                   <p key={i}>
-                    <InlineCopy text={paragraph} />
+                    <InlineCopy text={t(paragraph)} />
                   </p>
                 ))}
               </section>
@@ -131,47 +125,54 @@ export default function Manifesto() {
                   4.9<span>/5</span>
                 </div>
                 <div>
-                  <span className="proof-stars" aria-label="Rated 4.9 out of 5">
+                  <span
+                    className="proof-stars"
+                    aria-label={t("Rated 4.9 out of 5")}
+                  >
                     ★★★★★
                   </span>
-                  <p>Rated 4.9/5 by 120+ Private Clients in Europe.</p>
+                  <p>
+                    {t("Rated 4.9/5 by 120+ Private Clients in Scandinavia.")}
+                  </p>
                 </div>
                 <span className="micro">
-                  PRIVATE CLIENTS.
+                  {t("PRIVATE CLIENTS.")}
                   <br />
-                  EXCEPTIONAL STANDARDS.
+                  {t("EXCEPTIONAL STANDARDS.")}
                 </span>
               </div>
               <section id="modern-wealth" className="chapter">
                 <div className="chapter-label micro">
-                  02 / THE MODERN WEALTH PROTOCOL
+                  {t("02 / THE MODERN WEALTH PROTOCOL")}
                 </div>
                 <h2>
-                  The mathematics
+                  {t("The mathematics")}
                   <br />
-                  of true luxury.
+                  {t("of true luxury.")}
                 </h2>
                 {copy.wealth.map((paragraph, i) => (
-                  <p key={i}>{paragraph}</p>
+                  <p key={i}>{t(paragraph)}</p>
                 ))}
                 <div
                   className="wealth-equation"
-                  aria-label="Illustrative wealth comparison from the manifesto"
+                  aria-label={t(
+                    "Illustrative wealth comparison from the manifesto",
+                  )}
                 >
                   <div>
-                    <span className="micro">TRADITIONAL RETAIL</span>
+                    <span className="micro">{t("TRADITIONAL RETAIL")}</span>
                     <span className="equation-price old-price">
                       100,000<span>NOK</span>
                     </span>
                   </div>
                   <div>
-                    <span className="micro">KAVEX LAB-GROWN</span>
+                    <span className="micro">{t("KAVEX LAB-GROWN")}</span>
                     <span className="equation-price">
                       45,000<span>NOK</span>
                     </span>
                   </div>
                   <div>
-                    <span className="micro">THE DIFFERENCE</span>
+                    <span className="micro">{t("THE DIFFERENCE")}</span>
                     <span className="equation-price">
                       55,000<span>NOK</span>
                     </span>
@@ -181,31 +182,35 @@ export default function Manifesto() {
               <figure className="craft-figure">
                 <img
                   src="/assets/gold_pour.webp"
-                  alt="Molten gold being poured by a gloved jeweler in a dark workshop"
+                  alt={t(
+                    "Molten gold being poured by a gloved jeweler in a dark workshop",
+                  )}
                   width="1024"
                   height="1024"
                   loading="lazy"
                 />
                 <figcaption>
-                  <span className="micro">FIG. 02 / FORMED AT THE SOURCE</span>
-                  <span>Every commission begins with intention.</span>
+                  <span className="micro">
+                    {t("FIG. 02 / FORMED AT THE SOURCE")}
+                  </span>
+                  <span>{t("Every commission begins with intention.")}</span>
                 </figcaption>
               </figure>
               <section id="the-guarantee" className="chapter">
                 <div className="chapter-label micro">
-                  03 / THE KAVEX GUARANTEE
+                  {t("03 / THE KAVEX GUARANTEE")}
                 </div>
                 <h2>
-                  Nothing hidden.
+                  {t("Nothing hidden.")}
                   <br />
-                  Nothing compromised.
+                  {t("Nothing compromised.")}
                 </h2>
                 <div className="guarantees">
                   {copy.guarantees.map((item, i) => (
                     <div key={item}>
                       <span className="guarantee-index micro">0{i + 1}</span>
                       <p>
-                        <InlineCopy text={item} />
+                        <InlineCopy text={t(item)} />
                       </p>
                       <span className="guarantee-plus" aria-hidden="true">
                         ↗
@@ -219,41 +224,48 @@ export default function Manifesto() {
                   “
                 </span>
                 <blockquote>
-                  {copy.testimonial
-                    .split('" - ')[0]
-                    .replace(/^"/, "")
-                    .replace(/"$/, "")}
+                  {t(
+                    copy.testimonial
+                      .split('" - ')[0]
+                      .replace(/^"/, "")
+                      .replace(/"$/, ""),
+                  )}
                 </blockquote>
                 <figcaption className="micro">
-                  HENRIK O. <span> / PRIVATE CLIENT</span>
+                  HENRIK O. <span>{t(" / PRIVATE CLIENT")}</span>
                 </figcaption>
               </figure>
               <section id="private-access" className="chapter closing-chapter">
-                <div className="chapter-label micro">04 / PRIVATE ACCESS</div>
+                <div className="chapter-label micro">
+                  {t("04 / PRIVATE ACCESS")}
+                </div>
                 <h2>
-                  She knows what she wants.
+                  {t("She knows what she wants.")}
                   <br />
-                  <span>Execute it intelligently.</span>
+                  <span>{t("Execute it intelligently.")}</span>
                 </h2>
-                <p>{copy.pitch}</p>
-                <a href="/vault-allocation" className="pill allocation-cta">
-                  {copy.cta}
+                <p>{t(copy.pitch)}</p>
+                <a
+                  href={routeFor(language, "vault-allocation")}
+                  className="pill allocation-cta"
+                >
+                  {t(copy.cta)}
                   <Arrow diagonal />
                 </a>
                 <p className="cta-note micro">
-                  FIVE STEPS. ONE PRIVATE CONVERSATION.
+                  {t("FIVE STEPS. ONE PRIVATE CONVERSATION.")}
                 </p>
               </section>
             </div>
           </div>
           <div className="article-end shell">
-            <span className="micro">END OF PERSPECTIVE / VOL. 01</span>
+            <span className="micro">{t("END OF PERSPECTIVE / VOL. 01")}</span>
             <img src="/kavex_logo.svg" width="54" height="54" alt="" />
             <span className="micro">KAVEX LABS</span>
           </div>
         </article>
       </main>
-      <Footer />
+      <Footer language={language} />
     </>
   );
 }

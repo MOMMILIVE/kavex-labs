@@ -1240,3 +1240,119 @@ input:focus-visible {
     animation: none !important;
   }
 }
+
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.language-switcher {
+  display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+.language-switcher a {
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  transition: color 0.2s;
+}
+.language-switcher a:hover,
+.language-switcher a[aria-current] {
+  color: var(--text);
+}
+.language-switcher a[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
+}
+.language-divider {
+  color: #666;
+  margin-inline: 8px;
+}
+[dir="rtl"] .brand,
+[dir="rtl"] .equation-price,
+[dir="rtl"] .proof-score,
+[dir="rtl"] .byline-mark {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+[dir="rtl"] .micro {
+  font-family: var(--font-arabic), Arial, sans-serif;
+  letter-spacing: normal;
+}
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] .hero-overlay > p,
+[dir="rtl"] .testimonial blockquote {
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+[dir="rtl"] .hero-overlay {
+  left: auto;
+  right: 40px;
+}
+[dir="rtl"] .hero-image:after {
+  background:
+    linear-gradient(270deg, rgba(0, 0, 0, 0.85), transparent 78%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.5), transparent 30%);
+}
+[dir="rtl"] .testimonial,
+[dir="rtl"] .handoff {
+  border-left: 0;
+  border-right: 1px solid #666;
+  padding-left: 0;
+  padding-right: 32px;
+}
+[dir="rtl"] .byline > a,
+[dir="rtl"] .client-proof > .micro,
+[dir="rtl"] .footer > .micro,
+[dir="rtl"] .budget-option > .radio-indicator {
+  margin-left: 0;
+  margin-right: auto;
+}
+[dir="rtl"] .quiz-actions > .pill svg {
+  transform: scaleX(-1);
+}
+@media (max-width: 700px) {
+  .masthead {
+    height: auto;
+    min-height: 90px;
+    padding-block: 16px;
+    flex-wrap: wrap;
+  }
+  .masthead-actions {
+    gap: 15px;
+    margin-inline-start: auto;
+  }
+  .masthead-actions .pill-small {
+    gap: 8px;
+  }
+  .language-divider {
+    margin-inline: 6px;
+  }
+  [dir="rtl"] .hero-overlay {
+    right: 20px;
+    left: 20px;
+  }
+  [dir="rtl"] .byline > .micro {
+    margin-left: 0;
+    margin-right: auto;
+  }
+  [dir="rtl"] .footer > a:nth-last-child(2) {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-arabic), Arial, sans-serif;
+}
+html[dir="rtl"] .brand,
+html[dir="rtl"] .language-switcher,
+html[dir="rtl"] input[type="tel"] {
+  font-family: var(--font-geist), Arial, sans-serif;
+}
