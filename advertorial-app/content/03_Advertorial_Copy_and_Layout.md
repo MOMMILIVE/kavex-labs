@@ -31,7 +31,9 @@ We source lab-grown, chemically perfect diamonds directly from the forge. We eng
 This isn't for everyone. It isn't meant to be. We don't have a catalog for you to browse. We have a private vault, and we grant allocations only to those who understand the mathematics of true luxury.
 
 **[The Modern Wealth Protocol]**
-Traditional jewelers will try to tell you that natural diamonds are an "investment." It's a lie—try selling one back to them. Smart money doesn't lock 400,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 355,000 Kr into real estate, index funds, or the honeymoon.
+Traditional jewelers are hiding a dirty industry secret. They buy their lab-grown diamonds from the exact same high-tech plasma reactors that we do. But before it reaches you, they inflate the price by 300% to pay for their expensive storefront rent, commission-based salespeople, and velvet display cases.
+
+Smart money refuses to fund a retailer's overhead. Smart money goes directly to the source. A chemically perfect 3-carat lab diamond should not cost you 120,000 Kr in a retail store. It costs 45,000 Kr when you commission it directly from the forge.
 
 **[The Kavex Guarantee]**
 *   **Worldwide Shipping & Zero Hidden Fees:** Your commission, delivered worldwide. 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.
