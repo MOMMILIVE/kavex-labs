@@ -935,7 +935,7 @@ input:focus-visible {
 }
 @media (max-width: 700px) {
   :root {
-    --navigation-height: 133px;
+    --navigation-height: 72px;
   }
   .shell {
     width: calc(100% - 40px);
@@ -1347,6 +1347,9 @@ input:focus-visible {
   line-height: 1;
   letter-spacing: 0;
 }
+.mobile-language {
+  display: none;
+}
 @media (max-width: 1000px) {
   .masthead-edition {
     display: none;
@@ -1401,22 +1404,96 @@ input:focus-visible {
 }
 @media (max-width: 700px) {
   .masthead {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    height: auto;
-    min-height: 90px;
-    padding-block: 16px;
-    gap: 12px;
+    display: flex;
+    width: calc(100% - 32px);
+    height: var(--navigation-height);
+    min-height: 0;
+    padding-block: 0;
+    gap: 6px;
+  }
+  .masthead .brand {
+    font-size: 12px;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .masthead .brand > img {
+    width: 22px;
+    height: 22px;
   }
   .masthead-actions {
-    display: contents;
+    display: flex;
+    gap: 6px;
   }
   .masthead-actions .pill-small {
-    gap: 8px;
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: 9.5px;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  .masthead-actions .pill-small svg {
+    width: 12px;
+    height: 12px;
   }
   .language-switcher {
-    grid-column: 1 / -1;
-    justify-self: end;
+    display: none;
+  }
+  .mobile-language {
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mobile-language summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 44px;
+    padding: 8px;
+    border: 1px solid #484848;
+    border-radius: 100px;
+    background: #1b1b1b;
+    font-size: 10px;
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+  }
+  .mobile-language summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-language summary:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+  .mobile-language .language-flag {
+    font-size: 13px;
+  }
+  .language-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 144px;
+    padding: 6px;
+    border: 1px solid #484848;
+    border-radius: 16px;
+    background: #181818;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+  .language-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: #dededb;
+  }
+  .language-menu a:hover {
+    background: #303030;
+  }
+  .language-menu a[aria-current] {
+    background: #f5f5f3;
+    color: #121212;
   }
   [dir="rtl"] .hero-overlay {
     right: 20px;
