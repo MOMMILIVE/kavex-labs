@@ -166,19 +166,19 @@ export default function ManifestoPage({
                   <div>
                     <span className="micro">{t("TRADITIONAL RETAIL")}</span>
                     <span className="equation-price old-price">
-                      400,000<span>Kr</span>
+                      120,000<span>Kr</span>
                     </span>
                   </div>
                   <div>
-                    <span className="micro">{t("KAVEX LAB-GROWN")}</span>
+                    <span className="micro">{t("KAVEX DIRECT-FORGE")}</span>
                     <span className="equation-price">
                       45,000<span>Kr</span>
                     </span>
                   </div>
                   <div>
-                    <span className="micro">{t("THE DIFFERENCE")}</span>
+                    <span className="micro">{t("THE RETAIL SCAM (DIFFERENCE)")}</span>
                     <span className="equation-price">
-                      355,000<span>Kr</span>
+                      75,000<span>Kr</span>
                     </span>
                   </div>
                 </div>

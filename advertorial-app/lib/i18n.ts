@@ -51,16 +51,14 @@ const translations: Record<string, [string, string]> = {
       "Dette er ikke for alle. Det er heller ikke meningen. Vi har ingen katalog du kan bla i. Vi har et privat hvelv, og gir kun tilgang til dem som forstår regnestykket bak ekte luksus.",
       "هذا ليس للجميع، ولم يُصمم ليكون كذلك. ليس لدينا كتالوج لتصفحه. لدينا خزينة خاصة، ونمنح إمكانية الاختيار فقط لمن يفهمون حسابات الفخامة الحقيقية.",
     ],
-  'Traditional jewelers will try to tell you that natural diamonds are an "investment." It\'s a lie—try selling one back to them.':
-    [
-      "Tradisjonelle gullsmeder vil forsøke å fortelle deg at naturlige diamanter er en «investering». Det er en løgn – prøv å selge en tilbake til dem.",
-      "سيحاول تجار المجوهرات التقليديون إقناعك بأن الألماس الطبيعي «استثمار». إنها كذبة؛ حاول أن تبيعه لهم مجدداً.",
-    ],
-  "Smart money doesn't lock 400,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 355,000 Kr into real estate, index funds, or the honeymoon.":
-    [
-      "Smarte penger bindes ikke opp i en skinnende stein til 400 000 kroner som straks faller i verdi. Smarte penger bruker 45 000 kroner på en kjemisk identisk, laboratoriedyrket Kavex-diamant, og plasserer de resterende 355 000 kronene i eiendom, indeksfond eller bryllupsreisen.",
-      "المال الذكي لا يجمّد 400,000 كرونة في حجر لامع يفقد قيمته فوراً. بل ينفق 45,000 كرونة على حجر Kavex مزروع في المختبر ومطابق كيميائياً، ويوجه الـ355,000 كرونة المتبقية إلى العقارات أو صناديق المؤشرات أو شهر العسل.",
-    ],
+  "Traditional jewelers are hiding a dirty industry secret. They buy their lab-grown diamonds from the exact same high-tech plasma reactors that we do. But before it reaches you, they inflate the price by 300% to pay for their expensive storefront rent, commission-based salespeople, and velvet display cases.": [
+    "Tradisjonelle gullsmeder skjuler en skitten bransjehemmelighet. De kjøper sine laboratoriedyrkede diamanter fra nøyaktig de samme høyteknologiske plasmareaktorene som vi gjør. Men før diamanten når deg, øker de prisen med 300 % for å betale for dyr butikkleie, provisjonsbaserte selgere og utstillingsmontere i fløyel.",
+    "يخفي تجار المجوهرات التقليديون سراً قذراً في هذه الصناعة. فهم يشترون ألماسهم المزروع في المختبر من مفاعلات البلازما عالية التقنية نفسها التي نشتري منها. لكن قبل أن يصل إليك، يرفعون السعر بنسبة 300% لتغطية إيجارات متاجرهم الباهظة، ومندوبي المبيعات الذين يعملون بالعمولة، وصناديق العرض المخملية.",
+  ],
+  "Smart money refuses to fund a retailer's overhead. Smart money goes directly to the source. A chemically perfect 3-carat lab diamond should not cost you 120,000 Kr in a retail store. It costs 45,000 Kr when you commission it directly from the forge.": [
+    "Smarte penger nekter å finansiere en forhandlers driftskostnader. Smarte penger går direkte til kilden. En kjemisk perfekt laboratoriedyrket diamant på 3 karat bør ikke koste deg 120 000 Kr i en butikk. Den koster 45 000 Kr når du bestiller den direkte fra produksjonen.",
+    "المال الذكي يرفض تمويل النفقات التشغيلية لتاجر التجزئة. المال الذكي يتجه مباشرة إلى المصدر. ينبغي ألا تكلفك ألماسة مخبرية كاملة كيميائياً بوزن 3 قيراط 120,000 كرونة في متجر تجزئة. إنها تكلف 45,000 كرونة عندما تطلب تصنيعها مباشرة من مصدر الإنتاج.",
+  ],
   "**Worldwide Shipping & Zero Hidden Fees:** Your commission, delivered worldwide. 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.": [
     "**Levering over hele verden uten skjulte kostnader:** Ditt skreddersydde smykke, levert verden over. Kavex Labs håndterer og betaler all merverdiavgift (MVA) og alle importavgifter. Prisen på fakturaen er den endelige prisen.",
     "**شحن عالمي بلا رسوم خفية:** مجوهراتك المصممة حسب الطلب، تصلك أينما كنت. تتولى Kavex Labs كامل ضريبة القيمة المضافة ورسوم الاستيراد وتدفعها. السعر المذكور في فاتورتك هو السعر النهائي.",
@@ -146,8 +144,8 @@ const translations: Record<string, [string, string]> = {
     "مقارنة توضيحية من البيان",
   ],
   "TRADITIONAL RETAIL": ["TRADISJONELL BUTIKK", "التجزئة التقليدية"],
-  "KAVEX LAB-GROWN": ["KAVEX LABORATORIEDYRKET", "KAVEX المزروع مختبرياً"],
-  "THE DIFFERENCE": ["FORSKJELLEN", "الفارق"],
+  "KAVEX DIRECT-FORGE": ["KAVEX DIREKTE FRA PRODUKSJONEN", "KAVEX مباشرة من مصدر الإنتاج"],
+  "THE RETAIL SCAM (DIFFERENCE)": ["BUTIKKSVINDELEN (FORSKJELLEN)", "خدعة التجزئة (الفارق)"],
   "FIG. 02 / FORMED AT THE SOURCE": [
     "FIG. 02 / FORMET VED KILDEN",
     "الشكل 02 / صُنع عند المصدر",

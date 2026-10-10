@@ -19,9 +19,7 @@ export const manifesto = {
   headline: section("Dynamic Headline"),
   subhead: section("Subhead"),
   body: section("Body").split(/\n\s*\n/),
-  wealth: section("The Modern Wealth Protocol")
-    .replace(" Smart money doesn't", "\n\nSmart money doesn't")
-    .split(/\n\s*\n/),
+  wealth: section("The Modern Wealth Protocol").split(/\n\s*\n/),
   guarantees: section("The Kavex Guarantee")
     .split("\n")
     .filter(Boolean)
