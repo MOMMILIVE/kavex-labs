@@ -15,10 +15,6 @@ const translations: Record<string, [string, string]> = {
     "Levering over hele verden · Toll og avgifter inkludert",
     "شحن إلى جميع أنحاء العالم · الرسوم الجمركية والضرائب مشمولة",
   ],
-  "**Worldwide Shipping:** Your commission, delivered worldwide.": [
-    "**Levering over hele verden:** Ditt skreddersydde smykke, levert verden over.",
-    "**شحن إلى جميع أنحاء العالم:** مجوهراتك المصممة حسب الطلب، تصلك أينما كنت.",
-  ],
   "Why Scandinavia's Elite Are Quietly Ditching Traditional Retail Jewelers For Engineered Status.":
     [
       "Hvorfor Skandinavias elite i det stille vender ryggen til tradisjonelle smykkebutikker til fordel for presist utformet status.",
@@ -69,11 +65,18 @@ const translations: Record<string, [string, string]> = {
       "Smarte penger bindes ikke opp i en skinnende stein til 100 000 kroner som straks faller i verdi. Smarte penger bruker 45 000 kroner på en kjemisk identisk, laboratoriedyrket Kavex-diamant, og plasserer de resterende 55 000 kronene i eiendom, indeksfond eller bryllupsreisen.",
       "المال الذكي لا يجمّد 100,000 كرونة في حجر لامع يفقد قيمته فوراً. بل ينفق 45,000 كرونة على حجر Kavex مزروع في المختبر ومطابق كيميائياً، ويوجه الـ55,000 كرونة المتبقية إلى العقارات أو صناديق المؤشرات أو شهر العسل.",
     ],
-  "**Zero Hidden Fees:** 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.":
-    [
-      "**Ingen skjulte kostnader:** Kavex Labs håndterer og betaler all merverdiavgift (MVA) og alle importavgifter. Prisen på fakturaen er den endelige prisen.",
-      "**بلا رسوم خفية:** تتولى Kavex Labs كامل ضريبة القيمة المضافة ورسوم الاستيراد وتدفعها. السعر المذكور في فاتورتك هو السعر النهائي.",
-    ],
+  "**Worldwide Shipping & Zero Hidden Fees:** Your commission, delivered worldwide. 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.": [
+    "**Levering over hele verden uten skjulte kostnader:** Ditt skreddersydde smykke, levert verden over. Kavex Labs håndterer og betaler all merverdiavgift (MVA) og alle importavgifter. Prisen på fakturaen er den endelige prisen.",
+    "**شحن عالمي بلا رسوم خفية:** مجوهراتك المصممة حسب الطلب، تصلك أينما كنت. تتولى Kavex Labs كامل ضريبة القيمة المضافة ورسوم الاستيراد وتدفعها. السعر المذكور في فاتورتك هو السعر النهائي.",
+  ],
+  "**Independent IGI Certification:** Every Kavex centerpiece is independently graded and laser-inscribed by the International Gemological Institute (IGI). You receive the physical dossier verifying its exact cut, color, clarity, and carat weight.": [
+    "**Uavhengig IGI-sertifisering:** Hver midtstein fra Kavex graderes uavhengig og lasermerkes av International Gemological Institute (IGI). Du mottar et fysisk sertifiseringsdokument som bekrefter steinens nøyaktige slip, farge, klarhet og karatvekt.",
+    "**شهادة IGI المستقلة:** يُقيَّم كل حجر رئيسي من Kavex بصورة مستقلة، ويُنقش بالليزر لدى المعهد الدولي للأحجار الكريمة (IGI). تتلقى الملف الورقي الذي يوثّق بدقة قصّته ولونه ونقاءه ووزنه بالقيراط.",
+  ],
+  "**Perfect Size Insurance:** We eliminate the anxiety of guessing. If the ring does not fit flawlessly on the first try, our private concierge will handle the resizing logistics entirely at our expense for the first year. Zero friction. Zero cost.": [
+    "**Garanti for perfekt passform:** Vi fjerner uroen ved å måtte gjette. Hvis ringen ikke sitter perfekt ved første forsøk, håndterer vår private concierge all logistikk rundt størrelsesjusteringen, helt for vår regning det første året. Uten friksjon. Uten kostnad.",
+    "**ضمان المقاس المثالي:** نزيل قلق التخمين. إذا لم تكن ملاءمة الخاتم مثالية من التجربة الأولى، يتولى الكونسيرج الخاص بنا جميع إجراءات تعديل المقاس بالكامل على نفقتنا خلال السنة الأولى. بلا تعقيد. بلا تكلفة.",
+  ],
   "**100% Conflict-Free:** Scandinavian engineered sustainability. Climate neutral and ethically sourced.":
     [
       "**100 % konfliktfritt:** Bærekraft utformet i Skandinavia. Klimanøytralt og etisk fremskaffet.",
