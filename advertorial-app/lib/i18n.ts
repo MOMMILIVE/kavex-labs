@@ -97,7 +97,7 @@ const translations: Record<string, [string, string]> = {
       "إذا أرسلتك إلى هنا، فهي تعرف بالفعل ما تريد. الآن دورك أن تحقق ذلك بذكاء. لا تدخل متجراً قبل أن ترى ما في الخزينة.",
     ],
   "THE SOURCING JOURNAL": ["JOURNALEN FRA KILDEN", "مجلة المصادر"],
-  "Request access": ["Be om tilgang", "اطلب الوصول"],
+  "Request Allocation": ["Be om tildeling", "اطلب حصة"],
   "Kavex Labs home": ["Kavex Labs hjem", "الرئيسية — Kavex Labs"],
   "ENGINEERED DIRECTLY AT THE SOURCE.": [
     "UTFORMET DIREKTE VED KILDEN.",

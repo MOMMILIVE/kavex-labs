@@ -28,56 +28,58 @@ export function Header({
   const t = (text: string) => translate(language, text);
   return (
     <>
-      <header className="masthead" dir="ltr">
-        <a href="/" className="brand" aria-label={t("Kavex Labs home")}>
-          <img src="/kavex_logo.svg" width="36" height="36" alt="" />
-          <span>
-            KAVEX <span className="brand-light">LABS</span>
-          </span>
-        </a>
-        <span className="masthead-edition micro">
-          {t("THE SOURCING JOURNAL")}
-        </span>
-        <div className="masthead-actions">
-          <a
-            className="pill pill-small"
-            href={routeFor(language, "vault-allocation")}
-          >
-            {t("Request access")} <Arrow diagonal />
+      <header className="site-navigation" dir="ltr">
+        <div className="masthead">
+          <a href="/" className="brand" aria-label={t("Kavex Labs home")}>
+            <img src="/kavex_logo.svg" width="36" height="36" alt="" />
+            <span>
+              KAVEX <span className="brand-light">LABS</span>
+            </span>
           </a>
-          <nav
-            className="language-switcher micro"
-            aria-label={
-              language === "ar"
-                ? "اللغة"
-                : language === "no"
-                  ? "Språk"
-                  : "Language"
-            }
-            dir="ltr"
-          >
-            {languages.map((item) => (
-              <a
-                key={item}
-                href={routeFor(item, page)}
-                hrefLang={item === "no" ? "nb" : item}
-                lang={item === "no" ? "nb" : item}
-                aria-label={
-                  item === "en"
-                    ? "English"
-                    : item === "ar"
-                      ? "العربية"
-                      : "Norsk"
-                }
-                aria-current={language === item ? "true" : undefined}
-              >
-                <span className="language-flag" aria-hidden="true">
-                  {item === "en" ? "🇬🇧" : item === "ar" ? "🇸🇦" : "🇳🇴"}
-                </span>
-                <span>{item.toUpperCase()}</span>
-              </a>
-            ))}
-          </nav>
+          <span className="masthead-edition micro">
+            {t("THE SOURCING JOURNAL")}
+          </span>
+          <div className="masthead-actions">
+            <a
+              className="pill pill-small"
+              href={routeFor(language, "vault-allocation")}
+            >
+              {t("Request Allocation")} <Arrow diagonal />
+            </a>
+            <nav
+              className="language-switcher micro"
+              aria-label={
+                language === "ar"
+                  ? "اللغة"
+                  : language === "no"
+                    ? "Språk"
+                    : "Language"
+              }
+              dir="ltr"
+            >
+              {languages.map((item) => (
+                <a
+                  key={item}
+                  href={routeFor(item, page)}
+                  hrefLang={item === "no" ? "nb" : item}
+                  lang={item === "no" ? "nb" : item}
+                  aria-label={
+                    item === "en"
+                      ? "English"
+                      : item === "ar"
+                        ? "العربية"
+                        : "Norsk"
+                  }
+                  aria-current={language === item ? "true" : undefined}
+                >
+                  <span className="language-flag" aria-hidden="true">
+                    {item === "en" ? "🇬🇧" : item === "ar" ? "🇸🇦" : "🇳🇴"}
+                  </span>
+                  <span>{item.toUpperCase()}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
         </div>
       </header>
       <p className="market-note">
