@@ -162,7 +162,7 @@ export default function ManifestoPage({
                   <div>
                     <span className="micro">{t("TRADITIONAL RETAIL")}</span>
                     <span className="equation-price old-price">
-                      100,000<span>Kr</span>
+                      400,000<span>Kr</span>
                     </span>
                   </div>
                   <div>
@@ -174,7 +174,7 @@ export default function ManifestoPage({
                   <div>
                     <span className="micro">{t("THE DIFFERENCE")}</span>
                     <span className="equation-price">
-                      55,000<span>Kr</span>
+                      355,000<span>Kr</span>
                     </span>
                   </div>
                 </div>
