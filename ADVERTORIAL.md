@@ -32,3 +32,11 @@ Contact details stay in React state. The final action opens a WhatsApp draft con
 ## Review
 
 Use a preview deployment first. Review the supplied claims and verify the current concierge recipient before merging/publishing. The code does not change homepage content, shared `style.css`, `main.js`, existing routes, or existing API handlers.
+
+## Performance assets
+
+The Arabic font uses a WOFF2 version of the existing Noto Sans Arabic font at its original normal width. All characters and variable weights remain; the unused condensed-width axis is removed. Regenerate it with `scripts/optimize-advertorial-font.py` and FontTools' WOFF extras. Original TTF and license remain as source material.
+
+Responsive images in `advertorial-app/public/advertorial/media` are committed build inputs. Regenerate them with `node scripts/optimize-advertorial-media.mjs` after installing the locked app dependencies (Sharp is supplied by Next.js). The largest candidate preserves the original asset bytes; narrower candidates serve smaller viewports. Filenames contain content hashes and can safely be cached for a year. Original shared homepage images are untouched.
+
+The form receives only its selected-language messages from the server component. Its browser bundle imports the lightweight route utilities and SVG Arrow directly, avoiding the full article/language dictionary. When adding form copy, include its translation key in `lib/quiz-messages.ts`.

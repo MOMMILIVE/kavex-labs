@@ -10,7 +10,7 @@ const geist = localFont({
   weight: "100 900",
 });
 const arabic = localFont({
-  src: "../fonts/noto-sans-arabic.ttf",
+  src: "../fonts/noto-sans-arabic.woff2",
   preload: false,
   variable: "--font-arabic",
   display: "swap",

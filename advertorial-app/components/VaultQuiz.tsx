@@ -1,25 +1,26 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Arrow } from "./Brand";
+import { Arrow } from "./Arrow";
+import { media } from "../lib/media";
 import DiamondShapeIcon from "./DiamondShapeIcon";
-import { translate, routeFor, type Language } from "../lib/i18n";
+import { routeFor, type Language } from "../lib/languages";
 
 const commissions = [
   {
     name: "Engagement ring",
     caption: "A singular beginning.",
-    image: "/assets/hand_setting.webp",
+    image: media.hand_setting,
   },
   {
     name: "Wedding bands",
     caption: "Made for a lifetime.",
-    image: "/assets/editorial_bands.webp",
+    image: media.editorial_bands,
   },
   {
     name: "Bespoke jewelry",
     caption: "A vision of your own.",
-    image: "/assets/fancy_yellow.webp",
+    image: media.fancy_yellow,
   },
 ];
 const shapes = [
@@ -71,9 +72,9 @@ function SelectionOptions({
   options,
   value,
   onSelect,
-  language,
+  t,
 }: {
-  language: Language;
+  t: (text: string) => string;
   name: string;
   legend: string;
   options: readonly string[];
@@ -84,7 +85,7 @@ function SelectionOptions({
     <fieldset
       className={`budget-options ${name === "shape" ? "shape-options" : ""}`}
     >
-      <legend className="sr-only">{translate(language, legend)}</legend>
+      <legend className="sr-only">{t(legend)}</legend>
       {options.map((item, i) => (
         <label
           key={item}
@@ -99,7 +100,7 @@ function SelectionOptions({
           />
           <span className="micro">0{i + 1}</span>
           {name === "shape" ? <DiamondShapeIcon shape={item} /> : null}
-          <span className="selection-label">{translate(language, item)}</span>
+          <span className="selection-label">{t(item)}</span>
           <span className="radio-indicator" aria-hidden="true" />
         </label>
       ))}
@@ -109,10 +110,12 @@ function SelectionOptions({
 
 export default function VaultQuiz({
   language = "en",
+  messages,
 }: {
   language?: Language;
+  messages: Record<string, string>;
 }) {
-  const t = (text: string) => translate(language, text);
+  const t = (text: string) => messages[text] ?? text;
   const [step, setStep] = useState(0);
   const [commission, setCommission] = useState("");
   const [shape, setShape] = useState("");
@@ -209,7 +212,13 @@ export default function VaultQuiz({
                     setError("");
                   }}
                 />
-                <img src={item.image} alt="" width="400" height="400" />
+                <img
+                  src={item.image.src}
+                  srcSet={item.image.srcSet}
+                  sizes="(max-width: 700px) 90px, (max-width: 964px) calc((100vw - 96px) / 3), 289px"
+                  decoding="async"
+                  alt="" width={item.image.width} height={item.image.height}
+                />
                 <span className="option-detail">
                   <span>
                     <strong>{t(item.name)}</strong>
@@ -223,7 +232,7 @@ export default function VaultQuiz({
         ) : null}
         {step === 1 ? (
           <SelectionOptions
-            language={language}
+            t={t}
             name="shape"
             legend="Preferred diamond shape"
             options={shapes}
@@ -236,7 +245,7 @@ export default function VaultQuiz({
         ) : null}
         {step === 2 ? (
           <SelectionOptions
-            language={language}
+            t={t}
             name="scale"
             legend="Target carat weight"
             options={scales}
@@ -249,7 +258,7 @@ export default function VaultQuiz({
         ) : null}
         {step === 3 ? (
           <SelectionOptions
-            language={language}
+            t={t}
             name="budget"
             legend="Comfortable budget in Kr"
             options={budgets}
