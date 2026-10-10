@@ -58,9 +58,9 @@ const descriptions = [
   "Your brief is ready. Introduce yourself to our private concierge.",
 ];
 const budgets = [
-  "25,000–45,000 NOK",
-  "45,000–75,000 NOK",
-  "75,000–100,000 NOK",
+  "25,000–45,000 Kr",
+  "45,000–75,000 Kr",
+  "75,000–100,000 Kr",
   "Let's discuss my vision",
 ];
 
@@ -249,7 +249,7 @@ export default function VaultQuiz({
           <SelectionOptions
             language={language}
             name="budget"
-            legend="Comfortable budget in NOK"
+            legend="Comfortable budget in Kr"
             options={budgets}
             value={budget}
             onSelect={(value) => {

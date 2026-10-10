@@ -25,7 +25,7 @@ const translations: Record<string, [string, string]> = {
     "Vurdert til 4,9/5 av over 120 private kunder i Skandinavia.",
     "تقييم 4.9/5 من أكثر من 120 عميلاً خاصاً في إسكندنافيا.",
   ],
-  "If she sent you this link, she wants the dream ring. But she doesn't want you to be ripped off by the retail industry's 50,000 NOK lie. Welcome to the Bespoke Architect protocol.":
+  "If she sent you this link, she wants the dream ring. But she doesn't want you to be ripped off by the retail industry's 50,000 Kr lie. Welcome to the Bespoke Architect protocol.":
     [
       "Hvis hun sendte deg denne lenken, ønsker hun seg drømmeringen. Men hun vil ikke at du skal betale for smykkebransjens løgn til 50 000 kroner. Velkommen til Bespoke Architect-protokollen.",
       "إذا أرسلت لك هذا الرابط، فهي تريد خاتم أحلامها. لكنها لا تريد أن تدفع ثمن خدعة متاجر المجوهرات البالغة 50,000 كرونة نرويجية. مرحباً بك في منهج التصميم حسب الطلب.",
@@ -60,7 +60,7 @@ const translations: Record<string, [string, string]> = {
       "Tradisjonelle gullsmeder vil forsøke å fortelle deg at naturlige diamanter er en «investering». Det er en løgn – prøv å selge en tilbake til dem.",
       "سيحاول تجار المجوهرات التقليديون إقناعك بأن الألماس الطبيعي «استثمار». إنها كذبة؛ حاول أن تبيعه لهم مجدداً.",
     ],
-  "Smart money doesn't lock 100,000 NOK into a shiny rock that instantly depreciates. Smart money spends 45,000 NOK on a chemically identical Kavex lab-grown stone, and puts the remaining 55,000 NOK into real estate, index funds, or the honeymoon.":
+  "Smart money doesn't lock 100,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 55,000 Kr into real estate, index funds, or the honeymoon.":
     [
       "Smarte penger bindes ikke opp i en skinnende stein til 100 000 kroner som straks faller i verdi. Smarte penger bruker 45 000 kroner på en kjemisk identisk, laboratoriedyrket Kavex-diamant, og plasserer de resterende 55 000 kronene i eiendom, indeksfond eller bryllupsreisen.",
       "المال الذكي لا يجمّد 100,000 كرونة في حجر لامع يفقد قيمته فوراً. بل ينفق 45,000 كرونة على حجر Kavex مزروع في المختبر ومطابق كيميائياً، ويوجه الـ55,000 كرونة المتبقية إلى العقارات أو صناديق المؤشرات أو شهر العسل.",
@@ -255,8 +255,8 @@ const translations: Record<string, [string, string]> = {
   "Commission type": ["Type oppdrag", "نوع الطلب"],
   "Preferred diamond shape": ["Foretrukket diamantform", "شكل الألماس المفضل"],
   "Target carat weight": ["Ønsket karatvekt", "وزن القيراط المستهدف"],
-  "Comfortable budget in NOK": [
-    "Ønsket budsjett i NOK",
+  "Comfortable budget in Kr": [
+    "Ønsket budsjett i Kr",
     "الميزانية المناسبة بالكرونة النرويجية",
   ],
   "Choose a commission to continue.": [
