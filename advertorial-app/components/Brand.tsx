@@ -3,6 +3,33 @@ import { languages, routeFor, translate, type Language } from "../lib/i18n";
 export { Arrow } from "./Arrow";
 import { Arrow } from "./Arrow";
 
+const languageNames = { en: "English", ar: "العربية", no: "Norsk" };
+const languageFlags = { en: "🇬🇧", ar: "🇸🇦", no: "🇳🇴" };
+
+function LanguageLinks({
+  language,
+  page,
+}: {
+  language: Language;
+  page: "manifesto" | "vault-allocation";
+}) {
+  return languages.map((item) => (
+    <a
+      key={item}
+      href={routeFor(item, page)}
+      hrefLang={item === "no" ? "nb" : item}
+      lang={item === "no" ? "nb" : item}
+      aria-label={languageNames[item]}
+      aria-current={language === item ? "true" : undefined}
+    >
+      <span className="language-flag" aria-hidden="true">
+        {languageFlags[item]}
+      </span>
+      <span>{item.toUpperCase()}</span>
+    </a>
+  ));
+}
+
 export function Header({
   language = "en",
   page = "manifesto",
@@ -11,6 +38,8 @@ export function Header({
   page?: "manifesto" | "vault-allocation";
 }) {
   const t = (text: string) => translate(language, text);
+  const languageLabel =
+    language === "ar" ? "اللغة" : language === "no" ? "Språk" : "Language";
   return (
     <>
       <header className="site-navigation" dir="ltr">
@@ -33,37 +62,23 @@ export function Header({
             </a>
             <nav
               className="language-switcher micro"
-              aria-label={
-                language === "ar"
-                  ? "اللغة"
-                  : language === "no"
-                    ? "Språk"
-                    : "Language"
-              }
+              aria-label={languageLabel}
               dir="ltr"
             >
-              {languages.map((item) => (
-                <a
-                  key={item}
-                  href={routeFor(item, page)}
-                  hrefLang={item === "no" ? "nb" : item}
-                  lang={item === "no" ? "nb" : item}
-                  aria-label={
-                    item === "en"
-                      ? "English"
-                      : item === "ar"
-                        ? "العربية"
-                        : "Norsk"
-                  }
-                  aria-current={language === item ? "true" : undefined}
-                >
-                  <span className="language-flag" aria-hidden="true">
-                    {item === "en" ? "🇬🇧" : item === "ar" ? "🇸🇦" : "🇳🇴"}
-                  </span>
-                  <span>{item.toUpperCase()}</span>
-                </a>
-              ))}
+              <LanguageLinks language={language} page={page} />
             </nav>
+            <details className="mobile-language" dir="ltr">
+              <summary aria-label={`${languageLabel}: ${languageNames[language]}`}>
+                <span className="language-flag" aria-hidden="true">{languageFlags[language]}</span>
+                <span>{language.toUpperCase()}</span>
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.2" />
+                </svg>
+              </summary>
+              <nav className="language-menu micro" aria-label={languageLabel}>
+                <LanguageLinks language={language} page={page} />
+              </nav>
+            </details>
           </div>
         </div>
       </header>
