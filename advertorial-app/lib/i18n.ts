@@ -11,6 +11,14 @@ export function routeFor(
 }
 // Norwegian Bokmål and Arabic translations. English remains the supplied copy source.
 const translations: Record<string, [string, string]> = {
+  "Worldwide shipping · Duties & taxes included": [
+    "Levering over hele verden · Toll og avgifter inkludert",
+    "شحن إلى جميع أنحاء العالم · الرسوم الجمركية والضرائب مشمولة",
+  ],
+  "**Worldwide Shipping:** Your commission, delivered worldwide.": [
+    "**Levering over hele verden:** Ditt skreddersydde smykke, levert verden over.",
+    "**شحن إلى جميع أنحاء العالم:** مجوهراتك المصممة حسب الطلب، تصلك أينما كنت.",
+  ],
   "Why Scandinavia's Elite Are Quietly Ditching Traditional Retail Jewelers For Engineered Status.":
     [
       "Hvorfor Skandinavias elite i det stille vender ryggen til tradisjonelle smykkebutikker til fordel for presist utformet status.",

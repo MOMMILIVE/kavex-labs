@@ -1246,6 +1246,30 @@ input:focus-visible {
   align-items: center;
   gap: 26px;
 }
+.shipping-note {
+  width: calc(100% - 96px);
+  margin: 0 auto;
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+  color: #d5d5d2;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+.shipping-note svg {
+  flex-shrink: 0;
+}
+@media (max-width: 700px) {
+  .shipping-note {
+    width: calc(100% - 40px);
+    font-size: 11px;
+    padding-block: 12px;
+  }
+}
 .language-switcher {
   display: flex;
   flex-shrink: 0;

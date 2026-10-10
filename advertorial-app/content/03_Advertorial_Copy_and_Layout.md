@@ -34,6 +34,7 @@ This isn't for everyone. It isn't meant to be. We don't have a catalog for you t
 Traditional jewelers will try to tell you that natural diamonds are an "investment." It's a lie—try selling one back to them. Smart money doesn't lock 100,000 NOK into a shiny rock that instantly depreciates. Smart money spends 45,000 NOK on a chemically identical Kavex lab-grown stone, and puts the remaining 55,000 NOK into real estate, index funds, or the honeymoon.
 
 **[The Kavex Guarantee]**
+*   **Worldwide Shipping:** Your commission, delivered worldwide.
 *   **Zero Hidden Fees:** 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.
 *   **100% Conflict-Free:** Scandinavian engineered sustainability. Climate neutral and ethically sourced.
 
