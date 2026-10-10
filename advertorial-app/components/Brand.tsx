@@ -55,29 +55,26 @@ export function Header({
           }
           dir="ltr"
         >
-          {languages.map((item, index) => (
-            <span key={item}>
-              {index > 0 ? (
-                <span className="language-divider" aria-hidden="true">
-                  |
-                </span>
-              ) : null}
-              <a
-                href={routeFor(item, page)}
-                hrefLang={item === "no" ? "nb" : item}
-                lang={item === "no" ? "nb" : item}
-                aria-label={
-                  item === "en"
-                    ? "English"
-                    : item === "ar"
-                      ? "العربية"
-                      : "Norsk"
-                }
-                aria-current={language === item ? "true" : undefined}
-              >
-                {item.toUpperCase()}
-              </a>
-            </span>
+          {languages.map((item) => (
+            <a
+              key={item}
+              href={routeFor(item, page)}
+              hrefLang={item === "no" ? "nb" : item}
+              lang={item === "no" ? "nb" : item}
+              aria-label={
+                item === "en"
+                  ? "English"
+                  : item === "ar"
+                    ? "العربية"
+                    : "Norsk"
+              }
+              aria-current={language === item ? "true" : undefined}
+            >
+              <span className="language-flag" aria-hidden="true">
+                {item === "en" ? "🇬🇧" : item === "ar" ? "🇸🇦" : "🇳🇴"}
+              </span>
+              <span>{item.toUpperCase()}</span>
+            </a>
           ))}
         </nav>
       </div>
