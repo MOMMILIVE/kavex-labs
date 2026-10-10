@@ -64,10 +64,10 @@ const translations: Record<string, [string, string]> = {
       "Tradisjonelle gullsmeder vil forsøke å fortelle deg at naturlige diamanter er en «investering». Det er en løgn – prøv å selge en tilbake til dem.",
       "سيحاول تجار المجوهرات التقليديون إقناعك بأن الألماس الطبيعي «استثمار». إنها كذبة؛ حاول أن تبيعه لهم مجدداً.",
     ],
-  "Smart money doesn't lock 100,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 55,000 Kr into real estate, index funds, or the honeymoon.":
+  "Smart money doesn't lock 400,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 355,000 Kr into real estate, index funds, or the honeymoon.":
     [
-      "Smarte penger bindes ikke opp i en skinnende stein til 100 000 kroner som straks faller i verdi. Smarte penger bruker 45 000 kroner på en kjemisk identisk, laboratoriedyrket Kavex-diamant, og plasserer de resterende 55 000 kronene i eiendom, indeksfond eller bryllupsreisen.",
-      "المال الذكي لا يجمّد 100,000 كرونة في حجر لامع يفقد قيمته فوراً. بل ينفق 45,000 كرونة على حجر Kavex مزروع في المختبر ومطابق كيميائياً، ويوجه الـ55,000 كرونة المتبقية إلى العقارات أو صناديق المؤشرات أو شهر العسل.",
+      "Smarte penger bindes ikke opp i en skinnende stein til 400 000 kroner som straks faller i verdi. Smarte penger bruker 45 000 kroner på en kjemisk identisk, laboratoriedyrket Kavex-diamant, og plasserer de resterende 355 000 kronene i eiendom, indeksfond eller bryllupsreisen.",
+      "المال الذكي لا يجمّد 400,000 كرونة في حجر لامع يفقد قيمته فوراً. بل ينفق 45,000 كرونة على حجر Kavex مزروع في المختبر ومطابق كيميائياً، ويوجه الـ355,000 كرونة المتبقية إلى العقارات أو صناديق المؤشرات أو شهر العسل.",
     ],
   "**Worldwide Shipping & Zero Hidden Fees:** Your commission, delivered worldwide. 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.": [
     "**Levering over hele verden uten skjulte kostnader:** Ditt skreddersydde smykke, levert verden over. Kavex Labs håndterer og betaler all merverdiavgift (MVA) og alle importavgifter. Prisen på fakturaen er den endelige prisen.",

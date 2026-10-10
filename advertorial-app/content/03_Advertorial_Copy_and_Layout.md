@@ -31,7 +31,7 @@ We source lab-grown, chemically perfect diamonds directly from the forge. We eng
 This isn't for everyone. It isn't meant to be. We don't have a catalog for you to browse. We have a private vault, and we grant allocations only to those who understand the mathematics of true luxury.
 
 **[The Modern Wealth Protocol]**
-Traditional jewelers will try to tell you that natural diamonds are an "investment." It's a lie—try selling one back to them. Smart money doesn't lock 100,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 55,000 Kr into real estate, index funds, or the honeymoon.
+Traditional jewelers will try to tell you that natural diamonds are an "investment." It's a lie—try selling one back to them. Smart money doesn't lock 400,000 Kr into a shiny rock that instantly depreciates. Smart money spends 45,000 Kr on a chemically identical Kavex lab-grown stone, and puts the remaining 355,000 Kr into real estate, index funds, or the honeymoon.
 
 **[The Kavex Guarantee]**
 *   **Worldwide Shipping & Zero Hidden Fees:** Your commission, delivered worldwide. 100% of the MVA (VAT) and Import Duties are handled and paid for by Kavex Labs. The price on your invoice is the final price.
