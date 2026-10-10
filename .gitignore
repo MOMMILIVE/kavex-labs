@@ -7,3 +7,7 @@ node_modules/
 test-results/
 *.log
 .vercel
+dist/
+advertorial-app/.next/
+advertorial-app/out/
+advertorial-app/*.tsbuildinfo

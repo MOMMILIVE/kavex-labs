@@ -1,5 +1,9 @@
 {
   "version": 2,
+  "framework": null,
+  "installCommand": "npm ci && npm ci --prefix advertorial-app",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
