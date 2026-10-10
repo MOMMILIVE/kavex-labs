@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Arrow } from "./Brand";
+import DiamondShapeIcon from "./DiamondShapeIcon";
 import { translate, routeFor, type Language } from "../lib/i18n";
 
 const commissions = [
@@ -97,7 +98,8 @@ function SelectionOptions({
             onChange={() => onSelect(item)}
           />
           <span className="micro">0{i + 1}</span>
-          <span>{translate(language, item)}</span>
+          {name === "shape" ? <DiamondShapeIcon shape={item} /> : null}
+          <span className="selection-label">{translate(language, item)}</span>
           <span className="radio-indicator" aria-hidden="true" />
         </label>
       ))}
