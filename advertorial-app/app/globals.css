@@ -793,6 +793,12 @@ input:focus-visible {
   color: var(--muted);
   margin: -12px 0 25px;
 }
+.quote-disclaimer {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 0 0 18px;
+}
 .consent {
   display: flex;
   gap: 13px;
@@ -1246,7 +1252,7 @@ input:focus-visible {
   align-items: center;
   gap: 26px;
 }
-.shipping-note {
+.market-note {
   width: calc(100% - 96px);
   margin: 0 auto;
   padding: 14px 0;
@@ -1260,11 +1266,8 @@ input:focus-visible {
   line-height: 1.6;
   text-align: center;
 }
-.shipping-note svg {
-  flex-shrink: 0;
-}
 @media (max-width: 700px) {
-  .shipping-note {
+  .market-note {
     width: calc(100% - 40px);
     font-size: 11px;
     padding-block: 12px;

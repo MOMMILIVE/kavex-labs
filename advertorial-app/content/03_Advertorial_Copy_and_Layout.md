@@ -47,3 +47,9 @@ If she sent you here, she already knows what she wants. Now it is your job to ex
 
 **[CTA Button]**
 [ REQUEST VAULT ALLOCATION ] *(Links to 5-step private qualification quiz)*
+
+**[Market Update Banner]**
+🌐 MARKET UPDATE: Global gold and raw diamond commodities fluctuate daily. Secure your allocation today to lock in current direct-forge pricing.
+
+**[Quote Price Lock Disclaimer]**
+🔒 Due to current volatility in global commodity markets, your custom CAD quote will be strictly price-locked for 48 hours upon issuance.

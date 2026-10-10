@@ -80,12 +80,8 @@ export function Header({
           </nav>
         </div>
       </header>
-      <p className="shipping-note">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.25" />
-          <path d="M3 12h18M12 3c-5 5-5 13 0 18M12 3c5 5 5 13 0 18" stroke="currentColor" strokeWidth="1.25" />
-        </svg>
-        <span>{t("Worldwide shipping · Duties & taxes included")}</span>
+      <p className="market-note">
+        <span>{t("🌐 MARKET UPDATE: Global gold and raw diamond commodities fluctuate daily. Secure your allocation today to lock in current direct-forge pricing.")}</span>
       </p>
     </>
   );

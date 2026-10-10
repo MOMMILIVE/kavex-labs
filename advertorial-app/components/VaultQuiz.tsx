@@ -356,12 +356,16 @@ export default function VaultQuiz({
                 {t(error)}
               </p>
             ) : null}
+            <p id="quote-price-lock" className="quote-disclaimer">
+              <em>{t("🔒 Due to current volatility in global commodity markets, your custom CAD quote will be strictly price-locked for 48 hours upon issuance.")}</em>
+            </p>
             {handoff && consent && name.trim() ? (
               <div className="handoff" role="status">
                 <p>{t("Your introduction is ready.")}</p>
                 <a
                   className="pill"
                   href={whatsappUrl}
+                  aria-describedby="quote-price-lock"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -375,7 +379,7 @@ export default function VaultQuiz({
                 </p>
               </div>
             ) : (
-              <button className="pill" type="submit">
+              <button className="pill" type="submit" aria-describedby="quote-price-lock">
                 {t("Prepare my introduction")}
                 <Arrow />
               </button>

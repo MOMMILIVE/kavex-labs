@@ -11,9 +11,13 @@ export function routeFor(
 }
 // Norwegian Bokmål and Arabic translations. English remains the supplied copy source.
 const translations: Record<string, [string, string]> = {
-  "Worldwide shipping · Duties & taxes included": [
-    "Levering over hele verden · Toll og avgifter inkludert",
-    "شحن إلى جميع أنحاء العالم · الرسوم الجمركية والضرائب مشمولة",
+  "🌐 MARKET UPDATE: Global gold and raw diamond commodities fluctuate daily. Secure your allocation today to lock in current direct-forge pricing.": [
+    "🌐 MARKEDSOPPDATERING: De globale råvareprisene på gull og rådiamanter svinger daglig. Sikre deg tilgang i dag for å låse inn gjeldende priser direkte fra produksjonen.",
+    "🌐 تحديث السوق: تتقلب أسعار الذهب والألماس الخام عالمياً كل يوم. احجز حصتك اليوم لتثبيت الأسعار الحالية المباشرة من مصدر الإنتاج.",
+  ],
+  "🔒 Due to current volatility in global commodity markets, your custom CAD quote will be strictly price-locked for 48 hours upon issuance.": [
+    "🔒 På grunn av dagens svingninger i de globale råvaremarkedene låses prisen på ditt skreddersydde CAD-tilbud i 48 timer fra utstedelsen.",
+    "🔒 نظراً للتقلبات الحالية في أسواق السلع العالمية، سيُثبَّت سعر عرض التصميم المخصص باستخدام CAD بشكل صارم لمدة 48 ساعة من لحظة إصداره.",
   ],
   "Why Scandinavia's Elite Are Quietly Ditching Traditional Retail Jewelers For Engineered Status.":
     [
